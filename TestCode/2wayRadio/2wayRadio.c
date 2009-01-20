@@ -19,7 +19,11 @@
 
 #define RECEIVE_ADDRESS  0xBEEF
 
+
 volatile uint8_t radio_buffer[PAYLOAD_BYTES];
+
+// Function declairations:
+void sendMessage(char* message);
 
 int main(int argc, char**argv)
 {
@@ -73,7 +77,7 @@ ISR (INT4_vect)
  * This function sends a packet.  Interrupts are temporarily disabled, the mode is changed, packet sent, mode changed back
  * and interrupts reenabled
  **/
- void sendMessage(char* message){
+void sendMessage(char* message){
 
 	// Turn Local LED on so we know it's sending.
 	PORTD ^= _BV(PORTD7);
