@@ -6,7 +6,9 @@
 #------------------------------------------------------------------------------
 # Project Source
 #------------------------------------------------------------------------------
-SOURCE_FILES = 2wayRadio.c
+SOURCE_FILES = 2wayRadio.c   \
+			   radio/radio.c \
+			   uart/uart.c
 
 #------------------------------------------------------------------------------
 # Project Settings
@@ -14,7 +16,8 @@ SOURCE_FILES = 2wayRadio.c
 PROJECT = Hovercraft
 DEVICE  = at90usb1287
 CLOCK   = 8000000
-CFG     = debug # or release
+# debug or release
+CFG     = debug
 TARGET  = hovercraft-$(CFG).hex
 
 # Programmer
@@ -26,10 +29,10 @@ DFU_PROGRAMMER = dfu-programmer $(DEVICE)
 # GCC
 CC      = avr-gcc
 DEP_DIR = deps
-CFLAGS  = -Wall -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
+CFLAGS  = -Wall -DF_CPU=8000000 -mmcu=$(DEVICE)
 CFLAGS += -Winline
 ifeq ($(CFG),debug)
-	CFLAGS += -ggdb3 -O0 
+	CFLAGS += -ggdb3 -Os
 else ifeq ($(CFG), release)
 	CFLAGS += -Os
 endif

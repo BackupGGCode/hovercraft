@@ -16,7 +16,7 @@
 #define CLOCK_8MHZ()            CLKPR = (1<<CLKPCE); CLKPR = 0x00;
 
 /** CPU frequency needed by util/delay.h */
-#define F_CPU                   8000000UL  // 8 MHz
+// #define F_CPU                   8000000UL  // 8 MHz
 
 #define DISABLE_INTERRUPTS()    asm volatile ("cli"::)
 #define ENABLE_INTERRUPTS()     asm volatile ("sei"::)
