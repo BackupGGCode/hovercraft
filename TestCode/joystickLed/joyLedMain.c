@@ -32,6 +32,11 @@ setupInterrupts(void)
     EICRB |= _BV(ISC50);
     // Enable INT5
     EIMSK |= _BV(INT5);
+
+    // PCINT7 - UP
+    PCICR   = 0x01; // Enable Pin Change interrupt
+    PCMSK0 |= _BV(PCINT7);
+    PCMSK0 |= _BV(PCINT6);
 }
 
 int
@@ -68,3 +73,11 @@ ISR(INT5_vect)
     PORTD = _BV(PORTD5);
 }
 
+ISR(PCINT0_vect)
+{
+    if (bit_is_set(PORTB, PINB6)) {
+        PORTD = (_BV(PORTD4)|_BV(PORTD6));
+    } else {
+        PORTD = _BV(PORTD7);
+    }
+}
