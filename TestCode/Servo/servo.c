@@ -26,4 +26,11 @@ servoInit(void){
 void servoDuty(int duty){
 
 	OCR1B = duty;
+	
+}
+
+int main(){
+	servoInit();
+	
+	return 0;
 }

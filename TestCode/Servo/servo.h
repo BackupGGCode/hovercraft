@@ -7,7 +7,10 @@
  *
  */
 
-
+#include <avr/io.h>
+#include <util/delay.h>
+#include <avr/interrupt.h>
+#include <stdio.h>
 
 void seroInit(void);
 void servoDuty(int duty);
