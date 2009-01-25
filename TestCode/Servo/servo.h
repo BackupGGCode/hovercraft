@@ -13,4 +13,4 @@
 #include <stdio.h>
 
 void seroInit(void);
-void servoDuty(int duty);
+int servoDuty(int duty);

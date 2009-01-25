@@ -8,7 +8,7 @@
  */
 
 #include <avr/interrupt.h>
-
+#include <util/delay.h>
 #include "servo.h"
 
 
@@ -27,14 +27,14 @@ servoInit(void){
 	 should reset itself every 50 Hz at a clock of 1Mz for 8 Mhz, set to 20000(hopefully)*/
 	ICR1 = 20000;
 	/* Set the low timings for the three output pins for ports A in OCR1A*/
-	OCR1B = 1600; //corresponds to 8% duty cycle or 2ms pulse width
+	OCR1B = 800; //corresponds to 8% duty cycle or 2ms pulse width
 }
 
 
-void servoDuty(int duty){
+int servoDuty(int duty){
 
 	OCR1B = duty;
-
+	return duty;
 }
 
 int main(){
@@ -44,10 +44,20 @@ int main(){
 	servoInit();
 
 	sei();
-
-
+	
+	int D = 0;
+	D = servoDuty(600);
+	
 	for(;;)
-		{}
+		{
+			
+			
+			_delay_ms(250);
+			if(D > 2300)
+				D = 600;
+			D = servoDuty(D + 100);
+		
+		}
 
 	return 0;
 }

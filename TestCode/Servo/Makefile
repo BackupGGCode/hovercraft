@@ -31,7 +31,7 @@ CFLAGS += -Winline
 ifeq ($(CFG),debug)
 	CFLAGS += -ggdb3 -Os 
 else ifeq ($(CFG), release)
-	CFLAGS += -Os
+	CFLAGS += -O2
 endif
 # Dependency
 CFLAGS += -MD -MP -MF $(DEP_DIR)/$(notdir $@).d
