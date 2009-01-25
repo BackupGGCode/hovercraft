@@ -38,7 +38,7 @@ void init_global()
    /** Disable default prescaler to make processor speed 8 MHz. */
    clock8MHz();
 
-  uart_init(1);
+   uart_init(1);
    sei(); /** enable global interrupts **/
    /* grab register content
       send interrupt to clear register
@@ -57,6 +57,7 @@ int main()
    PORTD &= ~LED_D5_RED;
 
    /*--------------------- Initial State of Blimp -----------------------------------*/
+   uart_println("Starting blimp ...\r\n");
    int i,j;
    packet p, *q;		// p is sending, *q is receiving
 
@@ -80,7 +81,7 @@ int main()
       /*---------------- wait for radio message from base station -------------------*/
       while (!packet_available);
 
-	uart_println("in blimp: got packet\r\n");
+	  uart_println("in blimp: got packet\r\n");
       q = ((packet*) radio_buf);		// q points to radio_buf
       switch (q->type)
       {

@@ -60,25 +60,25 @@
 
 /* Port assignments */
 #define DR_PORT         PORTE
-#define CE_PORT         PORTA
-#define CS_PORT         PORTA
-#define CLK1_PORT       PORTA
-#define DATA_PORT       PORTA
-#define DATA_PIN        PINA
+#define CE_PORT         PORTE
+#define CS_PORT         PORTE
+#define CLK1_PORT       PORTE
+#define DATA_PORT       PORTE
+#define DATA_PIN        PINE
 
 /* Port direction */
 #define DR_DDR          DDRE
-#define CE_DDR          DDRA
-#define CS_DDR          DDRA
-#define CLK1_DDR        DDRA
-#define DATA_DDR        DDRA
+#define CE_DDR          DDRE
+#define CS_DDR          DDRE
+#define CLK1_DDR        DDRE
+#define DATA_DDR        DDRE
 
 /* Pin number assignments */
 #define DR_PINNUM       PORTE4
-#define CE_PINNUM       PORTA3
-#define CS_PINNUM       PORTA2
-#define CLK1_PINNUM     PORTA1
-#define DATA_PINNUM     PORTA0
+#define CE_PINNUM       PORTE3
+#define CS_PINNUM       PORTE2
+#define CLK1_PINNUM     PORTE1
+#define DATA_PINNUM     PORTE0
 
 /* Address and Channel Definitions */
 #define RADIO_CHANNEL   105      // 2400 MHz + 110 MHz = 2510 MHz
