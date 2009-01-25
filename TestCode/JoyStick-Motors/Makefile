@@ -6,12 +6,12 @@
 #------------------------------------------------------------------------------
 # Project Source
 #------------------------------------------------------------------------------
-SOURCE_FILES = joystick.c joyStickMain.c ../uart/uart.c
+SOURCE_FILES = mainJoy.c joyMotors.c ../Joystick/joystick.c ../Motor/Motor.c ../uart/uart.c
 
 #------------------------------------------------------------------------------
 # Project Settings
 #------------------------------------------------------------------------------
-PROJECT = JoyStickLed
+PROJECT = mainJoy
 DEVICE  = at90usb1287
 CLOCK   = 8000000
 CFG     = debug

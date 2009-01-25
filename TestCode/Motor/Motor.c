@@ -15,6 +15,7 @@
 #include <math.h>
 #include  "../common.h"
 #include <util/delay.h>
+#include "motor.h"
 
 
 

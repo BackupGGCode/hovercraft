@@ -16,7 +16,7 @@
 #include <stdio.h>
 
 #include "joystick.h"
-#include "../2wayRadio/uart/uart.h"
+#include "../uart/uart.h"
 #define NO_PRESCALE() CLKPR=(1<<CLKPCE); \
                       CLKPR=0x00
 
