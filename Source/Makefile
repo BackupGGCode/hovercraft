@@ -16,12 +16,16 @@ DEVICE  = at90usb1287
 CLOCK   = 8000000
 # debug or release
 CFG     = debug
-TARGET  = hovercraft-$(CFG).hex
+TARGET  = $(PROJECT)-$(CFG).hex
 
 # Programmer
-FUSES          = -U hfuse:w:0xd9:m -U lfuse:w:0x24:m
-PROGRAMMER     = -c stk500v2 -P avrdoper
-AVRDUDE        = avrdude $(PROGRAMMER) -p $(DEVICE)
+# Fuses to enable JTAG and OCD (On-Chip Debugging)
+JTAG_FUSES = -U hfuse:w:0x19:m -U lfuse:w:0xDE:m -U efuse:w:0xF3:m \
+             -U lock:w:0xFF:m
+PROGRAMMER = -c jtag2fast -P usb
+AVRDUDE    = avrdude $(PROGRAMMER) -p $(DEVICE)
+
+# Device Firmware Upgrade
 DFU_PROGRAMMER = dfu-programmer $(DEVICE)
 
 # GCC
@@ -30,7 +34,7 @@ DEP_DIR = deps
 CFLAGS  = -Wall -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 CFLAGS += -Winline
 ifeq ($(CFG),debug)
-	CFLAGS += -ggdb3 -Os
+	CFLAGS += -ggdb3 -O0
 else ifeq ($(CFG), release)
 	CFLAGS += -Os
 endif
@@ -68,12 +72,14 @@ $(DEP_DIR):
 	$(COMPILE) -S $< -o $@
 
 flash:	all
-	#$(AVRDUDE) -U flash:w:main.hex:i
 	$(DFU_PROGRAMMER) erase
 	$(DFU_PROGRAMMER) flash $(TARGET)
 
-fuse:
-	$(AVRDUDE) $(FUSES)
+jtag-fuse:
+	$(AVRDUDE) $(JTAG_FUSES)
+
+flash-avrdude: jtag-fuse all
+	$(AVRDUDE) -U flash:w:$(TARGET):i
 
 # Xcode uses the Makefile targets "", "clean" and "install"
 install: flash fuse
@@ -103,3 +109,4 @@ cpp:
 	$(COMPILE) -E $(firstword $(SOURCE_FILES))
 
 -include $(wildcard $(DEP_DIR)/*)
+
