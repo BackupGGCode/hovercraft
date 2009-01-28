@@ -7,13 +7,14 @@
  *
  */
 
-#infndef _SONAR_H__
+#ifndef _SONAR_H__
 #define  _SONAR_H__
 
 
-#define SONAR_PULSE 10
+#define SONAR_PULSE 30
 
 void fireSonar(void);
+void sonarDistanceToDuty(long);
 void sonarInit(void);
 #endif
 

@@ -7,6 +7,24 @@
  *
  */
 
+#include "../common.h"
+#include "sonar.h"
+#include <avr/io.h>
+ int	
+ main(void){
+
+	DISABLE_INTERRUPTS();
+		DDRD  = 0xff;
+		PORTD = 0xff;  // Turn on both LEDs
+		sonarInit();
+
+	ENABLE_INTERRUPTS();
+
+
+	for(;;);
+
+ }
+
 
 
 
