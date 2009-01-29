@@ -13,6 +13,7 @@
 #ifndef __COMMON_H__
 #define __COMMON_H__
 
+#include "Hover-Station/radio/radio.h"
 
 #define CLOCK_8MHZ()            CLKPR = (1<<CLKPCE); CLKPR = 0x00;
 
@@ -21,5 +22,9 @@
 
 #define Disable_Interrupt()     asm volatile ("cli"::)
 #define Enable_Interrupt()     asm volatile ("sei"::)
+
+
+#define BASE_ADDRESS 0xDEAD
+#define HOV_ADDRESS  0xFACE
 
 #endif

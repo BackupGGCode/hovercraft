@@ -52,6 +52,7 @@ SIGNAL(TIMER3_CAPT_vect){
 	//Disable interupts on pin 7 of port C. (suspend input capture) 
 	TIMSK3 &= ~(1<<ICIE3);
 	
+	
 	//change edge, if rising edge just capted, change to fallig edge.
 	if ((TCCR3B & (1<<ICES3))  == 0){
 		//capture next rising edge
@@ -108,7 +109,7 @@ void fireSonar(){
 	PORTD |= (1<<PORTD2);
 	uint16_t current = TCNT3;
 	//wait
-	while(current + SONAR_PULSE > TCNT3);
+		while(current + SONAR_PULSE > TCNT3);
 	//Disable pin to fire
 	PORTD &= ~(1<<PORTD2);
 
@@ -142,7 +143,7 @@ void sonarInit(){
       //      Turn off all leds used for output
     PORTD &= ~(1<<PIND5) & ~(1<<PIND6) & ~(1<<PIND7);
 
-
+	 
 	if (abs(offset) <= idleVariance) {
 			
                 return;
@@ -164,6 +165,6 @@ void sonarInit(){
                 percentage = variancePer *percentage;
          }
 
-
+	 PORTD |= (1<<PIND5);
 
 	}

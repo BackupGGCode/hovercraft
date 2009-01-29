@@ -6,6 +6,7 @@
 
 #define BACKWARD	200
 #define FORWARD		201
+#define MIDDLE_Y		48
 
 void motor_init(void);
 void setMotorDirection(int);

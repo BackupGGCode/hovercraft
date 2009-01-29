@@ -6,12 +6,12 @@
 #------------------------------------------------------------------------------
 # Project Source
 #------------------------------------------------------------------------------
-SOURCE_FILES = mainJoy.c joyMotors.c ../Joystick/joystick.c ../Motor/Motor.c ../uart/uart.c ../Hover-Station//radio/radio.c
+SOURCE_FILES = sonar.c main.c ../uart/uart.c
 
 #------------------------------------------------------------------------------
 # Project Settings
 #------------------------------------------------------------------------------
-PROJECT = mainJoy
+PROJECT = Sonar
 DEVICE  = at90usb1287
 CLOCK   = 8000000
 CFG     = debug

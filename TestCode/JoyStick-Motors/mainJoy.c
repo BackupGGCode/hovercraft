@@ -15,6 +15,9 @@
 #include "../Motor/Motor.h"
 #include "../common.h"
 
+
+
+
 int
 main(void){
 	
@@ -23,6 +26,7 @@ main(void){
 	CLOCK_8MHZ(); 
 	motor_init();
 	joystick_init();
+	radio_init(BASE_ADDRESS, RECEIVE_MODE);
 	uart_init();
 	
 	Enable_Interrupt();

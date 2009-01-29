@@ -18,12 +18,15 @@
 #include "../uart/uart.h"
 
 
+
 unsigned char X = 0, Y = 0, Z = 0;
 
 
 
 void
 updateMotor(){
+	
+	packet_t packet;
 	
 	sample_joystick(&X,&Y,&Z);
 	//updateVertically();
@@ -32,6 +35,11 @@ updateMotor(){
 	char test[50];
 	int numbChar = sprintf(test,"Inside Motor X: %d, Y: %d, Z: %d\n\r", X,Y,Z);
 	
+	updateVertically();
+	
+	packet.x = (uint8_t) X;
+	packet.y = (uint8_t) Y;
+	radio_send(HOV_ADDRESS, (uint8_t*) &packet);
 	
 	uart_write((uint8_t*)test,  numbChar);
 	

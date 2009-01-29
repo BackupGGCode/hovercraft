@@ -13,12 +13,12 @@
  int	
  main(void){
 
-	DISABLE_INTERRUPTS();
+	Disable_Interrupt();
 		DDRD  = 0xff;
 		PORTD = 0xff;  // Turn on both LEDs
 		sonarInit();
 
-	ENABLE_INTERRUPTS();
+	Enable_Interrupt();
 
 
 	for(;;);

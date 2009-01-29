@@ -6,14 +6,15 @@
 #------------------------------------------------------------------------------
 # Project Source
 #------------------------------------------------------------------------------
-SOURCE_FILES = mainJoy.c joyMotors.c ../Joystick/joystick.c ../Motor/Motor.c ../uart/uart.c ../Hover-Station//radio/radio.c
+SOURCE_FILES = Hover-StationMain.c radio/radio.c ../Motor/Motor.c ../uart/uart.c 
 
 #------------------------------------------------------------------------------
 # Project Settings
 #------------------------------------------------------------------------------
-PROJECT = mainJoy
+PROJECT = Hover-Station
 DEVICE  = at90usb1287
 CLOCK   = 8000000
+# debug or release
 CFG     = debug
 TARGET  = $(PROJECT)-$(CFG).hex
 
@@ -29,9 +30,9 @@ DEP_DIR = deps
 CFLAGS  = -Wall -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 CFLAGS += -Winline
 ifeq ($(CFG),debug)
-	CFLAGS += -ggdb3 -Os 
+	CFLAGS += -ggdb3 -O2
 else ifeq ($(CFG), release)
-	CFLAGS += -Os
+	CFLAGS += -O2
 endif
 # Dependency
 CFLAGS += -MD -MP -MF $(DEP_DIR)/$(notdir $@).d
