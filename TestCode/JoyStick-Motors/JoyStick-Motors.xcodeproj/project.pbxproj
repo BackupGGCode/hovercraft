@@ -19,6 +19,7 @@
 		462803E10F2C00CA0067C30F /* joyMotors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = joyMotors.h; sourceTree = "<group>"; };
 		462803E80F2C0D2A0067C30F /* uart.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = uart.c; path = ../uart/uart.c; sourceTree = SOURCE_ROOT; };
 		462803E90F2C0D2A0067C30F /* uart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uart.h; path = ../uart/uart.h; sourceTree = SOURCE_ROOT; };
+		46D0EF370F2F813600DAEAF1 /* StringIncript.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; name = StringIncript.java; path = ../../../../CSC110/lab3/StringIncript.java; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -28,6 +29,7 @@
 				462803E80F2C0D2A0067C30F /* uart.c */,
 				462803E90F2C0D2A0067C30F /* uart.h */,
 				462803E00F2C00CA0067C30F /* joyMotors.c */,
+				46D0EF370F2F813600DAEAF1 /* StringIncript.java */,
 				462803E10F2C00CA0067C30F /* joyMotors.h */,
 				462803DB0F2C00A80067C30F /* mainJoy.c */,
 				462803DC0F2C00A80067C30F /* mainJoy.o */,

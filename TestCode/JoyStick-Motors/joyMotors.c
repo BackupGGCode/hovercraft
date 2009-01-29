@@ -26,7 +26,7 @@ void
 updateMotor(){
 	
 	sample_joystick(&X,&Y,&Z);
-	updateVertically();
+	//updateVertically();
 	
 	_delay_ms(250);
 	char test[50];
@@ -43,22 +43,30 @@ updateMotor(){
 void 
 updateVertically(){
 	
-	uart_write("hi World\r\n", 10);
+
 	int intY = (int) Y;
-	
-	if(intY > 105) //To go Backwards
-		setMotorDirection(BACKWARD);
-	else
-		setMotorDirection(FORWARD);
-	
 	int len = 0;
 	char toWrite[50];
-	int vars = (int) intY/60;
+	uint8_t newSpeed = 0;
 	
-	len = sprintf(toWrite,"Case will be: %d \r\n", vars);
+	if(intY > 125){ //To go Backwards
+		setMotorDirection(BACKWARD);
+		newSpeed = (intY-125)*2;
+		setMotorSpeed( newSpeed);
+		len = sprintf(toWrite, "Motor Speed Is Backward %d\r\n", intY);
+	}else{
+		setMotorDirection(FORWARD);
+		newSpeed = 256 - intY*2;
+		setMotorSpeed(newSpeed);
+		len = sprintf(toWrite, "Motor Speed Is Forward d\r\n", newSpeed);
+	}
+	
+	
+	
+	
 	uart_write(toWrite, len);
 	_delay_ms(250);
-	
+	/*
 		switch (vars) {
 		case 0:
 			setMotorSpeed(250);
@@ -86,8 +94,8 @@ updateVertically(){
 			
 		
 	}//end of Switch
-	
-	uart_write(toWrite, len);
+	*/
+	//uart_write(toWrite, len);
 		
 	
 }
