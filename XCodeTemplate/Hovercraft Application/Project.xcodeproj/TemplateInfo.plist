@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>FilesToRename</key>
+	<dict>
+		<key>main.c</key>
+		<string>«PROJECTNAME»Main.c</string>
+	</dict>
+	<key>Description</key>
+	<string>Hovercraft project template.</string>
+	<key>FilesToMacroExpand</key>
+	<array>
+		<string>«PROJECTNAME»Main.c</string>
+		<string>Makefile</string>
+		<string>common.h</string>
+	</array>
+</dict>
+</plist>

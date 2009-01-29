@@ -1,0 +1,206 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXFileReference section */
+		998665F80F2C51AD00E40BAC /* Makefile */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		99F6F15B0F2CFA82006241A9 /* «PROJECTNAME»Main.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = "«PROJECTNAME»Main.c"; sourceTree = "<group>"; };
+		99FF45320F2C57E00066AFE2 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				99FF45280F2C57B20066AFE2 /* Headers */,
+				9939D9B10F2C4F1F001D2A52 /* Source */,
+				998665F70F2C519800E40BAC /* Others */,
+			);
+			name = Project;
+			sourceTree = "<group>";
+		};
+		9939D9B10F2C4F1F001D2A52 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				99F6F15B0F2CFA82006241A9 /* «PROJECTNAME»Main.c */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		998665F70F2C519800E40BAC /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				998665F80F2C51AD00E40BAC /* Makefile */,
+			);
+			name = Others;
+			sourceTree = "<group>";
+		};
+		99FF45280F2C57B20066AFE2 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				99FF45320F2C57E00066AFE2 /* common.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		998236420F2CF6AD00591BD9 /* «PROJECTNAME»-Flash */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = flash;
+			buildConfigurationList = 9982364A0F2CF6B200591BD9 /* Build configuration list for PBXLegacyTarget "«PROJECTNAME»-Flash" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = "«PROJECTNAME»-Flash";
+			passBuildSettingsInEnvironment = 1;
+			productName = "«PROJECTNAME»-Flash";
+		};
+		D28A88AD04BDD90700651E21 /* «PROJECTNAME» */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "«PROJECTNAME»" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = "«PROJECTNAME»";
+			passBuildSettingsInEnvironment = 1;
+			productName = Project;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "Project" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* Project */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D28A88AD04BDD90700651E21 /* «PROJECTNAME» */,
+				998236420F2CF6AD00591BD9 /* «PROJECTNAME»-Flash */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB919008733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "«PROJECTNAME»";
+			};
+			name = Debug;
+		};
+		1DEB919108733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CFG = release;
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "«PROJECTNAME»";
+			};
+			name = Release;
+		};
+		1DEB919408733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/usr/local/AVRMacPack/avr-4/include/**";
+				ONLY_ACTIVE_ARCH = YES;
+				PATH = "/usr/local/bin/:/usr/local/AVRMacPack/bin/:$PATH";
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		1DEB919508733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/usr/local/AVRMacPack/avr-4/include/**";
+				PATH = "/usr/local/bin/:/usr/local/AVRMacPack/bin/:$PATH";
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+		998236430F2CF6AD00591BD9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "«PROJECTNAME»-Flash";
+			};
+			name = Debug;
+		};
+		998236440F2CF6AD00591BD9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "«PROJECTNAME»-Flash";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "«PROJECTNAME»" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB919008733D9F0010E9CD /* Debug */,
+				1DEB919108733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "Project" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB919408733D9F0010E9CD /* Debug */,
+				1DEB919508733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9982364A0F2CF6B200591BD9 /* Build configuration list for PBXLegacyTarget "«PROJECTNAME»-Flash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				998236430F2CF6AD00591BD9 /* Debug */,
+				998236440F2CF6AD00591BD9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}
