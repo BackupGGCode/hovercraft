@@ -1,0 +1,354 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		997437010F2E30CB004B66FD /* Multiple Builds */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 997437150F2E30F8004B66FD /* Build configuration list for PBXAggregateTarget "Multiple Builds" */;
+			buildPhases = (
+			);
+			dependencies = (
+				997437050F2E30DF004B66FD /* PBXTargetDependency */,
+				997437190F2E311F004B66FD /* PBXTargetDependency */,
+			);
+			name = "Multiple Builds";
+			productName = "Multiple Builds";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		997437040F2E30DF004B66FD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D28A88AD04BDD90700651E21;
+			remoteInfo = TX_RX;
+		};
+		997437180F2E311F004B66FD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 997437060F2E30ED004B66FD;
+			remoteInfo = Sender;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		997436CD0F2E26D5004B66FD /* radio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = radio.c; sourceTree = "<group>"; };
+		997436CE0F2E26D5004B66FD /* radio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = radio.h; path = radio/radio.h; sourceTree = "<group>"; };
+		997436D00F2E26D5004B66FD /* uart.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uart.c; sourceTree = "<group>"; };
+		997436D10F2E26D5004B66FD /* uart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uart.h; path = uart/uart.h; sourceTree = "<group>"; };
+		997436E80F2E2A89004B66FD /* Sender.mk */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; fileEncoding = 4; path = Sender.mk; sourceTree = "<group>"; };
+		997436EB0F2E2AEB004B66FD /* senderMain.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = senderMain.c; sourceTree = "<group>"; };
+		998665F80F2C51AD00E40BAC /* Makefile */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		99F6F15B0F2CFA82006241A9 /* TX_RXMain.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = TX_RXMain.c; sourceTree = "<group>"; };
+		99FF45320F2C57E00066AFE2 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				99FF45280F2C57B20066AFE2 /* Headers */,
+				9939D9B10F2C4F1F001D2A52 /* Source */,
+				998665F70F2C519800E40BAC /* Others */,
+			);
+			name = Project;
+			sourceTree = "<group>";
+		};
+		9939D9B10F2C4F1F001D2A52 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				997436EB0F2E2AEB004B66FD /* senderMain.c */,
+				99F6F15B0F2CFA82006241A9 /* TX_RXMain.c */,
+				997436CC0F2E26D5004B66FD /* radio */,
+				997436CF0F2E26D5004B66FD /* uart */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		997436CC0F2E26D5004B66FD /* radio */ = {
+			isa = PBXGroup;
+			children = (
+				997436CD0F2E26D5004B66FD /* radio.c */,
+			);
+			path = radio;
+			sourceTree = "<group>";
+		};
+		997436CF0F2E26D5004B66FD /* uart */ = {
+			isa = PBXGroup;
+			children = (
+				997436D00F2E26D5004B66FD /* uart.c */,
+			);
+			path = uart;
+			sourceTree = "<group>";
+		};
+		998665F70F2C519800E40BAC /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				997436E80F2E2A89004B66FD /* Sender.mk */,
+				998665F80F2C51AD00E40BAC /* Makefile */,
+			);
+			name = Others;
+			sourceTree = "<group>";
+		};
+		99FF45280F2C57B20066AFE2 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				997436CE0F2E26D5004B66FD /* radio.h */,
+				997436D10F2E26D5004B66FD /* uart.h */,
+				99FF45320F2C57E00066AFE2 /* common.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		997437060F2E30ED004B66FD /* Sender */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "-f Sender.mk $(ACTION)";
+			buildConfigurationList = 997437160F2E30F8004B66FD /* Build configuration list for PBXLegacyTarget "Sender" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = Sender;
+			passBuildSettingsInEnvironment = 1;
+			productName = Sender;
+		};
+		998236420F2CF6AD00591BD9 /* TX_RX-Flash */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = flash;
+			buildConfigurationList = 9982364A0F2CF6B200591BD9 /* Build configuration list for PBXLegacyTarget "TX_RX-Flash" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = "TX_RX-Flash";
+			passBuildSettingsInEnvironment = 1;
+			productName = "TX_RX-Flash";
+		};
+		D28A88AD04BDD90700651E21 /* TX_RX */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "TX_RX" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = TX_RX;
+			passBuildSettingsInEnvironment = 1;
+			productName = Project;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "TX_RX" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* Project */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D28A88AD04BDD90700651E21 /* TX_RX */,
+				998236420F2CF6AD00591BD9 /* TX_RX-Flash */,
+				997437010F2E30CB004B66FD /* Multiple Builds */,
+				997437060F2E30ED004B66FD /* Sender */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXTargetDependency section */
+		997437050F2E30DF004B66FD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D28A88AD04BDD90700651E21 /* TX_RX */;
+			targetProxy = 997437040F2E30DF004B66FD /* PBXContainerItemProxy */;
+		};
+		997437190F2E311F004B66FD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 997437060F2E30ED004B66FD /* Sender */;
+			targetProxy = 997437180F2E311F004B66FD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB919008733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = TX_RX;
+			};
+			name = Debug;
+		};
+		1DEB919108733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CFG = release;
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = TX_RX;
+			};
+			name = Release;
+		};
+		1DEB919408733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/usr/local/AVRMacPack/avr-4/include/**";
+				ONLY_ACTIVE_ARCH = YES;
+				PATH = "/usr/local/bin/:/usr/local/AVRMacPack/bin/:$PATH";
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		1DEB919508733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/usr/local/AVRMacPack/avr-4/include/**";
+				PATH = "/usr/local/bin/:/usr/local/AVRMacPack/bin/:$PATH";
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+		997437020F2E30CC004B66FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Multiple Builds";
+			};
+			name = Debug;
+		};
+		997437030F2E30CC004B66FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Multiple Builds";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		997437070F2E30ED004B66FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = Sender;
+			};
+			name = Debug;
+		};
+		997437080F2E30ED004B66FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = Sender;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		998236430F2CF6AD00591BD9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "TX_RX-Flash";
+			};
+			name = Debug;
+		};
+		998236440F2CF6AD00591BD9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "TX_RX-Flash";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "TX_RX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB919008733D9F0010E9CD /* Debug */,
+				1DEB919108733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "TX_RX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB919408733D9F0010E9CD /* Debug */,
+				1DEB919508733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		997437150F2E30F8004B66FD /* Build configuration list for PBXAggregateTarget "Multiple Builds" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				997437020F2E30CC004B66FD /* Debug */,
+				997437030F2E30CC004B66FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		997437160F2E30F8004B66FD /* Build configuration list for PBXLegacyTarget "Sender" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				997437070F2E30ED004B66FD /* Debug */,
+				997437080F2E30ED004B66FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9982364A0F2CF6B200591BD9 /* Build configuration list for PBXLegacyTarget "TX_RX-Flash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				998236430F2CF6AD00591BD9 /* Debug */,
+				998236440F2CF6AD00591BD9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}

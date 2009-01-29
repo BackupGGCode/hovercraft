@@ -6,49 +6,37 @@
 #------------------------------------------------------------------------------
 # Project Source
 #------------------------------------------------------------------------------
-SOURCE_FILES = Source/hover_main.c
+SOURCE_FILES = senderMain.c \
+               uart/uart.c \
+			   radio/radio.c
 
 #------------------------------------------------------------------------------
 # Project Settings
 #------------------------------------------------------------------------------
-PROJECT = Hovercraft
+PROJECT = sender
 DEVICE  = at90usb1287
 CLOCK   = 8000000
 # debug or release
 CFG     = debug
 TARGET  = $(PROJECT)-$(CFG).hex
 
-#------------------------------------------------------------------------------
-# Programmer Settings
-#------------------------------------------------------------------------------
-# Fuses to enable JTAG and OCD (On-Chip Debugging)
-OCD_FUSES     = -U hfuse:w:0x19:m -U lfuse:w:0xDE:m -U efuse:w:0xF3:m \
-                -U lock:w:0xFF:m
-ORIG_FUSES    = -U hfuse:w:0x99:m -U lfuse:w:0x5E:m -U efuse:w:0xF3:m \
-                -U lock:w:EF:m
-PROGRAMMER_ID = -c jtag2fast -P usb
-DEVICE_PARTNO = usb1287
-AVRDUDE       = avrdude $(PROGRAMMER_ID) -p $(DEVICE_PARTNO)
-
-# Device Firmware Upgrade
+# Programmer
+FUSES          = -U hfuse:w:0xd9:m -U lfuse:w:0x24:m
+PROGRAMMER     = -c stk500v2 -P avrdoper
+AVRDUDE        = avrdude $(PROGRAMMER) -p $(DEVICE)
 DFU_PROGRAMMER = dfu-programmer $(DEVICE)
 
-#------------------------------------------------------------------------------
-# GCC Settings
-#------------------------------------------------------------------------------
+# GCC
 CC      = avr-gcc
-INC     = -I.
-
-CFLAGS  = -Wall -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
-CFLAGS += $(INC) -Winline
-ifeq ($(CFG),debug)
-	CFLAGS += -ggdb3 -O0
-else ifeq ($(CFG), release)
-	CFLAGS += -Os
-endif
-
-# Dependency
 DEP_DIR = deps
+CFLAGS  = -Wall -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
+CFLAGS += -Winline
+ifeq ($(CFG),debug)
+	CFLAGS += -ggdb3 -O2
+else ifeq ($(CFG), release)
+	CFLAGS += -O2
+endif
+# Dependency
 CFLAGS += -MD -MP -MF $(DEP_DIR)/$(notdir $@).d
 COMPILE = $(CC) $(CFLAGS)
 
@@ -82,20 +70,15 @@ $(DEP_DIR):
 	$(COMPILE) -S $< -o $@
 
 flash:	all
+	#$(AVRDUDE) -U flash:w:main.hex:i
 	$(DFU_PROGRAMMER) erase
 	$(DFU_PROGRAMMER) flash $(TARGET)
 
-ocd-fuse:
-	$(AVRDUDE) $(OCD_FUSES)
-
-orig-fuse:
-	$(AVRDUDE) $(ORIG_FUSES)
-
-avrdude-flash: all
-	$(AVRDUDE) -U flash:w:$(TARGET):i
+fuse:
+	$(AVRDUDE) $(FUSES)
 
 # Xcode uses the Makefile targets "", "clean" and "install"
-install: flash
+install: flash fuse
 
 # if you use a bootloader, change the command below appropriately:
 load: all
@@ -122,4 +105,3 @@ cpp:
 	$(COMPILE) -E $(firstword $(SOURCE_FILES))
 
 -include $(wildcard $(DEP_DIR)/*)
-
