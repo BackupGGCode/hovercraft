@@ -6,19 +6,25 @@
  *  Copyright 2009 University of Victoria. All rights reserved.
  *
  */
-
+ 
 #include "../common.h"
+#include "../uart/uart.h"
 #include "sonar.h"
 #include <avr/io.h>
+#include <avr/interrupt.h>
  int	
  main(void){
-
-	Disable_Interrupt();
+		cli();
+		CLOCK_8MHZ();
 		DDRD  = 0xff;
 		PORTD = 0xff;  // Turn on both LEDs
+			uart_init();
 		sonarInit();
+	
 
-	Enable_Interrupt();
+		sei();
+
+		uart_write((uint8_t*)"UART\r\n", 6);
 
 
 	for(;;);

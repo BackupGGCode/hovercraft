@@ -12,6 +12,7 @@
 #include <util/delay.h>
 #include <stdlib.h>
 #include <avr/interrupt.h>
+#include <stdio.h>
 
 
 #include "sonar.h"
@@ -47,8 +48,8 @@ long idleVariance = 0;
  */
 long maxVariance = 0;
 
-SIGNAL(TIMER3_CAPT_vect){
-
+ISR(TIMER3_CAPT_vect){
+ 	uart_write((uint8_t*)"innInt\r\n",8);
 	//Disable interupts on pin 7 of port C. (suspend input capture) 
 	TIMSK3 &= ~(1<<ICIE3);
 	
@@ -86,7 +87,7 @@ SIGNAL(TIMER3_CAPT_vect){
  *
  *This will enable the Trigger pin for the sonar, so that the sonar will fire.
  */
-SIGNAL(TIMER3_OVF_vect){
+ISR(TIMER3_OVF_vect){
 	
 	PORTD = (_BV(PORTD5)|_BV(PORTD7));
 	
@@ -106,12 +107,12 @@ SIGNAL(TIMER3_OVF_vect){
  */
 void fireSonar(){
 	//Enable the pin to fire
-	PORTD |= (1<<PORTD2);
+	PORTA |= (1<<PORTA2);
 	uint16_t current = TCNT3;
 	//wait
 		while(current + SONAR_PULSE > TCNT3);
 	//Disable pin to fire
-	PORTD &= ~(1<<PORTD2);
+	PORTA &= ~(1<<PORTA2);
 
 }
 void sonarInit(){
@@ -120,13 +121,13 @@ void sonarInit(){
 	DDRC &= ~(1<<PORTC7);
 
 	// Enable output as PD2 
-	DDRD |= (1<<PORTD2);
+	DDRA |= (1<<PORTA4);
 	
 	
 	//When TOIEn is set, that means on overflow, interrupt is fired.
 	//When ICIEn is set, then on Input Caput, interrupt is fired
-	TIMSK1  |= (1<<TOIE3) | (1<<ICIE3);
-		
+	TIMSK3  |= (1<<TOIE3) | (1<<ICIE3);
+	TIFR3 |= (1<ICF3);
 	//Set the clock source to prescaling by 8, and enable noise cancelling.
 	TCCR3B |= (1<<CS30) | (1<<ICNC3);
 	
@@ -164,7 +165,9 @@ void sonarInit(){
                 float variancePer = 100.0 / maxVariance;
                 percentage = variancePer *percentage;
          }
-
+		 char toWrite[50];
+		int len = sprintf(toWrite, "dist, %ld", distance);
+		uart_write((uint8_t*)toWrite, len);
 	 PORTD |= (1<<PIND5);
 
 	}
