@@ -13,14 +13,12 @@
 		462803D70F2BFFEE0067C30F /* Motor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Motor.c; path = ../Motor/Motor.c; sourceTree = SOURCE_ROOT; };
 		462803D80F2BFFEE0067C30F /* Motor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Motor.h; path = ../Motor/Motor.h; sourceTree = SOURCE_ROOT; };
 		462803DB0F2C00A80067C30F /* mainJoy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mainJoy.c; sourceTree = "<group>"; };
-		462803DC0F2C00A80067C30F /* mainJoy.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = mainJoy.o; sourceTree = "<group>"; };
 		462803DD0F2C00A80067C30F /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		462803E00F2C00CA0067C30F /* joyMotors.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = joyMotors.c; sourceTree = "<group>"; };
 		462803E10F2C00CA0067C30F /* joyMotors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = joyMotors.h; sourceTree = "<group>"; };
 		462803E80F2C0D2A0067C30F /* uart.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = uart.c; path = ../uart/uart.c; sourceTree = SOURCE_ROOT; };
 		462803E90F2C0D2A0067C30F /* uart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uart.h; path = ../uart/uart.h; sourceTree = SOURCE_ROOT; };
 		46B748B90F317F4A00468348 /* radio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = radio.h; path = ../radio_2way/radio/radio.h; sourceTree = SOURCE_ROOT; };
-		46D0EF370F2F813600DAEAF1 /* StringIncript.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; name = StringIncript.java; path = ../../../../CSC110/lab3/StringIncript.java; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -31,10 +29,8 @@
 				462803E80F2C0D2A0067C30F /* uart.c */,
 				462803E90F2C0D2A0067C30F /* uart.h */,
 				462803E00F2C00CA0067C30F /* joyMotors.c */,
-				46D0EF370F2F813600DAEAF1 /* StringIncript.java */,
 				462803E10F2C00CA0067C30F /* joyMotors.h */,
 				462803DB0F2C00A80067C30F /* mainJoy.c */,
-				462803DC0F2C00A80067C30F /* mainJoy.o */,
 				462803DD0F2C00A80067C30F /* Makefile */,
 				462803D70F2BFFEE0067C30F /* Motor.c */,
 				462803D80F2BFFEE0067C30F /* Motor.h */,
