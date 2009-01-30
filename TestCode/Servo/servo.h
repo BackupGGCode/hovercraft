@@ -12,5 +12,5 @@
 #include <avr/interrupt.h>
 #include <stdio.h>
 
-void seroInit(void);
+void servoInit(void);
 int servoDuty(int duty);

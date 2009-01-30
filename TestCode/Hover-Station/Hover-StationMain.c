@@ -8,8 +8,9 @@
  */
 
 #include <avr/io.h>
-#include <util/delay.h>
 #include "common.h"
+#include "../servo/servo.h"
+
 
 volatile uint8_t radio_buffer[PAYLOAD_BYTES];
 char toPrint[50];
@@ -24,9 +25,12 @@ int main(void)
 	uart_init();
 	motor_init();
 	radio_init(HOV_ADDRESS, RECEIVE_MODE);
+	NO_CLK_PRESCALE();
+	servoInit();
 	
 	sei();
 	setMotorON();
+	
     /* insert your hardware initialization here */
     for(;;){
         
@@ -37,6 +41,21 @@ int main(void)
 			setMotorDirection(BACKWARD);
 			setMotorSpeed(y + 75);
 		}
+		
+		if (x >= 130 && x < 150) {
+			servoDuty(1350);
+		}
+		/*
+		else if (x >= 0 && x < 65) {
+			servoDuty(570);
+		 } else if (x >= 202 && <= 255) {
+			servoDuty(2350);
+		 } else if (x >=65 && x < 130) {
+			servoDuty(960);
+		 } else if (x >= 150 && x < 202) {
+			servoDuty(1850);
+		 }
+		 */
 			
 		/* insert your main loop code here */
 		_delay_ms(500);

@@ -13,6 +13,10 @@
 		46B7490C0F3185C700468348 /* uart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uart.h; path = ../uart/uart.h; sourceTree = SOURCE_ROOT; };
 		46B7490D0F3185E100468348 /* Motor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Motor.c; path = ../Motor/Motor.c; sourceTree = SOURCE_ROOT; };
 		46B7490E0F3185E100468348 /* Motor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Motor.h; path = ../Motor/Motor.h; sourceTree = SOURCE_ROOT; };
+		46B7498D0F329EE600468348 /* sonar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sonar.c; path = ../Sonar/sonar.c; sourceTree = SOURCE_ROOT; };
+		46B7498E0F329EE600468348 /* sonar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sonar.h; path = ../Sonar/sonar.h; sourceTree = SOURCE_ROOT; };
+		46B749CE0F32A21F00468348 /* servo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = servo.c; path = ../Servo/servo.c; sourceTree = SOURCE_ROOT; };
+		46B749CF0F32A21F00468348 /* servo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = servo.h; path = ../Servo/servo.h; sourceTree = SOURCE_ROOT; };
 		998665F80F2C51AD00E40BAC /* Makefile */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		99F6F15B0F2CFA82006241A9 /* Hover-StationMain.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = "Hover-StationMain.c"; sourceTree = "<group>"; };
 		99FF45320F2C57E00066AFE2 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
@@ -32,6 +36,8 @@
 		9939D9B10F2C4F1F001D2A52 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				46B749CE0F32A21F00468348 /* servo.c */,
+				46B7498D0F329EE600468348 /* sonar.c */,
 				46B7490D0F3185E100468348 /* Motor.c */,
 				46B7490B0F3185C700468348 /* uart.c */,
 				46B749090F3185A300468348 /* radio.c */,
@@ -51,6 +57,8 @@
 		99FF45280F2C57B20066AFE2 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				46B749CF0F32A21F00468348 /* servo.h */,
+				46B7498E0F329EE600468348 /* sonar.h */,
 				46B7490E0F3185E100468348 /* Motor.h */,
 				46B7490C0F3185C700468348 /* uart.h */,
 				46B7490A0F3185B200468348 /* radio.h */,

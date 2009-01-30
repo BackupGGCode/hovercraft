@@ -6,7 +6,7 @@
 #------------------------------------------------------------------------------
 # Project Source
 #------------------------------------------------------------------------------
-SOURCE_FILES = Hover-StationMain.c radio/radio.c ../Motor/Motor.c ../uart/uart.c 
+SOURCE_FILES = Hover-StationMain.c radio/radio.c ../Motor/Motor.c ../uart/uart.c ../servo/servo.c
 
 #------------------------------------------------------------------------------
 # Project Settings

@@ -20,154 +20,63 @@
 #include "../uart/uart.h"
 
 
+static uint16_t time_falling = 0;             
+int recieved = 0;
+char buff[50];
+void sonar_init(){
+//      initialize sonar
+	DDRC |= SONAR_PULSE_MASK;                       
+    TCCR3B &= ~(_BV(CS32) | _BV(CS30));     
+    TCCR3B |= _BV(CS31);                            
+    TCCR3B |= _BV(ICNC3);                           
+//      enable timer and global interrupts
+    SET_RISING_EDGE();
+    CLEAR_IC_FLAG();
+    SET_IC_ENABLE();
+    ENABLE_ECHO();
+    sei();
+	int i=0;
+    for(i=0; i < 63; ++i) _delay_ms(40);
 
-/**     Initial timestamp when echo pin goes high.
- */
-long startTimestamp;
- 
-/**     The next index to put time into.
- */
-long nextIndex = 0;
+}
 
-/**     Array to store last 5 readings made by sonar.
- */
-long readings[5] = {0, 0, 0, 0, 0};
+void trigger_sonar(){
+	ENABLE_PULSE();
+	SET_RISING_EDGE();
+	CLEAR_IC_FLAG();
+	SET_IC_ENABLE();
+}
 
-/**     The ideal distance in clock cycles used to compare current
- *      sonar readings to.
- */
-long idealDistance = 0;
-
-/**     The variance allowed on each side of the idealDistance
- *      before sending control function.
- */
-long idleVariance = 0;
-
-/**     The maximum variance. Any value above this will result
- *      in the duty being 100% to attempt quick recovery of location.
- */
-long maxVariance = 0;
-
-ISR(TIMER3_CAPT_vect){
- 	uart_write((uint8_t*)"innInt\r\n",8);
-	//Disable interupts on pin 7 of port C. (suspend input capture) 
-	TIMSK3 &= ~(1<<ICIE3);
+uint8_t read_distance() {
 	
+	//sprintf(buff, "Radio init time_falling:%d", time_falling);
+	//uart_write((uint8_t*)buff, strlen(buff));
 	
-	//change edge, if rising edge just capted, change to fallig edge.
-	if ((TCCR3B & (1<<ICES3))  == 0){
-		//capture next rising edge
-		TCCR3B |= (1<<ICES3);
+	return (time_falling/US_PER_INCH);      
+}
 
-                 if (ICR3 - startTimestamp < idealDistance + idleVariance + maxVariance) {
-                         //      copy value from input capture register
-                         readings[nextIndex] = ICR3 - startTimestamp;
-                         
-                 } else {
-                         //      copy value from input capture register
-                         readings[nextIndex] = idealDistance + idleVariance + maxVariance;
-                 }
-                 nextIndex = (nextIndex + 1) % 5;
-                 sonarDistanceToDuty((readings[0] + readings[1] + readings[2] + readings[3] + readings[4]) / 5);
+ISR(TIMER3_CAPT_vect) {
+	
+	DISABLE_PULSE();                                        
+	recieved = 1;
+	
+	if (IS_RISING_EDGE()) {
+		TCNT3=0;                                                
+		SET_FALLING_EDGE();
+		CLEAR_IC_FLAG();
 	} else {
-     //      copy value from input capture register
-	 	startTimestamp = ICR3;
- 
-	//      capture next falling edge
-       	TCCR3B &= ~(1<<ICES3);
-
+		time_falling = ICR3;                    
+		SET_RISING_EDGE();
+		CLEAR_IC_FLAG();
+		int len = sprintf(buff, "%d\r\n", read_distance());
+		uart_write((uint8_t*)buff, len);
 	}
-//      enable interrupts on pin 4 of port D (resume input capture)
-	TIMSK3 |= (1<<ICIE3);
-	
-} 
-		 
-/**
- * The interupt hander for the overflow of timer 3
- *
- *This will enable the Trigger pin for the sonar, so that the sonar will fire.
- */
-ISR(TIMER3_OVF_vect){
-	
-	PORTD = (_BV(PORTD5)|_BV(PORTD7));
-	
-	fireSonar();
-	
-	
-
-	
-
 	
 }
 
-		 
-/*
- *Code to fire the sonar.
- * 
- */
-void fireSonar(){
-	//Enable the pin to fire
-	PORTA |= (1<<PORTA2);
-	uint16_t current = TCNT3;
-	//wait
-		while(current + SONAR_PULSE > TCNT3);
-	//Disable pin to fire
-	PORTA &= ~(1<<PORTA2);
-
+int signal_recieved (){
+	
+	int x = recieved;
+	recieved = 0;
+	return x;
 }
-void sonarInit(){
-
-		//Enable interupt capture pin PC7
-	DDRC &= ~(1<<PORTC7);
-
-	// Enable output as PD2 
-	DDRA |= (1<<PORTA4);
-	
-	
-	//When TOIEn is set, that means on overflow, interrupt is fired.
-	//When ICIEn is set, then on Input Caput, interrupt is fired
-	TIMSK3  |= (1<<TOIE3) | (1<<ICIE3);
-	TIFR3 |= (1<ICF3);
-	//Set the clock source to prescaling by 8, and enable noise cancelling.
-	TCCR3B |= (1<<CS30) | (1<<ICNC3);
-	
-	// Set input camput edge to riding edge
-	
-	TCCR3B |= (1<<ICES3);
-}
-
-
- void sonarDistanceToDuty(long distance) {
-     long long offset = distance - idealDistance;
-     long long percentage = 0;
-        
-      //      Turn off all leds used for output
-    PORTD &= ~(1<<PIND5) & ~(1<<PIND6) & ~(1<<PIND7);
-
-	 
-	if (abs(offset) <= idleVariance) {
-			
-                return;
-
-        } else if (offset < 0) {
-                //      distance too low
-            
-           PORTD |= (1<<PIND6);
-               // percentage = abs(offset) - idleVariance;
-               // float variancePer = 100.0 / maxVariance;
-              //  percentage = variancePer *percentage;
-        } else {
-                  //  distance too high
-               
-           		  PORTD |= (1<<PIND7);
-                percentage = offset + idleVariance;
-
-                float variancePer = 100.0 / maxVariance;
-                percentage = variancePer *percentage;
-         }
-		 char toWrite[50];
-		int len = sprintf(toWrite, "dist, %ld", distance);
-		uart_write((uint8_t*)toWrite, len);
-	 PORTD |= (1<<PIND5);
-
-	}

@@ -37,7 +37,7 @@ int servoDuty(int duty){
 	return duty;
 }
 
-int main(){
+/*int main(){
 
 	cli();
 	NO_PRESCALE();
@@ -52,12 +52,20 @@ int main(){
 		{
 			
 			
-			_delay_ms(250);
-			if(D > 2300)
-				D = 600;
-			D = servoDuty(D + 100);
-		
+			
+			D = servoDuty(1350);
+			
+			_delay_ms(2000);
+			
+	//	D = servoDuty(570);
+
+			
+	//		_delay_ms(10000);
+			
+			//D = servoDuty(575);
+			//_delay_ms(2000);
 		}
 
 	return 0;
 }
+*/

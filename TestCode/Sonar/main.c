@@ -19,7 +19,9 @@
 		DDRD  = 0xff;
 		PORTD = 0xff;  // Turn on both LEDs
 			uart_init();
-		sonarInit();
+	 sonar_init();
+	 
+		
 	
 
 		sei();
