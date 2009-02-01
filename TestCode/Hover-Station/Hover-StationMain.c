@@ -8,8 +8,10 @@
  */
 
 #include <avr/io.h>
+#include <stdlib.h>
 #include "common.h"
 #include "../servo/servo.h"
+#include "../sonar/sonar.h"
 
 
 volatile uint8_t radio_buffer[PAYLOAD_BYTES];
@@ -17,6 +19,8 @@ char toPrint[50];
 
 volatile uint8_t x = 0;
 volatile uint8_t y = 0;
+volatile uint8_t son = 0;
+//char buff[50];
 
 int main(void)
 {
@@ -27,6 +31,7 @@ int main(void)
 	radio_init(HOV_ADDRESS, RECEIVE_MODE);
 	NO_CLK_PRESCALE();
 	servoInit();
+	sonar_init();
 	
 	sei();
 	setMotorON();
@@ -34,32 +39,42 @@ int main(void)
     /* insert your hardware initialization here */
     for(;;){
         
-		if( y < MIDDLE_Y){
-			setMotorDirection(FORWARD);
-			setMotorSpeed(255-(y*3));
-		}else{
-			setMotorDirection(BACKWARD);
-			setMotorSpeed(y + 75);
+		son = read_distance();
+	//	int len = sprintf(buff, "%d\r\n", son);
+	//	uart_write((uint8_t*)buff, len);
+		if (son < 12) {
+			setMotorSpeed(0);
+		} else {
+				
+			if( y < MIDDLE_Y){
+				setMotorDirection(FORWARD);
+				setMotorSpeed(255-(y*3));
+			}else{
+				setMotorDirection(BACKWARD);
+				setMotorSpeed(y + 75);
+			}
 		}
+			if (x >= 130 && x < 155) {
+				servoDuty(1350);
+			}
 		
-		if (x >= 130 && x < 150) {
-			servoDuty(1350);
-		}
-		/*
-		else if (x >= 0 && x < 65) {
-			servoDuty(570);
-		 } else if (x >= 202 && <= 255) {
-			servoDuty(2350);
-		 } else if (x >=65 && x < 130) {
-			servoDuty(960);
-		 } else if (x >= 150 && x < 202) {
-			servoDuty(1850);
-		 }
-		 */
+			else if (x >= 0 && x < 65) {
+				servoDuty(570);
+			} else if (x >= 202 && x <= 255) {
+				servoDuty(2350);
+			} else if (x >=65 && x < 130) {
+				servoDuty(960);
+			} else if (x >= 150 && x < 202) {
+				servoDuty(1850);
+			}
+		
 			
 		/* insert your main loop code here */
 		_delay_ms(500);
+		trigger_sonar();
+		
     }
+	
     return 0;   /* never reached */
 }
 
