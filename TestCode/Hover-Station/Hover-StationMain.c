@@ -10,8 +10,8 @@
 #include <avr/io.h>
 #include <stdlib.h>
 #include "common.h"
-#include "../servo/servo.h"
-#include "../sonar/sonar.h"
+#include "../Servo/servo.h"
+#include "../Sonar/sonar.h"
 
 
 volatile uint8_t radio_buffer[PAYLOAD_BYTES];
