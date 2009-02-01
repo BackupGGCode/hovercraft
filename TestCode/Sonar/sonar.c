@@ -68,8 +68,8 @@ ISR(TIMER3_CAPT_vect) {
 		time_falling = ICR3;                    
 		SET_RISING_EDGE();
 		CLEAR_IC_FLAG();
-		int len = sprintf(buff, "%d\r\n", read_distance());
-		uart_write((uint8_t*)buff, len);
+		//int len = sprintf(buff, "Sonar Reads: %d\r\n", read_distance());
+		//uart_write((uint8_t*)buff, len);
 	}
 	
 }

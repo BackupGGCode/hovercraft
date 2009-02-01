@@ -14,19 +14,19 @@
 int main(int argc, char**argv)
 {
 //-----------------Initialization -----------------------//
-    DISABLE_INTERRUPTS();
+    cli();
     
 
 	CLOCK_8MHZ();
 	motor_init();
-	ENABLE_INTERRUPTS();
+	sei();
 	setMotorON();
 
 
 
 	for(;;){
 
-		setMotorSpeed(150);
+		setMotorSpeed(230);
 		
 
 

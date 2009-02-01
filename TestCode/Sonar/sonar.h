@@ -1,7 +1,7 @@
  #ifndef __SONAR_H__
  #define __SONAR_H__
  
- 
+
 		#define SONAR_DDR               DDRC                                            
 		#define SONAR_PORT                              PORTC
  
