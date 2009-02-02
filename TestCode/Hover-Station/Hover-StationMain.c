@@ -13,54 +13,61 @@
 #include "Servo/servo.h"
 #include "Sonar/sonar.h"
 
+// A hack to deal with a problem in the radio driver.
+#define RADIO_SET_RECEIVE() do { \
+                                radio_set_receive(); \
+                                radio_set_receive(); \
+                            } while(0)
+
+#define DELAY_VAL 500
+#define TIMEOUT_VAL 5
 
 volatile uint8_t radio_buffer[PAYLOAD_BYTES];
 volatile uint8_t x = 0;
 volatile uint8_t y = 0;
 volatile uint8_t son = 0;
-volatile int pktCounter = 0;
 volatile char toPrint[50];
 volatile int len;
+volatile int timeoutCounter = 0;
 
-int main(void)
+int 
+main(void)
 {
 	
 	cli();
+    NO_CLK_PRESCALE();
 	uart_init();
 	motor_init();
 	radio_init(HOV_ADDRESS, RECEIVE_MODE);
-	NO_CLK_PRESCALE();
 	servoInit();
 	sonar_init();
-	
 	sei();
+    
 	setMotorON();
 	
-    /* insert your hardware initialization here */
-    for(;;){
+    for(;;) {
 		
 		son = read_distance();
 		int i = 0;
 
-		if (pktCounter == 4) {
-			len = sprintf((char *)toPrint, "Sending sonar: %d\r\n", son);
+        // 2-way communication
+		if (TIMEOUT_VAL <= timeoutCounter) {
+			len = sprintf((char *)toPrint, "Sending: %d\r\n", son);
 			uart_write((uint8_t *)toPrint, len);
 			packet_t p = {son, son};
-			for(i = 0; i < 10; ++i) {
+			for(i = 0; i < 2; ++i) {
 				radio_send(BASE_ADDRESS, (uint8_t *)&p);
-				_delay_ms(250);
+				_delay_ms(25);
 			}
-			pktCounter = 0;
-			radio_set_receive();
-			radio_set_receive();
+			timeoutCounter = 0;
+            RADIO_SET_RECEIVE();
 		}
-		
-	//	int len = sprintf(buff, "%d\r\n", son);
-	//	uart_write((uint8_t*)buff, len);
+        
+        // Motor control with sonar override
 		if (son < 12) {
 			setMotorSpeed(0);
 		} else {
-				
+            
 			if( y < MIDDLE_Y){
 				setMotorDirection(FORWARD);
 				setMotorSpeed(255-(y*3));
@@ -69,25 +76,25 @@ int main(void)
 				setMotorSpeed(y + 75);
 			}
 		}
-			if (x >= 130 && x < 155) {
-				servoDuty(1350);
-			}
+        
+        // Servo control
+        if (x >= 130 && x < 155) {
+            servoDuty(1350);
+        }
 		
-			else if (x >= 0 && x < 65) {
-				servoDuty(570);
-			} else if (x >= 202 && x <= 255) {
-				servoDuty(2350);
-			} else if (x >=65 && x < 130) {
-				servoDuty(960);
-			} else if (x >= 150 && x < 202) {
-				servoDuty(1850);
-			}
-		
-			
-		/* insert your main loop code here */
-		_delay_ms(500);
+        else if (x >= 0 && x < 65) {
+            servoDuty(570);
+        } else if (x >= 202 && x <= 255) {
+            servoDuty(2350);
+        } else if (x >=65 && x < 130) {
+            servoDuty(960);
+        } else if (x >= 150 && x < 202) {
+            servoDuty(1850);
+        }
+        
+		_delay_ms(DELAY_VAL);
 		trigger_sonar();
-		
+		++timeoutCounter;
     }
 	
     return 0;   /* never reached */
@@ -114,9 +121,9 @@ ISR (INT4_vect)
 	y = packet->y;
 	
     uart_write((uint8_t*)toPrint, len);
-    
+    timeoutCounter = 0;
+
     /* setup the radio to receive another packet */
     radio_set_receive();
-	++pktCounter;
 }
 

@@ -36,12 +36,12 @@
 		9939D9B10F2C4F1F001D2A52 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				99F6F15B0F2CFA82006241A9 /* Hover-StationMain.c */,
 				46B749CE0F32A21F00468348 /* servo.c */,
 				46B7498D0F329EE600468348 /* sonar.c */,
 				46B7490D0F3185E100468348 /* Motor.c */,
 				46B7490B0F3185C700468348 /* uart.c */,
 				46B749090F3185A300468348 /* radio.c */,
-				99F6F15B0F2CFA82006241A9 /* Hover-StationMain.c */,
 			);
 			name = Source;
 			sourceTree = "<group>";

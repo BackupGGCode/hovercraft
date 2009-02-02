@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		462803D40F2BFFC40067C30F /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common.h; path = ../common.h; sourceTree = SOURCE_ROOT; };
+		462803D40F2BFFC40067C30F /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common.h; path = "../Hover-Station/common.h"; sourceTree = SOURCE_ROOT; };
 		462803D50F2BFFD50067C30F /* joystick.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = joystick.c; path = ../Joystick/joystick.c; sourceTree = SOURCE_ROOT; };
 		462803D60F2BFFD50067C30F /* joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = joystick.h; path = ../Joystick/joystick.h; sourceTree = SOURCE_ROOT; };
 		462803D70F2BFFEE0067C30F /* Motor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Motor.c; path = ../Motor/Motor.c; sourceTree = SOURCE_ROOT; };
@@ -83,6 +83,19 @@
 			passBuildSettingsInEnvironment = 1;
 			productName = "Build All";
 		};
+		99C4DA6D0F3784C500FD5700 /* Base-Flash */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = flash;
+			buildConfigurationList = 99C4DA740F3784CB00FD5700 /* Build configuration list for PBXLegacyTarget "Base-Flash" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = "Base-Flash";
+			passBuildSettingsInEnvironment = 1;
+			productName = "Base-Flash";
+		};
 /* End PBXLegacyTarget section */
 
 /* Begin PBXProject section */
@@ -96,6 +109,7 @@
 			projectRoot = "";
 			targets = (
 				407952600CEA391500E202DC /* Base */,
+				99C4DA6D0F3784C500FD5700 /* Base-Flash */,
 			);
 		};
 /* End PBXProject section */
@@ -133,6 +147,27 @@
 			};
 			name = Release;
 		};
+		99C4DA6E0F3784C500FD5700 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Base-Flash";
+			};
+			name = Debug;
+		};
+		99C4DA6F0F3784C500FD5700 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Base-Flash";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -150,6 +185,15 @@
 			buildConfigurations = (
 				407952620CEA393300E202DC /* Debug */,
 				407952630CEA393300E202DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		99C4DA740F3784CB00FD5700 /* Build configuration list for PBXLegacyTarget "Base-Flash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99C4DA6E0F3784C500FD5700 /* Debug */,
+				99C4DA6F0F3784C500FD5700 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -8,6 +8,7 @@
  */
 
 #include <stdio.h>
+#include <stdbool.h>
 #include <util/delay.h>
 #include "joyMotors.h"
 #include "../uart/uart.h"
@@ -15,9 +16,20 @@
 #include "../Motor/Motor.h"
 #include "../common.h"
 
+#define TIMEOUT_VAL 1000
+
+// A hack to deal with a problem in the radio driver.
+#define RADIO_SET_RECEIVE() do { \
+                                radio_set_receive(); \
+                                radio_set_receive(); \
+                            } while(0)
+
 volatile uint8_t radio_buffer[PAYLOAD_BYTES];
-volatile int packetReceived = 0;
-volatile char * printBuf[255];
+volatile bool sendJoyStickPacket = true;
+
+// UART buffer
+static volatile char * printBuf[255];
+volatile int bufLen = 0;
 
 int
 main(void){
@@ -34,20 +46,19 @@ main(void){
 	
 	uart_write((uint8_t*)"UART.START\r\n", 12);
 	int i = 0, j = 0;
-	packetReceived = 0;
 	
 	for(;;) {
-		
-		if (!packetReceived)  {
+		if (sendJoyStickPacket)  {
 			for (j = 0; j < 4; ++j) {
 				updateMotor();
 				for(i = 0; i<4; ++i) _delay_ms(250);
 			}
-			packetReceived = 1;
+			sendJoyStickPacket = false;
+            
+            // After four control packets, wait for sonar information.
+            RADIO_SET_RECEIVE();
 		} else {
-			radio_set_receive();
-			radio_set_receive();
-			_delay_ms(250);
+            _delay_ms(25);
 		}
 	}
 	
@@ -56,9 +67,8 @@ main(void){
 
 ISR(INT4_vect) 
 {
-    int i;
+    int i, sonarDist;
     
-    // displayMesg("Int4\r\n");
     PORTD ^= _BV(PORTD4);
     
     for (i = 0; i < PAYLOAD_BYTES; i++)
@@ -67,13 +77,13 @@ ISR(INT4_vect)
     }
 	
     /* print out the radio packet on uart */
-    int sonarDist = ((packet_t *) radio_buffer)->x;
-	int len = sprintf((char *)printBuf, "Sonar: %d\r\n", sonarDist);
-	uart_write((uint8_t*)printBuf, len);
+    sonarDist = ((packet_t *) radio_buffer)->x;
+	bufLen = sprintf((char *)printBuf, "Sonar: %d\r\n", sonarDist);
+	uart_write((uint8_t*)printBuf, bufLen);
+    
+	sendJoyStickPacket = true;
     
     /* setup the radio to receive another packet */
     radio_set_receive();
-	
-	packetReceived = 0;
 }
 
