@@ -18,7 +18,7 @@
 		462803E10F2C00CA0067C30F /* joyMotors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = joyMotors.h; sourceTree = "<group>"; };
 		462803E80F2C0D2A0067C30F /* uart.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = uart.c; path = ../uart/uart.c; sourceTree = SOURCE_ROOT; };
 		462803E90F2C0D2A0067C30F /* uart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uart.h; path = ../uart/uart.h; sourceTree = SOURCE_ROOT; };
-		46B748B90F317F4A00468348 /* radio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = radio.h; path = ../radio_2way/radio/radio.h; sourceTree = SOURCE_ROOT; };
+		46B748B90F317F4A00468348 /* radio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = radio.h; path = "../Hover-Station/radio/radio.h"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */

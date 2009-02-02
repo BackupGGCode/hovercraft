@@ -15,12 +15,12 @@
 
 
 volatile uint8_t radio_buffer[PAYLOAD_BYTES];
-char toPrint[50];
-
 volatile uint8_t x = 0;
 volatile uint8_t y = 0;
 volatile uint8_t son = 0;
-//char buff[50];
+volatile int pktCounter = 0;
+volatile char toPrint[50];
+volatile int len;
 
 int main(void)
 {
@@ -38,8 +38,23 @@ int main(void)
 	
     /* insert your hardware initialization here */
     for(;;){
-        
+		
 		son = read_distance();
+		int i = 0;
+
+		if (pktCounter == 4) {
+			len = sprintf(toPrint, "Sending sonar: %d\r\n", son);
+			uart_write((uint8_t *)toPrint, len);
+			packet_t p = {son, son};
+			for(i = 0; i < 10; ++i) {
+				radio_send(BASE_ADDRESS, (uint8_t *)&p);
+				_delay_ms(250);
+			}
+			pktCounter = 0;
+			radio_set_receive();
+			radio_set_receive();
+		}
+		
 	//	int len = sprintf(buff, "%d\r\n", son);
 	//	uart_write((uint8_t*)buff, len);
 		if (son < 12) {
@@ -83,9 +98,7 @@ ISR (INT4_vect)
     int i;
     
 	packet_t* packet;
-	
-    // displayMesg("Int4\r\n");
-    PORTD ^= _BV(PORTD4);
+	PORTD ^= _BV(PORTD4);
     
     for (i = 0; i < PAYLOAD_BYTES; i++)
     {
@@ -95,7 +108,7 @@ ISR (INT4_vect)
 	packet = (packet_t*) radio_buffer;
     /* print out the radio packet on uart */
 	
-	int len = sprintf(toPrint, "X %d, Y %d ", packet->x, packet->y);
+	int len = sprintf(toPrint, "X %d, Y %d\r\n", packet->x, packet->y);
 	
 	x = packet->x;
 	y = packet->y;
@@ -104,5 +117,6 @@ ISR (INT4_vect)
     
     /* setup the radio to receive another packet */
     radio_set_receive();
+	++pktCounter;
 }
 

@@ -100,11 +100,11 @@
 #define DATA_HIGH()   DATA_PORT |= _BV(DATA_PINNUM)
 #define DATA_LOW()    DATA_PORT &= ~_BV(DATA_PINNUM)
 
-typedef 
-struct{
+typedef struct 
+{
 	uint8_t x;
 	uint8_t y;
-}packet_t;
+} packet_t;
 
 /** Buffer to hold message contents. Volatile so accessible outside ISR. */
 extern volatile uint8_t radio_buf[PAYLOAD_BYTES];
