@@ -19,49 +19,67 @@
 		462803E80F2C0D2A0067C30F /* uart.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = uart.c; path = ../uart/uart.c; sourceTree = SOURCE_ROOT; };
 		462803E90F2C0D2A0067C30F /* uart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = uart.h; path = ../uart/uart.h; sourceTree = SOURCE_ROOT; };
 		46B748B90F317F4A00468348 /* radio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = radio.h; path = "../Hover-Station/radio/radio.h"; sourceTree = SOURCE_ROOT; };
+		9974B68A0F36D69E00BAAFAE /* radio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = radio.c; path = "../Hover-Station/radio/radio.c"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		4079523B0CEA382200E202DC = {
 			isa = PBXGroup;
 			children = (
-				46B748B90F317F4A00468348 /* radio.h */,
-				462803E80F2C0D2A0067C30F /* uart.c */,
-				462803E90F2C0D2A0067C30F /* uart.h */,
-				462803E00F2C00CA0067C30F /* joyMotors.c */,
-				462803E10F2C00CA0067C30F /* joyMotors.h */,
-				462803DB0F2C00A80067C30F /* mainJoy.c */,
-				462803DD0F2C00A80067C30F /* Makefile */,
-				462803D70F2BFFEE0067C30F /* Motor.c */,
-				462803D80F2BFFEE0067C30F /* Motor.h */,
-				462803D50F2BFFD50067C30F /* joystick.c */,
-				462803D60F2BFFD50067C30F /* joystick.h */,
-				462803D40F2BFFC40067C30F /* common.h */,
-				4079525D0CEA38CC00E202DC /* firmware */,
+				9974B6740F36D1E400BAAFAE /* Headers */,
+				9974B6750F36D1EB00BAAFAE /* Source */,
+				9974B6760F36D1F300BAAFAE /* Others */,
 			);
 			sourceTree = "<group>";
 		};
-		4079525D0CEA38CC00E202DC /* firmware */ = {
+		9974B6740F36D1E400BAAFAE /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				46B748B90F317F4A00468348 /* radio.h */,
+				462803E90F2C0D2A0067C30F /* uart.h */,
+				462803E10F2C00CA0067C30F /* joyMotors.h */,
+				462803D80F2BFFEE0067C30F /* Motor.h */,
+				462803D60F2BFFD50067C30F /* joystick.h */,
+				462803D40F2BFFC40067C30F /* common.h */,
 			);
-			path = firmware;
+			name = Headers;
+			sourceTree = "<group>";
+		};
+		9974B6750F36D1EB00BAAFAE /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				462803DB0F2C00A80067C30F /* mainJoy.c */,
+				462803E00F2C00CA0067C30F /* joyMotors.c */,
+				9974B68A0F36D69E00BAAFAE /* radio.c */,
+				462803E80F2C0D2A0067C30F /* uart.c */,
+				462803D70F2BFFEE0067C30F /* Motor.c */,
+				462803D50F2BFFD50067C30F /* joystick.c */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		9974B6760F36D1F300BAAFAE /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				462803DD0F2C00A80067C30F /* Makefile */,
+			);
+			name = Others;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		407952600CEA391500E202DC /* firmware */ = {
+		407952600CEA391500E202DC /* Base */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = $ACTION;
-			buildConfigurationList = 407952610CEA393300E202DC /* Build configuration list for PBXLegacyTarget "firmware" */;
+			buildConfigurationList = 407952610CEA393300E202DC /* Build configuration list for PBXLegacyTarget "Base" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = firmware;
+			buildWorkingDirectory = "";
 			dependencies = (
 			);
-			name = firmware;
+			name = Base;
 			passBuildSettingsInEnvironment = 1;
 			productName = "Build All";
 		};
@@ -77,7 +95,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				407952600CEA391500E202DC /* firmware */,
+				407952600CEA391500E202DC /* Base */,
 			);
 		};
 /* End PBXProject section */
@@ -104,7 +122,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = main.hex;
+				PRODUCT_NAME = base.hex;
 			};
 			name = Debug;
 		};
@@ -127,7 +145,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		407952610CEA393300E202DC /* Build configuration list for PBXLegacyTarget "firmware" */ = {
+		407952610CEA393300E202DC /* Build configuration list for PBXLegacyTarget "Base" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				407952620CEA393300E202DC /* Debug */,
