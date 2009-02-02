@@ -10,8 +10,8 @@
 #include <avr/io.h>
 #include <stdlib.h>
 #include "common.h"
-#include "../Servo/servo.h"
-#include "../Sonar/sonar.h"
+#include "Servo/servo.h"
+#include "Sonar/sonar.h"
 
 
 volatile uint8_t radio_buffer[PAYLOAD_BYTES];
@@ -43,7 +43,7 @@ int main(void)
 		int i = 0;
 
 		if (pktCounter == 4) {
-			len = sprintf(toPrint, "Sending sonar: %d\r\n", son);
+			len = sprintf((char *)toPrint, "Sending sonar: %d\r\n", son);
 			uart_write((uint8_t *)toPrint, len);
 			packet_t p = {son, son};
 			for(i = 0; i < 10; ++i) {
@@ -108,7 +108,7 @@ ISR (INT4_vect)
 	packet = (packet_t*) radio_buffer;
     /* print out the radio packet on uart */
 	
-	int len = sprintf(toPrint, "X %d, Y %d\r\n", packet->x, packet->y);
+	int len = sprintf((char *)toPrint, "X %d, Y %d\r\n", packet->x, packet->y);
 	
 	x = packet->x;
 	y = packet->y;

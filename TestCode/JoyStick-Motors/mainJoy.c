@@ -68,7 +68,7 @@ ISR(INT4_vect)
 	
     /* print out the radio packet on uart */
     int sonarDist = ((packet_t *) radio_buffer)->x;
-	int len = sprintf(printBuf, "Sonar: %d\r\n", sonarDist);
+	int len = sprintf((char *)printBuf, "Sonar: %d\r\n", sonarDist);
 	uart_write((uint8_t*)printBuf, len);
     
     /* setup the radio to receive another packet */

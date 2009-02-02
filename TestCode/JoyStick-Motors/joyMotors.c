@@ -66,13 +66,13 @@ updateVertically(){
 		setMotorDirection(FORWARD);
 		newSpeed = 256 - intY*2;
 		setMotorSpeed(newSpeed);
-		len = sprintf(toWrite, "Motor Speed Is Forward d\r\n", newSpeed);
+		len = sprintf(toWrite, "Motor Speed Is Forward %d\r\n", newSpeed);
 	}
 	
 	
 	
 	
-	uart_write(toWrite, len);
+	uart_write((uint8_t *)toWrite, len);
 	_delay_ms(250);
 	/*
 		switch (vars) {
