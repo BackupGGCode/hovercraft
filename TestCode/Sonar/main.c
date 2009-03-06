@@ -14,25 +14,18 @@
 #include <avr/interrupt.h>
  int	
  main(void){
-		cli();
-		CLOCK_8MHZ();
-		DDRD  = 0xff;
-		PORTD = 0xff;  // Turn on both LEDs
-			uart_init();
-	 sonar_init();
-	 
-		
-	
+    cli();
+    CLOCK_8MHZ();
+    DDRD  = 0xff;
+    PORTD = 0xff;  // Turn on both LEDs
+    uart_init();
+    sonar_init();
+    sei();
 
-		sei();
+    uart_write((uint8_t*)"UART\r\n", 6);
 
-		uart_write((uint8_t*)"UART\r\n", 6);
-
-
-	for(;;);
+    trigger_sonar();
+    for(;;);
 
  }
-
-
-
 

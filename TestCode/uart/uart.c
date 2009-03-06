@@ -1,19 +1,14 @@
-/** CSC 460/560 Real Time Operating Systems - Mantis Cheng
- *	Fall 2007
- *	
- *	@author Scott Craig
+/**
+ *  @file uart.c
+ *	@brief A driver for sending debugging messages from one radio to another.
  *
- *	A driver for sending debugging messages from one radio
- *	to another. Delivery is not guaranteed.
+ *  @author Scott Craig
  *
- *  NB!: Must be compiled with optimisation at least -O2
+ *  @note Must be compiled with optimisation at least -O2.
  */
 
 #include "uart.h"
 #include <string.h>
-
-static uint8_t uart_TX_buf[UART_TX_BUF_MASK + 1];
-
 
 /** The position in the array of the next byte to be consumed. */
 static int head = 0;
@@ -21,6 +16,9 @@ static int head = 0;
 static int tail = 0;
 /** boolean to indicate buffer not empty */
 static int non_empty = 0;
+
+/** The UART buffer. */
+static uint8_t uart_TX_buf[UART_TX_BUF_MASK + 1];
 
 /**
  * \fn uart_init(void)
