@@ -1,0 +1,210 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXFileReference section */
+		995305C90F61CC00001F71E5 /* DualMotors.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DualMotors.c; sourceTree = "<group>"; };
+		995305CA0F61CC00001F71E5 /* DualMotors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DualMotors.h; sourceTree = "<group>"; };
+		998665F80F2C51AD00E40BAC /* Makefile */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		99F6F15B0F2CFA82006241A9 /* MotorsMain.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = MotorsMain.c; sourceTree = "<group>"; };
+		99FF45320F2C57E00066AFE2 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				99FF45280F2C57B20066AFE2 /* Headers */,
+				9939D9B10F2C4F1F001D2A52 /* Source */,
+				998665F70F2C519800E40BAC /* Others */,
+			);
+			name = Project;
+			sourceTree = "<group>";
+		};
+		9939D9B10F2C4F1F001D2A52 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				995305C90F61CC00001F71E5 /* DualMotors.c */,
+				99F6F15B0F2CFA82006241A9 /* MotorsMain.c */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		998665F70F2C519800E40BAC /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				998665F80F2C51AD00E40BAC /* Makefile */,
+			);
+			name = Others;
+			sourceTree = "<group>";
+		};
+		99FF45280F2C57B20066AFE2 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				995305CA0F61CC00001F71E5 /* DualMotors.h */,
+				99FF45320F2C57E00066AFE2 /* common.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		998236420F2CF6AD00591BD9 /* Motors-Flash */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = flash;
+			buildConfigurationList = 9982364A0F2CF6B200591BD9 /* Build configuration list for PBXLegacyTarget "Motors-Flash" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = "Motors-Flash";
+			passBuildSettingsInEnvironment = 1;
+			productName = "Motors-Flash";
+		};
+		D28A88AD04BDD90700651E21 /* Motors */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "Motors" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = Motors;
+			passBuildSettingsInEnvironment = 1;
+			productName = Project;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "Motors" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* Project */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D28A88AD04BDD90700651E21 /* Motors */,
+				998236420F2CF6AD00591BD9 /* Motors-Flash */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB919008733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = Motors;
+			};
+			name = Debug;
+		};
+		1DEB919108733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CFG = release;
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = Motors;
+			};
+			name = Release;
+		};
+		1DEB919408733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/usr/local/AVRMacPack/avr-4/include/**";
+				ONLY_ACTIVE_ARCH = YES;
+				PATH = "/usr/local/bin/:/usr/local/AVRMacPack/bin/:$PATH";
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		1DEB919508733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/usr/local/AVRMacPack/avr-4/include/**";
+				PATH = "/usr/local/bin/:/usr/local/AVRMacPack/bin/:$PATH";
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+		998236430F2CF6AD00591BD9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Motors-Flash";
+			};
+			name = Debug;
+		};
+		998236440F2CF6AD00591BD9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Motors-Flash";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB918F08733D9F0010E9CD /* Build configuration list for PBXLegacyTarget "Motors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB919008733D9F0010E9CD /* Debug */,
+				1DEB919108733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "Motors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB919408733D9F0010E9CD /* Debug */,
+				1DEB919508733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9982364A0F2CF6B200591BD9 /* Build configuration list for PBXLegacyTarget "Motors-Flash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				998236430F2CF6AD00591BD9 /* Debug */,
+				998236440F2CF6AD00591BD9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}
