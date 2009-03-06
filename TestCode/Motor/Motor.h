@@ -1,12 +1,14 @@
 #ifndef __MOTOR_H__
 #define __MOTOR_H__
 
-
-/** disable default prescaler to make processor speed 8 MHz. */
-
+/** The point at which to switch the motor to operate backward. */
 #define BACKWARD	200
+
+/** The point at which to switch the motor to operate forward. */
 #define FORWARD		201
-#define MIDDLE_Y		48
+
+/** The point at which the joystick position is neutral. */
+#define MIDDLE_Y	179
 
 void motor_init(void);
 void setMotorDirection(int);
