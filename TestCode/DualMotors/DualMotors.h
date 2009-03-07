@@ -71,4 +71,3 @@ void setMotorDuty(motor_t *motor, int duty);
 void setMotorDirection(motor_t *motor, direction_t direction);
 
 #endif
-

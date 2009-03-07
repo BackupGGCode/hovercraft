@@ -18,7 +18,8 @@ void
 pwmInit()
 {
     // Setup timer/counter 0 for fast PWM
-    TCCR0A = (1<<WGM00) | (1<<WGM01) | (0<<COM0A0) | (1<<COM0A1);
+    TCCR0A = (1<<WGM00) | (1<<WGM01) | (0<<COM0A0) | (1<<COM0A1) | \
+             (0<<COM0B0) | (1<<COM0B1);
     TCCR0B = (0<<WGM02) | (0<<CS02)  | (0<<CS01)   | (1<<CS00);
 }
 
