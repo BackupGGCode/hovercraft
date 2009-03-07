@@ -7,20 +7,22 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <util/delay.h>
 #include "DualMotors.h"
 #include "common.h"
 
 int main(void)
 {
-    /* insert your hardware initialization here */
     motor_t leftMotor = {
-                          &PORTC, &DDRC, PORTC1, // PWM
-                          &PORTB, &DDRB, PORTB7  // Direction
+                          &PORTB, &DDRB, PORTB7, // PWM
+                          &PORTC, &DDRC, PORTC1, // Direction
+                          &OCR0A                 // Top value
                         };
     
     motor_t rightMotor = {
-                           &PORTC, &DDRC, PORTC1,
-                           &PORTB, &DDRB, PORTB7
+                           &PORTB, &DDRB, PORTB7, // PWM
+                           &PORTC, &DDRC, PORTC1, // Direction
+                           &OCR0A                 // Top value
                          };
     
     cli();
@@ -29,6 +31,14 @@ int main(void)
     motorInit(&rightMotor);
     pwmInit();
     sei();
+    
+    setMotorDuty(&leftMotor, 230);
+    
+    int i=0;
+    for (i=0; i<16; ++i) _delay_ms(50);
+    
+    setMotorDirection(&leftMotor, FORWARD);
+    setMotorDuty(&leftMotor, 230);
     
     for(;;){
         /* insert your main loop code here */

@@ -32,10 +32,20 @@ typedef struct
     
     /** The direction pin. */
     uint8_t directionPin;
+    
+    /** The register that contains the TOP value. */
+    volatile uint8_t *topRegister;
 } motor_t;
+
+typedef enum
+{
+    FORWARD, BACKWARD
+} direction_t;
 
 /**
  * Initialization method for the motors.
+ *
+ * @param motor The motor to be initialized.
  */
 void motorInit(motor_t * motor);
 
@@ -43,6 +53,22 @@ void motorInit(motor_t * motor);
  * Initializes the Timer/Counter 0 for PWM.
  */
 void pwmInit();
+
+/**
+ * Sets the speed of the motor.
+ *
+ * @param motor The motor to be affected.
+ * @param duty  The new duty cycle.
+ */
+void setMotorDuty(motor_t *motor, int duty);
+
+/**
+ * Sets the motor direction.
+ *
+ * @param motor     The motor to be affected.
+ * @param direction The direction for the motor to spin.
+ */
+void setMotorDirection(motor_t *motor, direction_t direction);
 
 #endif
 
