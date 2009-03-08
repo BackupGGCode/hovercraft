@@ -8,7 +8,7 @@
 #------------------------------------------------------------------------------
 SOURCE_FILES = Hover-StationMain.c \
 			   radio/radio.c 	   \
-			   ../Motor/Motor.c    \
+			   ../DualMotors/DualMotors.c    \
 			   ../uart/uart.c      \
 			   ../Servo/servo.c    \
 			   ../Sonar/sonar.c

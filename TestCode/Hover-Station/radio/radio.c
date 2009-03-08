@@ -335,10 +335,7 @@ static int radio_write(uint8_t * const arr, int num_bytes)
  *    example, the main program would declare:
  *    uint8_t dest_addr[] = {0xAB,0xBA};
  *
- * @param arr The character array to be used for populating the payload.
- *
- * @param num_bytes The number of bytes message will occupy in payload.
- *      This value cannot be greater than PAYLOAD_BYTES!
+ * @param arr The packet of the form an array of bytes.
  */
 void radio_send(uint16_t const addr_destination, uint8_t * const arr)
 {

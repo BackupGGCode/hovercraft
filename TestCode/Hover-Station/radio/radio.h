@@ -100,10 +100,14 @@
 #define DATA_HIGH()   DATA_PORT |= _BV(DATA_PINNUM)
 #define DATA_LOW()    DATA_PORT &= ~_BV(DATA_PINNUM)
 
+/** The structure which represents a packet. */
 typedef struct 
 {
-	uint8_t x;
-	uint8_t y;
+    /** The x value of the joystick. */
+	uint8_t x; 	
+
+    /** The y value of the joystick. */
+    uint8_t y; 
 } packet_t;
 
 /** Buffer to hold message contents. Volatile so accessible outside ISR. */
@@ -111,10 +115,8 @@ extern volatile uint8_t radio_buf[PAYLOAD_BYTES];
 /** Length of buffer holding radio packet. 1 signifies packet received. */
 extern volatile uint8_t packet_available;
 
-/** Routine for initializing the radio. */
 int radio_init(uint16_t address, uint8_t rx_enable);
 
-/** Routine for sending a radio packet. */
 void radio_send(uint16_t const addr, uint8_t * const arr);
 
 /** Routine to switch radio into transmit mode, to send a packet. */

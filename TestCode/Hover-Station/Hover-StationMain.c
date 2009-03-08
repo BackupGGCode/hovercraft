@@ -1,10 +1,10 @@
 /**
- * Main.
+ * @file Hover-StationMain.c
+ * @brief The hovercraft driver.
  * 
  * @author: Katherine Gunion
- * @copyright: Copyright 2009 Katherine Gunion
+ * Copyright: Copyright 2009 Katherine Gunion
  * 
- * License: <insert your license reference here>
  */
 
 #include <avr/io.h>
@@ -13,40 +13,147 @@
 #include "Servo/servo.h"
 #include "Sonar/sonar.h"
 
-// A hack to deal with a problem in the radio driver.
+/** A macro to circumvent a bug in the radio driver. */
 #define RADIO_SET_RECEIVE() do { \
                                 radio_set_receive(); \
                                 radio_set_receive(); \
                             } while(0)
 
+/** The value to wait before triggering the sonar. */
 #define DELAY_VAL 500
+
+/** The timeout value that determines when to send out sonar information. */
 #define TIMEOUT_VAL 5
 
+/** The buffer that holds a packet. */
 volatile uint8_t radio_buffer[PAYLOAD_BYTES];
+
+/** The x value of the joystick. */
 volatile uint8_t x = 0;
+
+/** The y value of the joystick. */
 volatile uint8_t y = 0;
+
+/** The distance returned by the sonar driver. */
 volatile uint8_t son = 0;
+
+/** The UART buffer. */
 volatile char toPrint[50];
+
+/** The length of the string inside the UART buffer. */
 volatile int len;
+
+/** The count down for the timeout. */
 volatile int timeoutCounter = 0;
 
+/**
+ * Main function.
+ */
 int 
 main(void)
 {
+    cli();
+    motor_t rightMotor = {
+        &PORTB, &DDRB, PORTB7, // PWM
+        &PORTC, &DDRC, PORTC1, // Direction
+        &OCR0A                 // Top value
+    };
+    
+    motor_t leftMotor = {
+        &PORTD, &DDRD, PORTD0, // PWM
+        &PORTB, &DDRB, PORTB0, // Direction
+        &OCR0B                 // Top value
+    };    
 	
-	cli();
     NO_CLK_PRESCALE();
 	uart_init();
-	motor_init();
+    motorInit(&leftMotor);
+    motorInit(&rightMotor);
+    pwmInit();
+    
 	radio_init(HOV_ADDRESS, RECEIVE_MODE);
 	servoInit();
 	sonar_init();
 	sei();
-    
-	setMotorON();
 	
+    len = sprintf((char *)toPrint, "Starting ...\r\n");
+    uart_write((uint8_t *)toPrint, len);
+    
+    setMotorDuty(&leftMotor, 255);
+    setMotorDuty(&rightMotor, 255);
+    
+    int i=0;
+    for (i=0; i<32; ++i) _delay_ms(50);
+    
     for(;;) {
-		
+        
+        if (y > 250) {
+            setMotorDirection(&leftMotor, FORWARD);
+            setMotorDirection(&rightMotor, FORWARD);  
+            setMotorDuty(&leftMotor, 255);
+            setMotorDuty(&rightMotor, 255);
+        }
+        
+        if (y < 60) {
+            setMotorDirection(&leftMotor, BACKWARD);
+            setMotorDirection(&rightMotor, BACKWARD);  
+            setMotorDuty(&leftMotor, 255);
+            setMotorDuty(&rightMotor, 255);
+        }
+        
+        if (x < 70) {
+            setMotorDirection(&leftMotor, BACKWARD);
+            setMotorDirection(&rightMotor, FORWARD);  
+            setMotorDuty(&leftMotor, 255);
+            setMotorDuty(&rightMotor, 255);
+        }
+        
+        if (x > 250) {
+            setMotorDirection(&leftMotor, FORWARD);
+            setMotorDirection(&rightMotor, BACKWARD);  
+            setMotorDuty(&leftMotor, 255);
+            setMotorDuty(&rightMotor, 255);
+        }
+        
+        if (y > 250) {
+            setMotorDirection(&leftMotor, FORWARD);
+            setMotorDirection(&rightMotor, FORWARD);  
+            setMotorDuty(&leftMotor, 255);
+            setMotorDuty(&rightMotor, 255);
+        }
+        
+        if (y > 200 &&  x > 220) {
+            setMotorDirection(&leftMotor, FORWARD);
+            setMotorDirection(&rightMotor, FORWARD);  
+            setMotorDuty(&leftMotor, 255);
+            setMotorDuty(&rightMotor, 245);
+        }
+        
+        if (y > 200 && x < 130) {
+            setMotorDirection(&leftMotor, FORWARD);
+            setMotorDirection(&rightMotor, FORWARD);  
+            setMotorDuty(&leftMotor, 245);
+            setMotorDuty(&rightMotor, 255);
+        }
+        
+        if (y < 100 && x < 130) {
+            setMotorDirection(&leftMotor, BACKWARD);
+            setMotorDirection(&rightMotor, FORWARD);  
+            setMotorDuty(&leftMotor, 255);
+            setMotorDuty(&rightMotor, 245);
+        }
+        if (y < 200 && x > 230) {
+            setMotorDirection(&leftMotor, FORWARD);
+            setMotorDirection(&rightMotor, BACKWARD);  
+            setMotorDuty(&leftMotor, 245);
+            setMotorDuty(&rightMotor, 255);
+        }
+        if (x < 230 && x > 130 && y > 100 && y < 200)
+        {
+            setMotorDuty(&leftMotor, 150);
+            setMotorDuty(&rightMotor, 150);
+        }
+        /*
 		son = read_distance();
 		int i = 0;
 
@@ -67,7 +174,6 @@ main(void)
 		if (son < 12) {
 			setMotorSpeed(0);
 		} else {
-            
 			if( y < MIDDLE_Y){
 				setMotorDirection(FORWARD);
 				setMotorSpeed(255-(y*3));
@@ -95,11 +201,15 @@ main(void)
 		_delay_ms(DELAY_VAL);
 		trigger_sonar();
 		++timeoutCounter;
+         */
     }
 	
     return 0;   /* never reached */
 }
 
+/**
+ * The ISR for the radio.
+ */
 ISR (INT4_vect)
 {
     int i;
