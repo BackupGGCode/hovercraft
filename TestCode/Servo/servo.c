@@ -1,6 +1,6 @@
-/*
- *  servo.c
- *
+/**
+ *  @file servo.c
+ *  @brief The servo driver.
  *
  *  Created by Katherine Gunion on 24/01/09.
  *  Copyright 2009 University of Victoria. All rights reserved.
@@ -15,6 +15,9 @@
 #define NO_PRESCALE() CLKPR=(1<<CLKPCE); \
                       CLKPR=0x00
 
+/**
+ * Initializes the servo motor.
+ */
 void
 servoInit(void){
 
@@ -30,9 +33,14 @@ servoInit(void){
 	OCR1B = 800; //corresponds to 8% duty cycle or 2ms pulse width
 }
 
-
+/**
+ * Sets the duty cycle of the servo motor. The duty cycle determines how
+ * much the servo motor turns.
+ * 
+ * @param duty The amount of which the server should rotate.
+ * @return duty The duty cycle.
+ */
 int servoDuty(int duty){
-
 	OCR1B = duty;
 	return duty;
 }
