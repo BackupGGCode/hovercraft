@@ -87,71 +87,64 @@ main(void)
     
     for(;;) {
         
-        if (y > 250) {
+        if (y > 250 && x < 250 && x > 90) {
             setMotorDirection(&leftMotor, FORWARD);
             setMotorDirection(&rightMotor, FORWARD);  
             setMotorDuty(&leftMotor, 255);
             setMotorDuty(&rightMotor, 255);
-        }
+        } else 
         
-        if (y < 60) {
+        if (y < 60 && x < 250 && x > 90) {
             setMotorDirection(&leftMotor, BACKWARD);
             setMotorDirection(&rightMotor, BACKWARD);  
             setMotorDuty(&leftMotor, 255);
             setMotorDuty(&rightMotor, 255);
-        }
+        } else
         
-        if (x < 70) {
+        if (x < 80 && y > 130 && y < 230) {
             setMotorDirection(&leftMotor, BACKWARD);
             setMotorDirection(&rightMotor, FORWARD);  
             setMotorDuty(&leftMotor, 255);
             setMotorDuty(&rightMotor, 255);
-        }
+        } else
         
-        if (x > 250) {
+        if (x > 250 && y > 130 && y < 230) {
             setMotorDirection(&leftMotor, FORWARD);
             setMotorDirection(&rightMotor, BACKWARD);  
             setMotorDuty(&leftMotor, 255);
             setMotorDuty(&rightMotor, 255);
-        }
-        
-        if (y > 250) {
-            setMotorDirection(&leftMotor, FORWARD);
-            setMotorDirection(&rightMotor, FORWARD);  
-            setMotorDuty(&leftMotor, 255);
-            setMotorDuty(&rightMotor, 255);
-        }
+        } else
         
         if (y > 200 &&  x > 220) {
             setMotorDirection(&leftMotor, FORWARD);
             setMotorDirection(&rightMotor, FORWARD);  
             setMotorDuty(&leftMotor, 255);
             setMotorDuty(&rightMotor, 245);
-        }
+        } else
         
         if (y > 200 && x < 130) {
             setMotorDirection(&leftMotor, FORWARD);
             setMotorDirection(&rightMotor, FORWARD);  
             setMotorDuty(&leftMotor, 245);
             setMotorDuty(&rightMotor, 255);
-        }
+        } else
         
         if (y < 100 && x < 130) {
             setMotorDirection(&leftMotor, BACKWARD);
             setMotorDirection(&rightMotor, FORWARD);  
             setMotorDuty(&leftMotor, 255);
             setMotorDuty(&rightMotor, 245);
-        }
+        } else
         if (y < 200 && x > 230) {
             setMotorDirection(&leftMotor, FORWARD);
             setMotorDirection(&rightMotor, BACKWARD);  
             setMotorDuty(&leftMotor, 245);
             setMotorDuty(&rightMotor, 255);
-        }
-        if (x < 230 && x > 130 && y > 100 && y < 200)
+        } else
+        //if (x < 230 && x > 130 && y > 100 && y < 200)
         {
-            setMotorDuty(&leftMotor, 150);
-            setMotorDuty(&rightMotor, 150);
+            setMotorDuty(&leftMotor, 0);
+            setMotorDuty(&rightMotor, 0);
         }
         /*
 		son = read_distance();
