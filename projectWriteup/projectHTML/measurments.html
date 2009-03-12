@@ -1,0 +1,42 @@
+<h1>Measurments</h1>
+<p> For this project we were required to measure various aspects of the control and motion of the craft. These measurements are intended to help us 
+when we are making the craft autonomous. The required measurements are, maximum speed, stopping distance, PWM cycles vs actual speed and payload vs actual speed.</p>
+
+<h2> Distance </h2>
+<p> The first step in many of these calculations is the ability to record the distance between the hovercraft and an oncoming object. We have decided to use the sonar from the first project to calculate this distance. The sonar from the first project is calibrated to report the distance between the sonar and an object in inches. 
+</p>
+<h2>Speed</h2>
+<p> To calculate the speed of the craft, we compared the rate at which the distance to the object ahead was changing. The most challening aspect of this design was accuratly calculating the time between sonar readings.</p>
+
+
+<p>Matrix for PWM And SPEED</p>
+
+<p>Once we were acurately able to calculate the speed of the craft it was simple to calculate the stopping distance. We set up a test area in the a hallway with a tape measurer along the wall.
+We had two differen stopping tests. In the first, we would drive the robot down the hall. Once the robot steadily reached the testing speed, we would allow the joystick to snap back into the center 'resting' position and measure the distance the robot traveled.</p>
+
+<h3>Table for 'resting' stop</h3>
+<table border = "1">
+<tr> <td>Speed</><td>Stopping Distance</td></tr>
+<tr><td></td><td></td><tr>
+<tr><td></td><td></td><tr>
+<tr><td></td><td></td><tr>
+<tr><td></td><td></td><tr>
+<tr><td></td><td></td><tr>
+<tr><td></td><td></td><tr>
+</table>
+    
+<p>The other way that the robot could stop, was by  reversing both motors. We would have the same initial set up with a tape measurer in the hall way, but once the craft reached the 'testing' speed, we would then pull the joystick into maximum reverse position. For this calculation we were also required to record the time it took the craft to stop. The reason we needed to do this, was so that when we are driving the robot autonomously, we are able to calculate the duration that the motors must run in reverse to come to a complete stand still with out travelling backwards.</p>
+
+<h3>Table for 'reverse' stop</h3>
+<table border = "1">
+<tr> <td>Speed</><td>Stopping Distance</td><td>Time to Stop</td></tr>
+<tr><td></td><td></td><td></td><tr>
+<tr><td></td><td></td><td></td><tr>
+<tr><td></td><td></td><td></td><tr>
+<tr><td></td><td></td><td></td><tr>
+<tr><td></td><td></td><td></td><tr>
+</table>
+
+<h2> Payload</h2>
+
+<p> All of the above measurements are recorded with only the required components placed on the hovercraft. The following table, describes how the speed of the craft changes with the amount of excess weight is added to the craft. All of the additional weight was distributed evenly around the board to minimize the rotational spin. The table also describes how the speed changes when the motors are receiving full (255) PWM.<p>
