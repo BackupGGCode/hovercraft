@@ -1,0 +1,189 @@
+<h1>Design</h1>
+<p>The following figures show the top, side, front and rear views for the vehicle:</p>
+<img src="images/stories/topdown.png" mce_src="http://hovercraft.myavalon.ca/images/stories/topdown.png" alt="alt" />
+<p>The first design consisted of a rounded front, straight sides and a straight back.  However, since the front and back were not symmetric, we concluded that the rear of the craft should be rounded to match the front.  This symmetric design better distributes the underlying air cushion to all parts of the vehicle.</p>
+<img src="images/stories/sideview.png" mce_src="http://hovercraft.myavalon.ca/images/stories/sideview.png" alt="alt" /></p>
+<p>The plenum chamber receives air from a single propeller mounted in the middle of the chasis.  The middle propeller is housed by a triangular container.  Initially the container was completely open at one side.  We realized that too much air was escaping a a cover with a circular cut-out was fitted over the opening.  The cut-out better fit the diameter of the fan, resulting in minimal air escaping from the opening.</p>
+<img alt="alt" src="http://hovercraft.myavalon.ca/images/stories/back.png" />
+<p>The electronic components are mounted at the rear of the hovercraft.  This facilitates making connections from the breadboard to the nearby DC Motors, servo motor, and sonars.  The combined mass of all the components added a significant force to the rear of the chasis.  To counter this, we placed counter weights on the front of the body.</p>
+<img alt="alt" src="http://hovercraft.myavalon.ca/images/stories/front.png" />
+<h1>Constraints</h1>
+<h2>Payload Weight</h2>
+<p>In order for the hovercraft to stay afloat, the internal air pressure must counter external forces placed on the surface of the vehicle by the components.  The following table describes the components and their masses:</p>
+
+
+<table width="100%" cellspacing="1" cellpadding="1" border="1">
+    <tbody>
+        <tr>
+            <td style="text-align: center;"><em><strong>Component</strong></em></td>
+            <td style="text-align: center;"><strong>Quantity</strong></td>
+            <td style="text-align: center;"><strong>Mass</strong></td>
+        </tr>
+        <tr>
+            <td>Battery</td>
+            <td>2</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Breadboard</td>
+            <td>2</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Microcontroller</td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Sonar</td>
+            <td>3</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>DC Motor (large)</td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>Servo Motor</td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td>DC Motor (small)</td>
+            <td>2</td>
+            <td>0</td>
+        </tr>
+        <tr>
+            <td><strong>Total</strong></td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Rigidity</h2>
+<p>The hovercraft body is made from two thin sheets of styrofoam separated by 12 styrofoam spacers 1'' thick.  This has proven to be a very strong design, easily capable of supporting the payload of the electronics. In fact, we distributed additional weight evenly across the body and found that the hovercraft could support at least 1 kg.</p>
+<p>An inflatable skirt made of mylar surrounds the body.  Once inflated, the skirt serves two purposes.  First, because it expands to over two inches, it provides additional surface area, reducing the overall pressure at any given point on the body.  Second, the skirt acts as a flexible and damage resistant bumper, protecting the body from nearby objects during testing.</p>
+<p>The first attempt at constructing the mylar skirt was not successful.  Lack of foresight resulted in a skirt that was too baggy in some areas, while exposing too many holes in others.  The second attempt was much more calculated and pragmatic.  The resulting skirt was much more evenly distributed and provided reasonably uniform inflation around the entire body.  That said, the hovercraft still managed to move about when it was supposed to be idle.  We addressed this issue by placing weights on the body to counteract the uneven escape of air on one side. </p>
+<h2>Lift</h2>
+<p>The decision to use a single, vertically mounted propeller to feed air into the plenum chamber was in direct response to the problem of rotational torque plaguing horizontally mounted propellers.  In a horizontal design, the rotation of the blades applies an overall torque on the hovercraft causing it to spin.  Dealing with this force is a burden.  One approach is to install a second horizontal propeller which spins in the opposite direction. The opposite spin of the two motors cancels any directional torque felt by the craft. We chose to avoid this problem entirely by mounting a single motor vertically in the middle of the body.  A container built over the propeller captures the incoming air and forces into the plenum chamber.</p>
+
+<p>To avoid ground effect, we applied full power to the lift propeller.  Next, we methodically added weight to the body such that the hovercraft moved freely along the ground, but was not vastly overpowered by the fan.  Keeping the vehicle as close as possible to the ground	allows for the most control over the hovercraft's direction.  </p>
+	
+<h2>Thrust and Control</h2>
+
+<h3>Remote Control Code</h3>
+<p>The following functions are part of the base station software.  They are used to send control signals form the joystick to the hovercraft, using radio communication. </p>
+<pre name="code" class="c">
+	unsigned char X = 0, Y = 0, Z = 0;
+
+	void updateMotor(){	
+		packet_t packet;
+
+		sample_joystick(&X,&Y,&Z);
+
+		_delay_ms(250);
+		char test[50];	
+		updateVertically();
+
+		packet.x = (uint8_t) X;
+		packet.y = (uint8_t) Y;
+		radio_send(HOV_ADDRESS, (uint8_t*) &packet);	
+	}
+
+
+	void updateVertically(){
+		int intY = (int) Y;
+		int len = 0;
+		char toWrite[50];
+		uint8_t newSpeed = 0;
+
+		if(intY > 125){ //To go Backwards
+			setMotorDirection(BACKWARD);
+			newSpeed = (intY-125)*2;
+			setMotorSpeed( newSpeed);
+			len = sprintf(toWrite, "Motor Speed Is Backward %d\r\n", intY);
+		}else{
+			setMotorDirection(FORWARD);
+			newSpeed = 256 - intY*2;
+			setMotorSpeed(newSpeed);
+			len = sprintf(toWrite, "Motor Speed Is Forward %d\r\n", newSpeed);
+		}
+
+		_delay_ms(250);	
+	}	
+</pre>
+
+<h3>Differential Turning Code</h3>
+<p>To implement differential turning, we began by using the provided motor driver code. We then defined a struct to abstract a motor:</p>
+<pre name="code" class="c">
+	/**
+	 * A motor type.
+	 */
+	typedef struct
+	{
+	    /** The port at which the PWM signal is coming out of. */
+	    volatile uint8_t *pwmPort;
+
+	    /** The data direction register for PWM. */
+	    volatile uint8_t *pwmDDR;
+
+	    /** The PWM pin. */
+	    uint8_t pwmPin;
+
+	    /** The port at which the direction of the motor can be controlled. */
+	    volatile uint8_t *directionPort;
+
+	    /** The data direction register for the direction pin. */
+	    volatile uint8_t *directionDDR;
+
+	    /** The direction pin. */
+	    uint8_t directionPin;
+
+	    /** The register that contains the TOP value. */
+	    volatile uint8_t *topRegister;
+	} motor_t;	
+</pre>
+<p>We also defined an enumerated type to represent forward and backward direction:</p>
+<pre name="code" class="c">
+	typedef enum
+	{
+	    FORWARD, BACKWARD
+	} direction_t;	
+</pre>	
+
+<p>The two motors and the timer for pulse width modulation must first be initialized:</p>
+<pre name="code" class="c">
+	/**
+	 * Initialization method for the motors.
+	 *
+	 * @param motor The motor to be initialized.
+	 */
+	void motorInit(motor_t * motor);
+
+	/**
+	 * Initializes the Timer/Counter 0 for PWM.
+	 */
+	void pwmInit();	
+</pre>
+
+<p>The following functions are used to control the independent speed and direction of the motors. By allowing the duty of each motor to be set, differential turning can be established.</p>
+
+<pre name="code" class="c">
+/**
+ * Sets the speed of the motor.
+ *
+ * @param motor The motor to be affected.
+ * @param duty  The new duty cycle.
+ */
+void setMotorDuty(motor_t *motor, int duty);
+
+/**
+ * Sets the motor direction.
+ *
+ * @param motor     The motor to be affected.
+ * @param direction The direction for the motor to spin.
+ */
+void setMotorDirection(motor_t *motor, direction_t direction);
+</pre>
