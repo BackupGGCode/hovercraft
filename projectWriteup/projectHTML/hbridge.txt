@@ -1,0 +1,9 @@
+A challenge that we encountered was that we were not getting enough power to our thrust motors. This lack of thrust was making it nearly impossible to accelerate and turn. In the initial testing of the power of the motors, we connected the thrusting motors directly to the 7 volt power source. In this experiment, the craft moved forward at a very quick speed over both the lenolium and the carpet.
+
+Once we had the forward motors connected through the h-brige, the craft hardly moved. The fans were moving very slowly and hardly disturbed any air. Our initial hypothesis was that there was not enough voltage being supplied to the h-bridge. To solve this problem we tried to connect extra batteries as the power source and monitor the voltage difference between the output pins on the h-brige. Regardless of the amount of voltage that we connected to the Vs pin on the h-bridge the motors were still spinning much too slowly to move the craft.
+
+We then decided our problem is that L293D can only handle 1.5A max.  A higher amperage version was also made available to us, but this version of the h-bridge that we had was broken. Upon further research we found that we could 'piggy back' two h-bridges to increase the current made available to the motors.
+
+Below is an image of the pin connections and theory.
+
+
