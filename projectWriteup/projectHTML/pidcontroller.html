@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>PID Controller Concepts</title>
+  </head>
+
+  <body>
+    <h1>Introduction</h1>
+    For our hovercraft project, we ran into a major weight balance issues
+    with the hovercraft. Since a hovercraft is practically floating on a layer
+    of air, it is very sensitive to weight imbalance. The imbalance in our
+    hovercraft that it will stray(yaw) off course and become very difficult to
+    control. Presented with such a situation, a PID controller can potentially
+    correct the imbalance issues by having the hovercraft automatically adjust
+    to the yaw produced by the imbalance. Please note that A PID controller is
+    <b>NOT</b> implemented for this project. This goal of this document is to
+    provide a possible solution.
+
+    <h1>PID Controller Primer</h1>
+    PID in PID controller stands for Proportional, Integral, Derivative.
+    These three terms are used to define the behaviour of the controller. Each
+    of them contributes to the final output of the controller, and different
+    weights can be assigned to different terms. The weights selection process
+    (tunning) is not an easy task. In a nutshell, a PID controller can output
+    corrective actions based on the difference(error) between a set point
+    (SP), the desired value, and a measured process variable (PV), the
+    instantaneous value.
+  </body>
+</html>
+<!-- vim: set sts=2 sw=2 ts=2 text: -->
+
