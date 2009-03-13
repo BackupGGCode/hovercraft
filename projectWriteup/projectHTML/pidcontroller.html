@@ -16,15 +16,113 @@
     provide a possible solution.
 
     <h1>PID Controller Primer</h1>
-    PID in PID controller stands for Proportional, Integral, Derivative.
-    These three terms are used to define the behaviour of the controller. Each
-    of them contributes to the final output of the controller, and different
-    weights can be assigned to different terms. The weights selection process
-    (tunning) is not an easy task. In a nutshell, a PID controller can output
-    corrective actions based on the difference(error) between a set point
-    (SP), the desired value, and a measured process variable (PV), the
-    instantaneous value.
+    <p>
+      PID in PID controller stands for Proportional, Integral, Derivative.
+      These three terms are used to define the behaviour of the controller.
+      Each of them contributes to the final output of the controller, and
+      different weights can be assigned to different terms. The weights
+      selection process (tunning) is not an easy task. In a nutshell, a PID
+      controller can output corrective actions based on the difference(error)
+      between a set point (SP), the desired value, and a measured process
+      variable (PV), the instantaneous value. A PID controller is a feedback
+      control loop wherein the output of the controller is treated as an input
+      of the same controller. The feedback allows the controller to
+      intelligently <i>adjust</i> its output according to the error. 
+    </p>
+    <center>
+      <img src="http://hovercraft.myavalon.ca/images/pid/pidcontroller.png"/>
+      <br/>Layout of a system using a PID controller.
+    </center>
+    <p>
+      The object being controlled by the PID controller is usually referred as
+      the plant, as shown in above diagram. Depending on the system, a plant
+      can be a motor, servo, actuator, and etc. The plant is constantly
+      monitored by some sensors in order for the PID controller to adjust its
+      output based on the error.
+    </p>
+
+    <h2>PID Terms</h2>
+    <p>
+      As mentioned earlier, there are three terms that determine the behaviour
+      of the PID controller. The calculated output or Manipulated Variable
+      (MV) of the PID controller is the summation of all three terms. The
+      formula can be written as:
+    </p>
+    <!--
+      \begin{displaymath}
+      MV(t) = K_pe(t) + K_d\frac{de}{dt}(t) + K_i\int\limits_{0}^{t} e\, dt
+      \end{displaymath}
+    -->
+    <center>
+      <img src="http://hovercraft.myavalon.ca/images/pid/pidmodelformula.png"/>
+    </center>
+    where K<sub>p</sub>, K<sub>d</sub>, and K<sub>i</sub> are the weight
+    constants or the tunning parameters, and <i>e</i> is the error calculated
+    by subtracting the set point(SP) by the process variable(PV) or <i>SP -
+      PV</i>
+    
+    <h3>Proportional Term</h3>
+    <p>
+      The proportional term in the PID controller corresponds to how fast the
+      controller reacts to error. Depending on the parameter K<sub>p</sub>,
+      the magnitude of the proportional term will either amplify or diminish
+      in the presence of error. However, an improper choice of the
+      K<sub>p</sub> can lead to the system become unstable, because when the
+      value of K<sub>p</sub> is too large or too small, the output ,
+      MV(<i>t</i>), of the controller will overshoot or it will take a long
+      time to reach the set point(SP), the desired value.
+    </p>
+
+    <h3>Derivative Term</h3>
+    <p>
+      The derivative term determines the rate of which the <i>e(t)</i> is
+      changing with respect of time. The rate can be calculated by taking the
+      first derivative of the error over time. For example, if the
+      K<sub>d</sub> is set too high, which means the controller's output will
+      converge to the set point very quickly, but it will run into the problem
+      of overshooting. By adding the derivative term, the output of the
+      controller can be slowed down as it gets closer and closer to the set
+      point. In other words, the derivative term can minimize overshoot and
+      slightly improve the converge time. One problem with the derivative term
+      is that it is very sensitive to noise. For instance, if the error rate
+      is changing constantly, but the sampling rate of the sensors is not
+      constant, then this noise will inadvertently propagate to the output of
+      the controller and possibly amplify by K<sub>d</sub>.
+    </p>
+
+    <h3>Integral Term</h3>
+    <p>
+      Both the proportional term and derivative term deal with the convergent
+      time(rise time) and the problem of overshooting. However, they don't
+      take into account of whether the output of the plant is actually equal
+      to the set point (steady state), and how to minimize the steady state
+      error.  Integral term takes into account of the accumulated errors
+      within a period of time. It ensures that the output of the plant has
+      reached the set point and it will stay at the set point until a new set
+      point is defined. Moreover, a small steady state error may not be
+      noticeable by the proportional term until the error becomes very large.
+      Hence, the integral can detect slight variation between the set point
+      and output and make proper adjustments accordingly.
+    </p>
+
+    <h2>Tunning</h2>
+    <p>
+      The values for K<sub>p</sub>, K<sub>d</sub>, and K<sub>i</sub> can
+      greatly affect the performance of the PID controller. Moreover, the
+      values for those constants must be tuned according to the system that
+      employs the PID controller. There isn't a set of values that will work
+      for multiple systems.
+    </p>
+    
+    <h1>PID Controller and Hovercraft</h1>
+    <center>
+      <img src="http://hovercraft.myavalon.ca/images/pid/pidhovercraft.png"/>
+    </center>
+
+    <h2>Sensors</h2>
+    
   </body>
 </html>
+
 <!-- vim: set sts=2 sw=2 ts=2 text: -->
 
