@@ -115,11 +115,63 @@
     </p>
     
     <h1>PID Controller and Hovercraft</h1>
+    <p>
+      The PID controller logic will be implemented in AT90USB. Since our
+      design of the hovercraft uses two motors for thrust as well as for
+      turning, the plants will be the two motors. The sensors will be
+      described below. The following diagram describes how the plants, PID
+      controller, and sensors interact.
+    </p>
     <center>
       <img src="http://hovercraft.myavalon.ca/images/pid/pidhovercraft.png"/>
     </center>
 
     <h2>Sensors</h2>
+    <p>
+      Sensors are necessary to keep the hovercraft heading straight and
+      steady. In order to navigate the environment without running into
+      obstacles, hovercraft will use sonars for ranging. A magnetometer to
+      detect the heading of the hovercraft. A gyroscope to determine the 
+      angular momentum of the hovercraft, and accelerometers to detect
+      accelerations.
+    </p>
+    <h3>Magnetometer</h3>
+    <p>
+      The magnetometer is very crucial for both the hovercraft and the PID
+      controller. It provides heading information of the hovercraft. Such
+      information aid the PID controller in correcting the heading by
+      adjusting the speed of the motors(plants) when the hovercraft is
+      straying off course.
+    </p>
+
+    <h3>Gyroscope and Accelerometers</h3>
+    <p>
+      Collectively an unit that consists of both gyroscope and
+      accelerometers is called an inertia measurement unit (IMU). The
+      gyroscope provides the rate at which the hovercraft is rotating.
+      The gyroscope can provide, in essence, the derivative term of the
+      PID controller. Recall that the derivative term describes the rate
+      of the change in the error. If the hovercraft is supposed to be
+      going straight forward but it starts to yaw due to imbalance in the
+      system, the gyroscope can provide the angular velocity of the yaw in
+      an instantaneous time.
+    </p>
+    <p>
+      The accelerometers, on the other hand, ensures the hovercraft is
+      moving. There can be a case where the PID controller is correcting
+      the heading by varying the speed of the motors, but the combine of
+      the motors is not enough to propel the hovercraft forward.
+    </p>
+
+    <h3>Sonar</h3>
+    <p>
+      In autonomous mode, the hovercraft can rely on the sonars in front
+      and on either sides to determine which direction to go. For example,
+      it will always head towards the direction as the sonar that returns
+      the highest range. Such heuristic and magnetometer can provide
+      precise heading for the PID controller to steer and correct the
+      hovercraft.
+    </p>
     
   </body>
 </html>
