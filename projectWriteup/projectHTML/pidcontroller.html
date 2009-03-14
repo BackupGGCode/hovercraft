@@ -180,6 +180,105 @@
       heading by varying the speed of the motors, but the combine of the
       motors is not enough to propel the hovercraft forward.
     </p>
+
+    <h1>A simple PID controller implementation in Python</h1>
+    <pre name="code" class="python">
+prevError  = 0
+totalError = 0
+
+def updatePid(setPoint, processVar):
+    kP = 0.3
+    kD = 0.03
+    kI = 0.4
+    global totalError, prevError
+    
+    error = setPoint - processVar
+    totalError += error
+    proportionalTerm = kP * error
+    derivativeTerm   = kD * (error - prevError)
+    integralTerm     = kI * totalError
+    prevError        = error
+    
+    return proportionalTerm + derivativeTerm + integralTerm
+
+def main():
+    setPoint = 20
+    pv = 0
+    
+    for i in range(0, 200):
+        pv = updatePid(setPoint, pv)
+        print 'Iteration: %d, %f' % (i, pv)
+
+if __name__ == '__main__':
+    main()
+  </pre>      
+  <b>The output:</b>
+  <pre>
+Iteration: 0, 14.600000
+Iteration: 1, 11.342000
+Iteration: 2, 16.318340
+Iteration: 3, 16.051072
+Iteration: 4, 17.868132
+Iteration: 5, 18.113231
+Iteration: 6, 18.841568
+Iteration: 7, 19.071943
+Iteration: 8, 19.388992
+Iteration: 9, 19.535680
+Iteration: 10, 19.682512
+Iteration: 11, 19.765453
+Iteration: 12, 19.836307
+Iteration: 13, 19.880891
+Iteration: 14, 19.915947
+Iteration: 15, 19.939337
+Iteration: 16, 19.956935
+Iteration: 17, 19.969056
+Iteration: 18, 19.977962
+Iteration: 19, 19.984202
+Iteration: 20, 19.988729
+Iteration: 21, 19.991931
+Iteration: 22, 19.994238
+Iteration: 23, 19.995877
+Iteration: 24, 19.997054
+Iteration: 25, 19.997893
+Iteration: 26, 19.998495
+Iteration: 27, 19.998924
+Iteration: 28, 19.999231
+Iteration: 29, 19.999450
+Iteration: 30, 19.999607
+Iteration: 31, 19.999719
+Iteration: 32, 19.999799
+Iteration: 33, 19.999856
+Iteration: 34, 19.999897
+Iteration: 35, 19.999927
+Iteration: 36, 19.999948
+Iteration: 37, 19.999962
+Iteration: 38, 19.999973
+Iteration: 39, 19.999981
+Iteration: 40, 19.999986
+Iteration: 41, 19.999990
+Iteration: 42, 19.999993
+Iteration: 43, 19.999995
+Iteration: 44, 19.999996
+Iteration: 45, 19.999997
+Iteration: 46, 19.999998
+Iteration: 47, 19.999999
+Iteration: 48, 19.999999
+Iteration: 49, 19.999999
+Iteration: 50, 20.000000
+Iteration: 51, 20.000000
+...
+Iteration: 197, 20.000000
+Iteration: 198, 20.000000
+Iteration: 199, 20.000000
+  </pre>
+  <p>
+    The values, at first, oscillate for a few iterations, then they slowly
+    converge to the set point value. Staring at the 50th iteration until the
+    200th iteration, end of the <code>for</code> loop, the output of the
+    controller stays at the set point value.  By tweaking the constant values
+    for K<sub>p</sub>, K<sub>d</sub>, and K<sub>i</sub>, one can see how the
+    output behaviour changes.
+  </p>
   </body>
 </html>
 

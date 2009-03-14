@@ -5,8 +5,8 @@ totalError = 0
 
 def updatePid(setPoint, processVar):
     kP = 0.3
-    kD = 0.2
-    kI = 0.3
+    kD = 0.03
+    kI = 0.4
     global totalError, prevError
     
     error = setPoint - processVar
