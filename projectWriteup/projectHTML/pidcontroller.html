@@ -5,15 +5,18 @@
 
   <body>
     <h1>Introduction</h1>
-    For our hovercraft project, we ran into a major weight balance issues
-    with the hovercraft. Since a hovercraft is practically floating on a layer
-    of air, it is very sensitive to weight imbalance. The imbalance in our
-    hovercraft that it will stray(yaw) off course and become very difficult to
-    control. Presented with such a situation, a PID controller can potentially
-    correct the imbalance issues by having the hovercraft automatically adjust
-    to the yaw produced by the imbalance. Please note that A PID controller is
-    <b>NOT</b> implemented for this project. This goal of this document is to
-    provide a possible solution.
+    <p>
+      For our hovercraft project, we ran into a major weight balance issues
+      with the hovercraft. Since a hovercraft is practically floating on a
+      thin layer of air, it is highly sensitive to weight imbalance. The
+      imbalance in our hovercraft that it will stray(yaw) off course and
+      become very difficult to control. Presented with such a situation, a PID
+      controller can potentially correct the imbalance issues by having the
+      hovercraft automatically compensate to the yaw produced by the
+      imbalance. Please note that A PID controller is <b>NOT</b> implemented
+      for this project.  The goal of this document is to provide a possible
+      solution.
+    </p>
 
     <h1>PID Controller Primer</h1>
     <p>
@@ -21,7 +24,7 @@
       These three terms are used to define the behaviour of the controller.
       Each of them contributes to the final output of the controller, and
       different weights can be assigned to different terms. The weights
-      selection process (tunning) is not an easy task. In a nutshell, a PID
+      selection process (tunning) is not an easy task.  In a nutshell, a PID
       controller can output corrective actions based on the difference(error)
       between a set point (SP), the desired value, and a measured process
       variable (PV), the instantaneous value. A PID controller is a feedback
@@ -47,7 +50,6 @@
       of the PID controller. The calculated output or Manipulated Variable
       (MV) of the PID controller is the summation of all three terms. The
       formula can be written as:
-    </p>
     <!--
       \begin{displaymath}
       MV(t) = K_pe(t) + K_d\frac{de}{dt}(t) + K_i\int\limits_{0}^{t} e\, dt
@@ -60,6 +62,7 @@
     constants or the tunning parameters, and <i>e</i> is the error calculated
     by subtracting the set point(SP) by the process variable(PV) or <i>SP -
       PV</i>
+    </p>
     
     <h3>Proportional Term</h3>
     <p>
@@ -120,7 +123,10 @@
       design of the hovercraft uses two motors for thrust as well as for
       turning, the plants will be the two motors. The sensors will be
       described below. The following diagram describes how the plants, PID
-      controller, and sensors interact.
+      controller, and sensors interact. The connections connecting the two
+      motors and the sensors are dotted because the sensors are not directly
+      monitoring the RPM of the motors. The sensors are constantly monitoring
+      the heading, yaw rate, and motions.
     </p>
     <center>
       <img src="http://hovercraft.myavalon.ca/images/pid/pidhovercraft.png"/>
@@ -128,13 +134,25 @@
 
     <h2>Sensors</h2>
     <p>
-      Sensors are necessary to keep the hovercraft heading straight and
-      steady. In order to navigate the environment without running into
+      Sensors are necessary to keep the hovercraft heading straight and steady
+      and essential to the PID controller as they provide feedback
+      information. In order to navigate the environment without running into
       obstacles, hovercraft will use sonars for ranging. A magnetometer to
-      detect the heading of the hovercraft. A gyroscope to determine the 
+      detect the heading of the hovercraft. A gyroscope to determine the
       angular momentum of the hovercraft, and accelerometers to detect
       accelerations.
     </p>
+
+    <h3>Sonars</h3>
+    <p>
+      In autonomous mode, the hovercraft can rely on the sonars in front and
+      on either sides to determine which direction to go. For example, it will
+      always head towards the direction as the sonar that returns the highest
+      range. Combining such simple heuristic and magnetometer can provide
+      precise heading for the PID controller to steer and correct the
+      hovercraft.
+    </p>
+
     <h3>Magnetometer</h3>
     <p>
       The magnetometer is very crucial for both the hovercraft and the PID
@@ -144,35 +162,24 @@
       straying off course.
     </p>
 
-    <h3>Gyroscope and Accelerometers</h3>
+    <h3>Gyroscopes and Accelerometers</h3>
     <p>
-      Collectively an unit that consists of both gyroscope and
-      accelerometers is called an inertia measurement unit (IMU). The
-      gyroscope provides the rate at which the hovercraft is rotating.
-      The gyroscope can provide, in essence, the derivative term of the
-      PID controller. Recall that the derivative term describes the rate
-      of the change in the error. If the hovercraft is supposed to be
-      going straight forward but it starts to yaw due to imbalance in the
-      system, the gyroscope can provide the angular velocity of the yaw in
-      an instantaneous time.
+      Collectively an unit that consists of both gyroscopes and accelerometers
+      is called an inertia measurement unit (IMU). The gyroscope provides the
+      rate at which the hovercraft is rotating.  The angular velocity provided
+      by the gyroscope is, in essence, the derivative term of the PID
+      controller. Recall that the derivative term describes the rate of the
+      change in the error. If the hovercraft is supposed to be going straight
+      forward but it starts to yaw due to imbalance in the system, the
+      gyroscope can provide the angular velocity of the yaw in an
+      instantaneous time.
     </p>
     <p>
-      The accelerometers, on the other hand, ensures the hovercraft is
-      moving. There can be a case where the PID controller is correcting
-      the heading by varying the speed of the motors, but the combine of
-      the motors is not enough to propel the hovercraft forward.
+      The accelerometers, on the other hand, ensures the hovercraft is in
+      motion.  There can be a case where the PID controller is correcting the
+      heading by varying the speed of the motors, but the combine of the
+      motors is not enough to propel the hovercraft forward.
     </p>
-
-    <h3>Sonar</h3>
-    <p>
-      In autonomous mode, the hovercraft can rely on the sonars in front
-      and on either sides to determine which direction to go. For example,
-      it will always head towards the direction as the sonar that returns
-      the highest range. Such heuristic and magnetometer can provide
-      precise heading for the PID controller to steer and correct the
-      hovercraft.
-    </p>
-    
   </body>
 </html>
 
