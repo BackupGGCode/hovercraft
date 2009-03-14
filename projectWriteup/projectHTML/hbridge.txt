@@ -6,4 +6,25 @@ We then decided our problem is that L293D can only handle 1.5A max.  A higher am
 
 Below is an image of the pin connections and theory.
 
+JOYSTICK
+
+We got a new joystick that had not been modified.  The original state of the joystick, was that it had three potentiometers. One was for the X  position of the joystick, another was for the Y position of the joystick and a third was for the position of a dial on the base of the joystick. These potentiometers were connected so that the amount of current was determined by the position of the joystick. 
+
+A potentiometer is a resistor with three terminals, a ground, an input and an output(the wiper). There is a knob connected that can be spun. As the knob is turned, the voltage read by the middle pin will output a reading from ground (zero) to the value of the input (in our case VCC).
+
+INSERT POT image
+
+We decided to remove the potentiometer at the base of the joystick and simply control the craft with the X Y co-ordinants. We then were required to modify how the other two potentiometers were connected so that the amount of voltage was determined by the position of the joystick. To do this we grounded one side of the potentiometer, and connected power to the other. The middle connection was then connected through the serial port as output.
+
+INSERT SCHEMA
+
+Once the casing was replaced on the joystick, the readings from the board, when the joystick was connected to 5 volts of regulated power, are displayed in the table below.
+
+<table border = "1">
+<tr><td> Position</td><td>Voltage Reading(volts)</td></tr>
+<tr><td> Forward</td><td>3.76</td></tr>
+<tr><td>Middle</td><td> 2.278</td></tr>
+<tr><td>Backward</td><td>0.633</td></tr>
+</table>
+
 
