@@ -19,11 +19,13 @@ By placing weight around the edges of the hovercraft, we can greatly reduce the 
 <h1>Turning Pivot</h1>
 We originally had our motors placed at the back end of our hovercraft, as shown in the image below. We found that the turning pivot of the hovercraft is directly inbetween where the two thrust motors are placed. With the turning pivot at the back end of the hovercraft, the turning radius of the center of the hovercraft is equal to about half of the hovercraft's length (~90cm), and it was a awkward to control the hovercraft correctly.</p>
 
-**INSERT HERE**
+**INSERT fans_back.jpg HERE**
+This image shows our hovercraft when the thrust motors were placed at the back.
 
 <p> We shifted our thrust motors so that the fan blades were at the very center of our hovercraft. This allowed the hovercraft to have much tighter turns, and reduced our turning radius so that the hovercraft's pivot was right at the center of the hovercraft. We found controlling the hovercraft was much more intuitive this way. </p>
 
-**INSERT HERE** 
+**INSERT fans_mid.jpg HERE** 
+This image shows the thrust motors when they were placed at the center of the hovercraft.
 
 <h1>H-Bridge</h1>
 
@@ -36,6 +38,9 @@ We originally had our motors placed at the back end of our hovercraft, as shown 
 **INSERT Hbridge_parallel.jpg HERE**
 This image shows how we wired the two L293D chips in parallel. As you can see, they took up a large number of the bread-board pins.
 
+**INSERT Dual-HBridge.png HERE**
+This is H-Bridge schematic of how we connected our two H-Bridges in parallel.
+
 <p>At this point, we were supplied another high-amperage H-Bridge, so we went back to work on it. The new H-Bridge we were supplied also had an attached heat-sink. We were informed that the heat-sink would prevent the H-Bridge from becoming too hot and temporarily shutting off. With the heat-sink, the motors were getting enough power to successfully control the hovercraft, and the heat-sink prevented the irregular shifts in power caused by the H-Bridge shutting off.</p>
 
 **INSERT HBridge_heatsink.jpg HERE**
@@ -46,11 +51,11 @@ This image shows the high-amperage H-Brige with the heat-sink attached.
 
 <p>A potentiometer is a resistor with three terminals: a ground, an input, and an output (the wiper). There is a knob connected that can be spun, and as the knob is turned, the  middle pin reads the voltage, and will output a reading that is the difference between ground, (zero) and the value of the input (in our case VCC).</p>
 
-**INSERT pot image HERE**
+**INSERT Pot-1.png HERE**
 
 <p>We decided to remove the potentiometer at the base of the joystick and simply control the hovercraft with the X- and  Y-coordinates. We then were required to modify how the other two potentiometers were connected so that the amount of voltage was determined by the position of the joystick. To do this we grounded one side of the potentiometer, and connected power to the other. The middle connection was then connected through the serial port as output. Our current implementation outputs all three values at the base station, and sends them to the hovercraft, We may end up using the dial at the base of the joystick to control a "side-stepping" fan we could connect to the hovercraft that blows air perpendicular to the other fans. This would prevent the hovercraft from having to zig-zag down a hallway, as this fan could blow air toward the close wall to "side-step" the hovercraft away from the wall, without having to make an actual turn. </p>
 
-**INSERT SCHEMA HERE**
+**INSERT Joystick-1.png HERE**
 
 Once the casing was replaced on the joystick, the readings from the board, when the joystick was connected to 5 volts of regulated power, are displayed in the table below.
 
