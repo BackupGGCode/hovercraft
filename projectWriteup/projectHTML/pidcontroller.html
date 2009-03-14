@@ -1,11 +1,10 @@
 
     <h1>Introduction</h1>
     <p>
-      For our hovercraft project, we ran into a major weight balance issues
-      with the hovercraft. Since a hovercraft is practically floating on a
-      thin layer of air, it is highly sensitive to weight imbalance. The
-      imbalance in our hovercraft that it will stray(yaw) off course and
-      become very difficult to control. Presented with such a situation, a PID
+      Upon completion of the vehicle body and electronic components, we ran into major weight balance issues. Since a hovercraft is practically floating on a
+      thin layer of air, it is highly sensitive to weight imbalance. This
+      imbalance causes the hovercraft to stray (yaw) off course, making it
+      very difficult to control. Presented with such a situation, a PID
       controller can potentially correct the imbalance issues by having the
       hovercraft automatically compensate to the yaw produced by the
       imbalance. Please note that A PID controller is <b>NOT</b> implemented
@@ -20,7 +19,7 @@
       Each of them contributes to the final output of the controller, and
       different weights can be assigned to different terms. The weights
       selection process (tuning) is not an easy task.  In a nutshell, a PID
-      controller can output corrective actions based on the difference(error)
+      controller can output corrective actions based on the difference (error)
       between a set point (SP), the desired value, and a measured process
       variable (PV), the instantaneous value. A PID controller is a feedback
       control loop wherein the output of the controller is treated as an input
@@ -274,8 +273,11 @@ Iteration: 199, 20.000000
     for K<sub>p</sub>, K<sub>d</sub>, and K<sub>i</sub>, one can see how the
     output behaviour changes.
   </p>
-  </body>
-</html>
+
+<h1>Conclusion</h1>
+<p>Please note that A PID controller is <b>NOT</b> yet implemented
+  for this project.  The goal of this document is to provide a possible
+  solution to our imbalance problems.  In recent testing we have determined that uneven weight distribution is not the sole contributor to the control difficulties we are facing. It turns out that the main fan feeding air into the plenum chamber is also a contributor.  At full power, this fan forces more air into the chamber, than when it's power source is partially drained.  We believe that a PID controller, finely tuned to address these issues will give us the control we need to maneuver the vehicle in close quarters.  </p>
 
 <!-- vim: set sts=2 sw=2 ts=2 text: -->
 
