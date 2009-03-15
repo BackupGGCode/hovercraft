@@ -1,17 +1,15 @@
 <h1>Design</h1>
 <p>The following figures show the top, side, front and rear views for the vehicle:</p>
-<img src="images/stories/topdown.png" mce_src="http://hovercraft.myavalon.ca/images/stories/topdown.png" alt="alt" />
+<div style="text-align: center;"><img alt="alt" mce_src="http://hovercraft.myavalon.ca/images/stories/topdown.png" src="images/stories/topdown.png" /></div>
 <p>The first design consisted of a rounded front, straight sides and a straight back.  However, since the front and back were not symmetric, we concluded that the rear of the craft should be rounded to match the front.  This symmetric design better distributes the underlying air cushion to all parts of the vehicle.</p>
-<img src="images/stories/sideview.png" mce_src="http://hovercraft.myavalon.ca/images/stories/sideview.png" alt="alt" /></p>
+<div style="text-align: center;"><img alt="alt" mce_src="http://hovercraft.myavalon.ca/images/stories/sideview.png" src="images/stories/sideview.png" /></div>
 <p>The plenum chamber receives air from a single propeller mounted in the middle of the chasis.  The middle propeller is housed by a triangular container.  Initially the container was completely open on the side where the propeller draws air from.  We realized that too much air was escaping from this hole and a cover with a circular cut-out was fitted over the opening.  The cut-out better fit the diameter of the fan, resulting in minimal air escaping from the opening.</p>
-<img alt="alt" src="http://hovercraft.myavalon.ca/images/stories/back.png" />
+<div style="text-align: center;"><img src="http://hovercraft.myavalon.ca/images/stories/back.png" alt="alt" /></div>
 <p>The electronic components are mounted at the rear of the hovercraft.  This facilitates making connections from the breadboard to the nearby DC Motors, servo motor, and sonars.  The combined mass of all the components added a significant force to the rear of the chasis.  To counter this, we placed counter weights on the front of the body.</p>
-<img alt="alt" src="http://hovercraft.myavalon.ca/images/stories/front.png" />
+<div style="text-align: center;"><img src="http://hovercraft.myavalon.ca/images/stories/front.png" alt="alt" /></div>
 <h1>Constraints</h1>
 <h2>Payload Weight</h2>
 <p>In order for the hovercraft to stay afloat, the internal air pressure must counter external forces placed on the surface of the vehicle by both gravity and the mass of the components.  The following table describes the components and their masses:</p>
-
-
 <table width="100%" cellspacing="1" cellpadding="1" border="1">
     <tbody>
         <tr>
@@ -66,45 +64,40 @@
         </tr>
         <tr>
             <td><strong>Total</strong></td>
-            <td></td>
+            <td>--</td>
             <td>329</td>
         </tr>
     </tbody>
 </table>
-
 <h2>Rigidity</h2>
 <p>The hovercraft body is made from two thin sheets of styrofoam separated by 12 styrofoam spacers 1'' thick.  This has proven to be a very strong design, easily capable of supporting the payload of the electronics. In fact, we distributed additional weight evenly across the body and found that the hovercraft could support at least 1 kg.</p>
-<p><img width="50%" height="50%" src="http://gallery.me.com/darrenminifie/100071/IMG_0017/web.jpg"/></p>
-<p><img width="50%" height="50%" src="http://gallery.me.com/darrenminifie/100071/IMG_0018/web.jpg"/></p>
+<div style="text-align: center;"><img width="50%" height="50%" src="http://gallery.me.com/darrenminifie/100071/IMG_0017/web.jpg" alt="alt" /><br />
+<br />
+<img width="50%" height="50%" src="http://gallery.me.com/darrenminifie/100071/IMG_0018/web.jpg" alt="alt" /></div>
 <p>An inflatable skirt made of mylar surrounds the body.  Mylar is a polyester film often used in flexible packaging for food, as an insulating material, and for solar reflection.  Once inflated, the skirt serves two purposes.  First, because it expands to over two inches, it provides additional surface area, reducing the overall pressure at any given point on the body.  Second, the skirt acts as a flexible and damage resistant bumper, protecting the body from nearby objects during testing. We used two different mediums to connect the skirt to the styrofoam body. First we adhered the mylar to the styrofoam using hot glue, we then went around the perimeter with a hot iron to melt the mylar, the glue and the styrofoam together.</p>
-
-
---INSERT MYLAR DIAGRAM!--
-
-<p>After the styrofoam chasis was built, we then procdeded to construct the skirt. The first attempt at constructing the mylar skirt was not successful.  Lack of foresight resulted in a skirt that was too baggy in some areas, while exposing too many holes in others. The first time that we attached the mylar, when we were connecting the corners, we used clear packing tape, and simply folded the corners together. The second attempt was much more calculated and pragmatic. When connecting the corners of the second skirt, we methodically folded the edges in, then removed the square that was not attached (see Mylar-Cutout diagram). After this we made the connection using the hot iron to glue the seam together. The resulting skirt was much more evenly distributed and provided reasonably uniform inflation around the entire body.  That said, the hovercraft still managed to move about when it was supposed to be idle.  We addressed this issue by placing weights on the body to counteract the uneven escape of air on one side. </p>
+<div style="text-align: center;"><img alt="alt" src="http://hovercraft.myavalon.ca/images/stories/mylar.png" /></div>
+<p>After the styrofoam chasis was built, we then procdeded to construct the skirt. The first attempt at constructing the mylar skirt was not successful.  Lack of foresight resulted in a skirt that was too baggy in some areas, while exposing too many holes in others. The first time that we attached the mylar, when we were connecting the corners, we used clear packing tape, and simply folded the corners together. The second attempt was much more calculated and pragmatic. When connecting the corners of the second skirt, we methodically folded the edges in, then removed the square that was not attached (see Mylar-Cutout diagram). After this we made the connection using the hot iron to glue the seam together. The resulting skirt was much more evenly distributed and provided reasonably uniform inflation around the entire body.  That said, the hovercraft still managed to move about when it was supposed to be idle.  We addressed this issue by placing weights on the body to counteract the uneven escape of air on one side.</p>
 <h2>Lift</h2>
 <p>The decision to use a single, vertically mounted propeller to feed air into the plenum chamber was in direct response to the problem of rotational torque plaguing horizontally mounted propellers.  In a horizontal design, the rotation of the blades applies an overall torque on the hovercraft causing it to spin.  Dealing with this force is a burden.  One approach is to install a second horizontal propeller which spins in the opposite direction. The opposite spin of the two motors cancels any directional torque felt by the craft. We chose to avoid this problem entirely by mounting a single motor vertically in the middle of the body.  A container built over the propeller captures the incoming air and forces into the plenum chamber.</p>
-<p><img width="50%" height="50%" src="http://gallery.me.com/darrenminifie/100071/IMG_0024/web.jpg"/></p>
-<p><img width="50%" height="50%" src="http://gallery.me.com/darrenminifie/100071/IMG_0033/web.jpg"/></p>
-
-
-<p>To avoid ground effect, we applied full power to the lift propeller.  Next, we methodically added weight to the body such that the hovercraft moved freely along the ground, but was not vastly overpowered by the fan.  Keeping the vehicle as close as possible to the ground	allows for the most control over the hovercraft's direction.  </p>
-	
+<div style="text-align: center;"><img width="50%" height="50%" src="http://gallery.me.com/darrenminifie/100071/IMG_0024/web.jpg" alt="alt" /><br />
+<br />
+<img width="50%" height="50%" src="http://gallery.me.com/darrenminifie/100071/IMG_0033/web.jpg" alt="alt" /></div>
+<p>To avoid ground effect, we applied full power to the lift propeller.  Next, we methodically added weight to the body such that the hovercraft moved freely along the ground, but was not vastly overpowered by the fan.  Keeping the vehicle as close as possible to the ground	allows for the most control over the hovercraft's direction.</p>
 <h2>Thrust and Control</h2>
-<p>The following two figures show the first design we had chosen to provide the vehicle with thrust.  The two differential motors were mounted at the rear, and were spaced fairly close together. </p>
-<p><img width="50%" height="50%" src="http://gallery.me.com/darrenminifie/100071/IMG_0037/web.jpg"/></p>
-<p><img width="50%" height="50%" src="http://gallery.me.com/darrenminifie/100071/IMG_0038/web.jpg"/></p>
-<p>We decided to change this design.  By placing the motors as far apart as possible, maximum torque could be achieved.  The analogy is as follows.  Consider the act of opening a door.  It is much easier to open a door if you push on the edge furthest from the hinges, because you can generate much more torque. The same goes for our hovercraft. Ideally the centre of rotation (the hinge) is in the centre of the hovercraft. By placing the motors as far away from this centre, we will create the most rotational torque and the craft will be easily controlled  </p>
-
+<p>The following two figures show the first design we had chosen to provide the vehicle with thrust.  The two differential motors were mounted at the rear, and were spaced fairly close together.</p>
+<div style="text-align: center;"><img width="50%" height="50%" src="http://gallery.me.com/darrenminifie/100071/IMG_0037/web.jpg" alt="alt" /><br />
+<br />
+<img width="50%" height="50%" src="http://gallery.me.com/darrenminifie/100071/IMG_0038/web.jpg" alt="alt" /></div>
+<p>We decided to change this design.  By placing the motors as far apart as possible, maximum torque could be achieved.  The analogy is as follows.  Consider the act of opening a door.  It is much easier to open a door if you push on the edge furthest from the hinges, because you can generate much more torque. The same goes for our hovercraft. Ideally the centre of rotation (the hinge) is in the centre of the hovercraft. By placing the motors as far away from this centre, we will create the most rotational torque and the craft will be easily controlled</p>
 <h3>Remote Control Code</h3>
-<p>The following functions are part of the base station software.  They are used to send control signals form the joystick to the hovercraft, using radio communication. </p>
-<pre name="code" class="c">
+<p>The following functions are part of the base station software.  They are used to send control signals form the joystick to the hovercraft, using radio communication.</p>
+<pre class="c" name="code">
 	unsigned char X = 0, Y = 0, Z = 0;
 
 	void updateMotor(){	
 		packet_t packet;
 
-		sample_joystick(&X,&Y,&Z);
+		sample_joystick(&amp;X,&amp;Y,&amp;Z);
 
 		_delay_ms(250);
 		char test[50];	
@@ -112,7 +105,7 @@
 
 		packet.x = (uint8_t) X;
 		packet.y = (uint8_t) Y;
-		radio_send(HOV_ADDRESS, (uint8_t*) &packet);	
+		radio_send(HOV_ADDRESS, (uint8_t*) &amp;packet);	
 	}
 
 
@@ -122,7 +115,7 @@
 		char toWrite[50];
 		uint8_t newSpeed = 0;
 
-		if(intY > 125){ //To go Backwards
+		if(intY &gt; 125){ //To go Backwards
 			setMotorDirection(BACKWARD);
 			newSpeed = (intY-125)*2;
 			setMotorSpeed( newSpeed);
@@ -137,10 +130,9 @@
 		_delay_ms(250);	
 	}	
 </pre>
-
 <h3>Differential Turning Code</h3>
 <p>To implement differential turning, we began by using the provided motor driver code. We then defined a struct to abstract a motor:</p>
-<pre name="code" class="c">
+<pre class="c" name="code">
 	/**
 	 * A motor type.
 	 */
@@ -169,15 +161,14 @@
 	} motor_t;	
 </pre>
 <p>We also defined an enumerated type to represent forward and backward direction:</p>
-<pre name="code" class="c">
+<pre class="c" name="code">
 	typedef enum
 	{
 	    FORWARD, BACKWARD
 	} direction_t;	
-</pre>	
-
+</pre>
 <p>The two motors and the timer for pulse width modulation must first be initialized:</p>
-<pre name="code" class="c">
+<pre class="c" name="code">
 	/**
 	 * Initialization method for the motors.
 	 *
@@ -190,10 +181,8 @@
 	 */
 	void pwmInit();	
 </pre>
-
 <p>The following functions are used to control the independent speed and direction of the motors. By allowing the duty of each motor to be set, differential turning can be established.</p>
-
-<pre name="code" class="c">
+<pre class="c" name="code">
 /**
  * Sets the speed of the motor.
  *

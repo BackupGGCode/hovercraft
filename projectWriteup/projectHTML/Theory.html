@@ -1,59 +1,22 @@
-
-
-<p>
-The main objective of this milestone was to design and construct a hovercraft that met the constraints laid out in the milestone’s objective description.  Research on various aspects of hovercraft design, mechanics and physics first principles, as well as input from the TA and the design decisions of our peers, led us to our own hovercraft design.  This document first describes the information we uncovered about the mechanics of a hovercraft, then proceeds by describing our design and summarizing our final product.  
-</p>
-
+<p>The main objective of this milestone was to design and construct a hovercraft that met the constraints laid out in the milestone’s objective description.  Research on various aspects of hovercraft design, mechanics and physics first principles, as well as input from the TA and the design decisions of our peers, led us to our own hovercraft design.  This document first describes the information we uncovered about the mechanics of a hovercraft, then proceeds by describing our design and summarizing our final product.</p>
 <h1>Hovercraft Mechanics</h1>
-
-<p>
-The hovercraft is able to move freely due to the minimum amount of friction between the vehicle and the ground.  The chamber of air between the craft and ground, called the plenum chamber, is formed by the body of the hovercraft and a skirt.  The air flowing into the plenum chamber forms a ring which keeps the external lower pressure out, ensuring the persistence of the internal air cushion.  The amount of air entering the plenum chamber must be at least be equal to the amount of air that escapes underneath the skirt in order to keep the craft afloat.  Further, it is incorrect to assume that air will escape evenly around the skirt’s perimeter.  As more air is blown into the plenum chamber, the pressure of the air on the inside becomes higher than that on the outside, creating an upward force that lifts the hovercraft.  When this upward pressure exactly matches the downward force of gravity, the desired floating effect is achieved.  
-</p>
-
+<p>The hovercraft is able to move freely due to the minimum amount of friction between the vehicle and the ground.  The chamber of air between the craft and ground, called the plenum chamber, is formed by the body of the hovercraft and a skirt.  The air flowing into the plenum chamber forms a ring which keeps the external lower pressure out, ensuring the persistence of the internal air cushion.  The amount of air entering the plenum chamber must be at least be equal to the amount of air that escapes underneath the skirt in order to keep the craft afloat.  Further, it is incorrect to assume that air will escape evenly around the skirt’s perimeter.  As more air is blown into the plenum chamber, the pressure of the air on the inside becomes higher than that on the outside, creating an upward force that lifts the hovercraft.  When this upward pressure exactly matches the downward force of gravity, the desired floating effect is achieved.</p>
 <h2>Steering</h2>
-
-<p>
-Different approaches have been taken to steer the craft.  Larger hovercrafts typically employ a large propeller at the rear to drive the vehicle forward.  Rudders are used for steering. Another option, usually seen in smaller hovercrafts, is to tilt the base, affecting the plenum chamber underneath.  This results in a change in direction because a drag is created on one side, creating a pivot point.  
-</p>
-
-<img alt="" src="http://hovercraft.myavalon.ca/images/stories/differentialturning.png" />
-<p>
-Instead of using 2 fans on the craft (one for filling the plenum chamber and one for forward thrust), a single propeller may be used for both functions.  A fraction of the air intake is directed into the inner chamber to lift the craft, while the remaining air flow is forced behind the craft, creating thrust.  
-</p>
-<img alt="" src="http://hovercraft.myavalon.ca/images/stories/servoturning.png" />
-
-<p>
-Steering may further be affected by either differential turning or though the use of a servo motor.  The former approach commonly employs two thrust sources on either side of the vehicle.  By altering the thrust of either motor (for example with pulse width modulation), one motor will be more powerful than the other, causing the craft to turn.  The latter approach sees a propeller mounted to a servo motor.  As the servo rotates through its 180 degree range, the thrust of the propeller is directed in a specific direction, also causing the craft to turn.  
-</p>
-
+<p>Different approaches have been taken to steer the craft.  Larger hovercrafts typically employ a large propeller at the rear to drive the vehicle forward.  Rudders are used for steering. Another option, usually seen in smaller hovercrafts, is to tilt the base, affecting the plenum chamber underneath.  This results in a change in direction because a drag is created on one side, creating a pivot point.</p>
+<div style="text-align: center;"><img alt="alt" src="http://hovercraft.myavalon.ca/images/stories/differentialturning.png" /></div>
+<p>Instead of using 2 fans on the craft (one for filling the plenum chamber and one for forward thrust), a single propeller may be used for both functions.  A fraction of the air intake is directed into the inner chamber to lift the craft, while the remaining air flow is forced behind the craft, creating thrust.</p>
+<div style="text-align: center;"><img alt="alt" src="http://hovercraft.myavalon.ca/images/stories/servoturning.png" /></div>
+<p>Steering may further be affected by either differential turning or though the use of a servo motor.  The former approach commonly employs two thrust sources on either side of the vehicle.  By altering the thrust of either motor (for example with pulse width modulation), one motor will be more powerful than the other, causing the craft to turn.  The latter approach sees a propeller mounted to a servo motor.  As the servo rotates through its 180 degree range, the thrust of the propeller is directed in a specific direction, also causing the craft to turn.</p>
 <h2>Skirt</h2>
-
-<p>
-An advancement in the development of the skirt is known as the Double-Walled Flexible Skirt, or more commonly the “Big Skirt”.  The design came about in the 1960’s by McReary.  The idea was to inflate the outer skirt to allow the craft to move more freely over rough terrain and choppy water.  
-</p>
-	
-<p>	
-In general, the purpose of the skirt is to increase the overall surface area of the vehicle.  By spreading the weight of the craft over a lager area, the pressure required to counteract this downward pressure is reduced.  A common analogy is that of stepping on a single nail as opposed to lying on a bed of nails.  Applying one’s entire weight on the small surface area of a single nail will surely result in a painful experience.  However, by spreading one’s weight over the combined surface area of many nails, the pressure on any single point is reduced to the point where any particular nail cannot cause harm.  
-</p>
-
+<p>An advancement in the development of the skirt is known as the Double-Walled Flexible Skirt, or more commonly the “Big Skirt”.  The design came about in the 1960’s by McReary.  The idea was to inflate the outer skirt to allow the craft to move more freely over rough terrain and choppy water.</p>
+<p>In general, the purpose of the skirt is to increase the overall surface area of the vehicle.  By spreading the weight of the craft over a lager area, the pressure required to counteract this downward pressure is reduced.  A common analogy is that of stepping on a single nail as opposed to lying on a bed of nails.  Applying one’s entire weight on the small surface area of a single nail will surely result in a painful experience.  However, by spreading one’s weight over the combined surface area of many nails, the pressure on any single point is reduced to the point where any particular nail cannot cause harm.</p>
 <h1>Ground Effect</h1>
-
-<p>
-Ground effect refers to the collection of aerodynamic effects felt by aircraft when flying in close proximity to the ground.  If the hovercraft has too much lift, it is likely that it may well feel the effects of such a phenomenon.  
-</p>
-<img src="http://www.free-online-private-pilot-ground-school.com/images/ground_effect_airflow.gif" />
-<h5>Image courtesy of Private Pilot Ground School.  When in ground effect, airflow over the body of the aircraft changes.  This results in an increase in drag</h5>   
-<p>
-One of the most prominent is the Wing-In-Ground effect, whereby the aircraft experiences reduced amounts of drag when flying at an altitude less than the length of its wingspan.  Though the physics are somewhat complicated and beyond the scope of this report, the result is an increase in speed and lift when flying in ground effect.  Ground effect is more significant for lighter aircraft than for heavier aircraft.  Ground effect also has implications for rotary aircraft like helicopters.  They require less energy to remain air bourn while in ground effect.  
-</p>
-
+<p>Ground effect refers to the collection of aerodynamic effects felt by aircraft when flying in close proximity to the ground.  If the hovercraft has too much lift, it is likely that it may well feel the effects of such a phenomenon.</p>
+<div style="text-align: center;"><img alt="alt" src="http://www.free-online-private-pilot-ground-school.com/images/ground_effect_airflow.gif" /></div>
+<h5>Image courtesy of Private Pilot Ground School.  When in ground effect, airflow over the body of the aircraft changes.  This results in an increase in drag</h5>
+<p>One of the most prominent is the Wing-In-Ground effect, whereby the aircraft experiences reduced amounts of drag when flying at an altitude less than the length of its wingspan.  Though the physics are somewhat complicated and beyond the scope of this report, the result is an increase in speed and lift when flying in ground effect.  Ground effect is more significant for lighter aircraft than for heavier aircraft.  Ground effect also has implications for rotary aircraft like helicopters.  They require less energy to remain air bourn while in ground effect.</p>
 <h1>Vortex Ring Effect</h1>
-
-<p>
-Another interesting property of propellers, such as those used in Helicopters, is Vortex Ring effect.  As helicopter blades spin, they direct air downwards, creating lift.  Sometimes this air may recycle, looping around and reentering the blades.  This can have a drastic effect on lift.  
-</p>
-<img alt="" src="http://hovercraft.myavalon.ca/images/stories/vortexring.png" />
-
+<p>Another interesting property of propellers, such as those used in Helicopters, is Vortex Ring effect.  As helicopter blades spin, they direct air downwards, creating lift.  Sometimes this air may recycle, looping around and reentering the blades.  This can have a drastic effect on lift.</p>
+<div style="text-align: center;"><img alt="alt" src="http://hovercraft.myavalon.ca/images/stories/vortexring.png" /></div>
 <h1>Lift Calculator</h1>
-
 <p>A useful tool for calculating the lift of a hovercraft based on several parameters such as craft weight and required air gap, can be found at: <a href="http://www.olshove.com/HoverHome/hovcalc.html">this link</a>.</p>
