@@ -11,32 +11,30 @@ when we are making the craft autonomous. The required measurements are, maximum 
 <h2>Turning Radius</h2>
 <p>A section about how the turning radius was determined.</p>
 
-<p>Matrix for PWM And SPEED</p>
+<table border = "1">
+<tr><td>Speed<td/><td>PWM</td></tr>
+<tr><td>5</td><td>255</td><tr>
+<tr><td>3</td><td>245</td><tr>
+</table>
 
 <p>Once we were acurately able to calculate the speed of the craft it was simple to calculate the stopping distance. We set up a test area in the a hallway with a tape measurer along the wall.
 We had two differen stopping tests. In the first, we would drive the robot down the hall. Once the robot steadily reached the testing speed, we would allow the joystick to snap back into the center 'resting' position and measure the distance the robot traveled.</p>
 
 <h3>Table for 'resting' stop</h3>
 <table border = "1">
-<tr><td>Speed<td/><td>Stopping Distance</td></tr>
-<tr><td>0</td><td>0</td><tr>
-<tr><td>0</td><td>0</td><tr>
-<tr><td>0</td><td>0</td><tr>
-<tr><td>0</td><td>0</td><tr>
-<tr><td>0</td><td>0</td><tr>
-<tr><td>0</td><td>0</td><tr>
+<tr><td>Speed inches/second<td/><td>Stopping Distance(Meters)</td></tr>
+<tr><td>5</td><td>3</td><tr>
+<tr><td>3</td><td>0</td><tr>
 </table>
     
 <p>The other way that the robot could stop, was by  reversing both motors. We would have the same initial set up with a tape measurer in the hall way, but once the craft reached the 'testing' speed, we would then pull the joystick into maximum reverse position. For this calculation we were also required to record the time it took the craft to stop. The reason we needed to do this, was so that when we are driving the robot autonomously, we are able to calculate the duration that the motors must run in reverse to come to a complete stand still with out travelling backwards.</p>
 
 <h3>Table for 'reverse' stop</h3>
 <table border = "1">
-<tr><td>Speed</td><td>Stopping Distance</td><td>Time to Stop</td></tr>
+<tr><td>Speed(inches/second)</td><td>Stopping Distance(meters)</td><td>Time to Stop(seconds)</td></tr>
 <tr><td></td><td></td><td></td><tr>
 <tr><td></td><td></td><td></td><tr>
-<tr><td></td><td></td><td></td><tr>
-<tr><td></td><td></td><td></td><tr>
-<tr><td></td><td></td><td></td><tr>
+
 </table>
 
 <h2>Payload</h2>
