@@ -11,7 +11,8 @@ SOURCE_FILES = Hover-StationMain.c \
 			   ../DualMotors/DualMotors.c    \
 			   ../uart/uart.c      \
 			   ../Servo/servo.c    \
-			   ../Sonar/sonar.c
+			   ../Sonar/sonar.c    \
+			   SpeedCalculator.c
 
 #------------------------------------------------------------------------------
 # Project Settings

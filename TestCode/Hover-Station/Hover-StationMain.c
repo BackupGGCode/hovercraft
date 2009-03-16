@@ -12,6 +12,7 @@
 #include "common.h"
 #include "Servo/servo.h"
 #include "Sonar/sonar.h"
+#include "SpeedCalculator.h"
 
 /** A macro to circumvent a bug in the radio driver. */
 #define RADIO_SET_RECEIVE() do { \
@@ -74,6 +75,7 @@ main(void)
 	radio_init(HOV_ADDRESS, RECEIVE_MODE);
 	servoInit();
 	sonar_init();
+    speedCalcInit();
 	sei();
 	
     len = sprintf((char *)toPrint, "Starting ...\r\n");
@@ -90,7 +92,7 @@ main(void)
         if (y > 250 && x < 250 && x > 90) {
             setMotorDirection(&leftMotor, FORWARD);
             setMotorDirection(&rightMotor, FORWARD);  
-            setMotorDuty(&leftMotor, 255);
+            setMotorDuty(&leftMotor, 240);
             setMotorDuty(&rightMotor, 255);
         } else 
         
@@ -98,7 +100,7 @@ main(void)
             setMotorDirection(&leftMotor, BACKWARD);
             setMotorDirection(&rightMotor, BACKWARD);  
             setMotorDuty(&leftMotor, 255);
-            setMotorDuty(&rightMotor, 255);
+            setMotorDuty(&rightMotor, 240);
         } else
         
         if (x < 80 && y > 130 && y < 230) {
@@ -119,13 +121,13 @@ main(void)
             setMotorDirection(&leftMotor, FORWARD);
             setMotorDirection(&rightMotor, FORWARD);  
             setMotorDuty(&leftMotor, 255);
-            setMotorDuty(&rightMotor, 245);
+            setMotorDuty(&rightMotor, 230);
         } else
         
         if (y > 200 && x < 130) {
             setMotorDirection(&leftMotor, FORWARD);
             setMotorDirection(&rightMotor, FORWARD);  
-            setMotorDuty(&leftMotor, 245);
+            setMotorDuty(&leftMotor, 230);
             setMotorDuty(&rightMotor, 255);
         } else
         
@@ -133,12 +135,12 @@ main(void)
             setMotorDirection(&leftMotor, BACKWARD);
             setMotorDirection(&rightMotor, FORWARD);  
             setMotorDuty(&leftMotor, 255);
-            setMotorDuty(&rightMotor, 245);
+            setMotorDuty(&rightMotor, 230);
         } else
         if (y < 200 && x > 230) {
             setMotorDirection(&leftMotor, FORWARD);
             setMotorDirection(&rightMotor, BACKWARD);  
-            setMotorDuty(&leftMotor, 245);
+            setMotorDuty(&leftMotor, 230);
             setMotorDuty(&rightMotor, 255);
         } else
         //if (x < 230 && x > 130 && y > 100 && y < 200)

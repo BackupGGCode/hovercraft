@@ -15,6 +15,8 @@
 		46B7498E0F329EE600468348 /* sonar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sonar.h; path = ../Sonar/sonar.h; sourceTree = SOURCE_ROOT; };
 		46B749CE0F32A21F00468348 /* servo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = servo.c; path = ../Servo/servo.c; sourceTree = SOURCE_ROOT; };
 		46B749CF0F32A21F00468348 /* servo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = servo.h; path = ../Servo/servo.h; sourceTree = SOURCE_ROOT; };
+		997B3B3F0F6DA14F000DF348 /* SpeedCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeedCalculator.h; sourceTree = "<group>"; };
+		997B3B400F6DA14F000DF348 /* SpeedCalculator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SpeedCalculator.c; sourceTree = "<group>"; };
 		998665F80F2C51AD00E40BAC /* Makefile */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		999BF5B20F633A1900B9862F /* DualMotors.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = DualMotors.c; path = ../DualMotors/DualMotors.c; sourceTree = SOURCE_ROOT; };
 		999BF5B30F633A1900B9862F /* DualMotors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DualMotors.h; path = ../DualMotors/DualMotors.h; sourceTree = SOURCE_ROOT; };
@@ -42,6 +44,7 @@
 				46B7498D0F329EE600468348 /* sonar.c */,
 				46B7490B0F3185C700468348 /* uart.c */,
 				46B749090F3185A300468348 /* radio.c */,
+				997B3B400F6DA14F000DF348 /* SpeedCalculator.c */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -63,6 +66,7 @@
 				46B7490C0F3185C700468348 /* uart.h */,
 				46B7490A0F3185B200468348 /* radio.h */,
 				99FF45320F2C57E00066AFE2 /* common.h */,
+				997B3B3F0F6DA14F000DF348 /* SpeedCalculator.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
