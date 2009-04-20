@@ -1,10 +1,7 @@
 /**
- * @file   test003.c
- * @author Scott Craig and Justin Tanner
- * @date   Mon Oct 29 16:19:32 2007
+ * @file   basestation.c
  *
- * @brief  Test 003 - can schedule RR tasks in the expected order
- *
+ * @brief  Basestation.
  */
 
 #include "common.h"
@@ -16,8 +13,8 @@ enum { A=1, B};
 const unsigned int PT = 2;
 const unsigned char PPP[] = {IDLE, 10, B, 100};
 
- int amount = 0;
- char toPrint[250]; 
+int amount = 0;
+char toPrint[250]; 
 
 extern uint16_t trace_counter;
 EVENT* radio_event;

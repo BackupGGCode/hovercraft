@@ -73,10 +73,17 @@ BASE_OBJS       = $(BASE_SOURCE_FILES:%.c=%.o)
 BASE_TARGET     = basestation.hex
 BASE_ELF_TARGET = $(BASE_TARGET:%.hex=%.elf)
 
+H1_OBJS       = $(H1_SOURCE_FILES:%.c=%.o)
+H1_TARGET     = h1.hex
+H1_ELF_TARGET = $(H1_TARGET:%.hex=%.elf)
+
+H2_OBJS       = $(H2_SOURCE_FILES:%.c=%.o)
+H2_TARGET     = h2.hex
+H2_ELF_TARGET = $(H2_TARGET:%.hex=%.elf)
+
 #------------------------------------------------------------------------------
 # Make Rules
 #------------------------------------------------------------------------------
-
 base: $(DEP_DIR) $(OS_OBJS) $(BASE_OBJS)
 	$(COMPILE) -o $(BASE_ELF_TARGET) $(OS_OBJS) $(BASE_OBJS)
 	
@@ -86,7 +93,26 @@ $(BASE_TARGET): base
 base_flash: $(BASE_TARGET)
 	$(DFU_PROGRAMMER) erase
 	$(DFU_PROGRAMMER) flash $(BASE_TARGET)
-
+	
+h1: $(DEP_DIR) $(OS_OBJS) $(H1_OBJS)
+	$(COMPILE) -o $(H1_ELF_TARGET) $(OS_OBJS) $(H1_OBJS)
+	
+$(H1_TARGET): h1
+	avr-objcopy -j .text -j .data -O ihex $(H1_ELF_TARGET) $(H1_TARGET)
+	
+h1_flash: $(H1_TARGET)
+	$(DFU_PROGRAMMER) erase
+	$(DFU_PROGRAMMER) flash $(H1_TARGET)
+	
+h2: $(DEP_DIR) $(OS_OBJS) $(H2_OBJS)
+	$(COMPILE) -o $(H2_ELF_TARGET) $(OS_OBJS) $(H2_OBJS)
+	
+$(H2_TARGET): h2
+	avr-objcopy -j .text -j .data -O ihex $(H2_ELF_TARGET) $(H2_TARGET)
+	
+h1_flash: $(H2_TARGET)
+	$(DFU_PROGRAMMER) erase
+	$(DFU_PROGRAMMER) flash $(H2_TARGET)
 
 # symbolic targets:
 .PHONY: all
