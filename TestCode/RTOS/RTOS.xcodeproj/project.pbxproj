@@ -1,0 +1,270 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXFileReference section */
+		998665F80F2C51AD00E40BAC /* Makefile */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		998A73860F9D1BA1000922B3 /* crt0.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crt0.c; sourceTree = "<group>"; };
+		998A73880F9D1BA1000922B3 /* error_code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error_code.h; sourceTree = "<group>"; };
+		998A73890F9D1BA1000922B3 /* kernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kernel.h; sourceTree = "<group>"; };
+		998A738A0F9D1BA1000922B3 /* os.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = os.c; sourceTree = "<group>"; };
+		998A738B0F9D1BA1000922B3 /* os.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = os.h; sourceTree = "<group>"; };
+		998A738D0F9D1BBB000922B3 /* basestation.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = basestation.c; sourceTree = "<group>"; };
+		998A738F0F9D1BCB000922B3 /* led.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = led.c; sourceTree = "<group>"; };
+		998A73900F9D1BCB000922B3 /* led.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = led.h; sourceTree = "<group>"; };
+		998A73920F9D1BCB000922B3 /* packet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = packet.h; sourceTree = "<group>"; };
+		998A73930F9D1BCB000922B3 /* radio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = radio.c; sourceTree = "<group>"; };
+		998A73940F9D1BCB000922B3 /* radio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = radio.h; sourceTree = "<group>"; };
+		998A73970F9D1BCB000922B3 /* trace.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trace.c; sourceTree = "<group>"; };
+		998A73980F9D1BCB000922B3 /* trace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trace.h; sourceTree = "<group>"; };
+		998A73990F9D1BCB000922B3 /* trace.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = trace.o; sourceTree = "<group>"; };
+		998A739B0F9D1BCB000922B3 /* uart.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uart.c; sourceTree = "<group>"; };
+		998A739C0F9D1BCB000922B3 /* uart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uart.h; sourceTree = "<group>"; };
+		99FF45320F2C57E00066AFE2 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				998A738E0F9D1BCB000922B3 /* led */,
+				998A73910F9D1BCB000922B3 /* radio */,
+				998A73960F9D1BCB000922B3 /* trace */,
+				998A739A0F9D1BCB000922B3 /* uart */,
+				998A73850F9D1BA1000922B3 /* OS */,
+				99FF45280F2C57B20066AFE2 /* Headers */,
+				9939D9B10F2C4F1F001D2A52 /* Basestation */,
+				998665F70F2C519800E40BAC /* Others */,
+			);
+			name = Project;
+			sourceTree = "<group>";
+		};
+		9939D9B10F2C4F1F001D2A52 /* Basestation */ = {
+			isa = PBXGroup;
+			children = (
+				998A738D0F9D1BBB000922B3 /* basestation.c */,
+			);
+			name = Basestation;
+			sourceTree = "<group>";
+		};
+		998665F70F2C519800E40BAC /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				998665F80F2C51AD00E40BAC /* Makefile */,
+			);
+			name = Others;
+			sourceTree = "<group>";
+		};
+		998A73850F9D1BA1000922B3 /* OS */ = {
+			isa = PBXGroup;
+			children = (
+				998A73860F9D1BA1000922B3 /* crt0.c */,
+				998A73880F9D1BA1000922B3 /* error_code.h */,
+				998A73890F9D1BA1000922B3 /* kernel.h */,
+				998A738A0F9D1BA1000922B3 /* os.c */,
+				998A738B0F9D1BA1000922B3 /* os.h */,
+			);
+			path = OS;
+			sourceTree = "<group>";
+		};
+		998A738E0F9D1BCB000922B3 /* led */ = {
+			isa = PBXGroup;
+			children = (
+				998A738F0F9D1BCB000922B3 /* led.c */,
+				998A73900F9D1BCB000922B3 /* led.h */,
+			);
+			path = led;
+			sourceTree = "<group>";
+		};
+		998A73910F9D1BCB000922B3 /* radio */ = {
+			isa = PBXGroup;
+			children = (
+				998A73920F9D1BCB000922B3 /* packet.h */,
+				998A73930F9D1BCB000922B3 /* radio.c */,
+				998A73940F9D1BCB000922B3 /* radio.h */,
+			);
+			path = radio;
+			sourceTree = "<group>";
+		};
+		998A73960F9D1BCB000922B3 /* trace */ = {
+			isa = PBXGroup;
+			children = (
+				998A73970F9D1BCB000922B3 /* trace.c */,
+				998A73980F9D1BCB000922B3 /* trace.h */,
+				998A73990F9D1BCB000922B3 /* trace.o */,
+			);
+			path = trace;
+			sourceTree = "<group>";
+		};
+		998A739A0F9D1BCB000922B3 /* uart */ = {
+			isa = PBXGroup;
+			children = (
+				998A739B0F9D1BCB000922B3 /* uart.c */,
+				998A739C0F9D1BCB000922B3 /* uart.h */,
+			);
+			path = uart;
+			sourceTree = "<group>";
+		};
+		99FF45280F2C57B20066AFE2 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				99FF45320F2C57E00066AFE2 /* common.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		998A73A00F9D225C000922B3 /* Basestation */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = base;
+			buildConfigurationList = 998A73B00F9D2268000922B3 /* Build configuration list for PBXLegacyTarget "Basestation" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = Basestation;
+			passBuildSettingsInEnvironment = 1;
+			productName = Basestation;
+		};
+		998A73B50F9D22B3000922B3 /* Basestation-Flash */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = base_flash;
+			buildConfigurationList = 998A73C20F9D22B8000922B3 /* Build configuration list for PBXLegacyTarget "Basestation-Flash" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = "Basestation-Flash";
+			passBuildSettingsInEnvironment = 1;
+			productName = "Basestation-Flash";
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "RTOS" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* Project */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				998A73A00F9D225C000922B3 /* Basestation */,
+				998A73B50F9D22B3000922B3 /* Basestation-Flash */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB919408733D9F0010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/usr/local/AVRMacPack/avr-4/include/**";
+				ONLY_ACTIVE_ARCH = YES;
+				PATH = "/usr/local/bin/:/usr/local/AVRMacPack/bin/:$PATH";
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		1DEB919508733D9F0010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/usr/local/AVRMacPack/avr-4/include/**";
+				PATH = "/usr/local/bin/:/usr/local/AVRMacPack/bin/:$PATH";
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+		998A73A10F9D225C000922B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = Basestation;
+			};
+			name = Debug;
+		};
+		998A73A20F9D225C000922B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = Basestation;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		998A73B60F9D22B3000922B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Basestation-Flash";
+			};
+			name = Debug;
+		};
+		998A73B70F9D22B3000922B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Basestation-Flash";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "RTOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB919408733D9F0010E9CD /* Debug */,
+				1DEB919508733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		998A73B00F9D2268000922B3 /* Build configuration list for PBXLegacyTarget "Basestation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				998A73A10F9D225C000922B3 /* Debug */,
+				998A73A20F9D225C000922B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		998A73C20F9D22B8000922B3 /* Build configuration list for PBXLegacyTarget "Basestation-Flash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				998A73B60F9D22B3000922B3 /* Debug */,
+				998A73B70F9D22B3000922B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}
