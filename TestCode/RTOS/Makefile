@@ -110,7 +110,7 @@ h2: $(DEP_DIR) $(OS_OBJS) $(H2_OBJS)
 $(H2_TARGET): h2
 	avr-objcopy -j .text -j .data -O ihex $(H2_ELF_TARGET) $(H2_TARGET)
 	
-h1_flash: $(H2_TARGET)
+h2_flash: $(H2_TARGET)
 	$(DFU_PROGRAMMER) erase
 	$(DFU_PROGRAMMER) flash $(H2_TARGET)
 
@@ -155,7 +155,10 @@ load: all
 	bootloadHID main.hex
 
 clean:
-	rm -rf $(DEP_DIR) $(OS_OBJS) $(BASE_TARGET) $(BASE_ELF_TARGET) $(BASE_OBJS) *~
+	rm -rf *~ $(DEP_DIR) $(OS_OBJS) \
+			  $(BASE_TARGET) $(BASE_ELF_TARGET) $(BASE_OBJS) \
+			  $(H1_TARGET) $(H1_ELF_TARGET) $(H1_OBJS) \
+			  $(H2_TARGET) $(H2_ELF_TARGET) $(H2_OBJS)
 
 # file targets:
 $(ELF_TARGET): $(OBJECTS)
