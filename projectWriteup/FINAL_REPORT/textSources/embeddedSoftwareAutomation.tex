@@ -1,4 +1,4 @@
-
+'
 \subsection{UART Implementation}
 The UART is interrupt driven. The interrupt fires when you call uart\_write(uint8\_t*, int) to signify that the buffer is non empty by setting a non empty flag. There are two pointers that point at the beginning and end of the buffer, head and tail. Each character/byte is sent individually until the head == the tail and the empty flag is restored.
 
@@ -92,7 +92,7 @@ TCCR0B = (0 < < WGM02) | (0 < < CS02) | (0 < < CS01) | (1 < < CS00);
 
 The COM0A1..0 pins control the output of OCA0. In the motor driver, the compare output mode is set to clear OC0A when the counter matches the value in the output compare register, OCR0A, and to pull high when the counter reaches the TOP value. By setting and clearing OCA0, the pulse width that drives the motor is generated. According to the AT90USB1287 datasheet, different modes of operation will have different effect on the behavior of OC0A. The operation mode we are using is Fast PWM mode. It can be set by setting WGM02..0 to 011. The last thing that the motor initialization function does to set the clock prescaler. CS02..0 determines the prescale factor. For us, we set CS02..0 to 001 which disables the prescaling.
 
-\begin{figure}[h]
+\begin{figure}[tbp]
   \begin{center}
     \includegraphics[width=125mm]{imageSources/pwmTable1.png}
   \end{center}
@@ -289,7 +289,7 @@ The radio driver we are using are quite straight forward to use. But it is quite
 \subsubsection{Radio Modes}
 The TRW-24G radio unit we are using has three primary modes and a few sub-modes. Those primary modes as well as the pin settings for changing into a particular mode is listed below.
 
-\begin{figure}[h]
+\begin{figure}[tpb]
   \begin{center}
     \includegraphics[width=125mm]{imageSources/radioModes.png}
   \end{center}
@@ -300,7 +300,7 @@ The TRW-24G radio unit we are using has three primary modes and a few sub-modes.
 \subsubsection{Radio Initialization and Configuration}
 Before the radio can be used to transmit data, it has to be configured. The configuration involves setting the radio address, setting the operation mode (receive mode or tranmit mode), as well as other configurations which can be found in the radio's datasheet. In total, the configuration word can be up to 15 bytes long. An overview of the configuration is shown below.
 
-\begin{figure}[h]
+\begin{figure}[tpb]
   \begin{center}
     \includegraphics[width=125mm]{imageSources/radioConfigOverview.png}
   \end{center}
@@ -376,3 +376,4 @@ void radio_set_receive(void)
 The radio mode is set through the configuration word mentioned in the configuration section. The key bit is the 0 bit of the first byte of configuration word. When the 0 bit is set to 1, then the radio is receive and if the 0 bit is 0 the radio will operate in transmit mode.
 
 Due to a bug in the radio driver, the radio\_set\_receive() function must be called twice in order to switch the radio into receive mode. Fail to do so may leave the radio in an unknown and unoperable state.
+

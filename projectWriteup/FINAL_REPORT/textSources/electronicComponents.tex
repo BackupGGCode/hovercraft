@@ -4,15 +4,15 @@ This section describes the various electronic components used in the project, as
 The following components were attached to an Atmel AT90 microcontroller either directly, or indirectly through a breadboard.  
 
 \subsubsection{Atmel Microcontroller}
-The Hovercraft project is centered around the AT90USB1287 processor from Atmel, mounted on a AT90USBKey which is shown in Figure \ref{at90usbkey}.
+The Hovercraft project is centered around the AT90USB1287 processor from Atmel, mounted on a AT90USBKey which is shown in Figure \ref{fig:at90usbkey}.
 
-\begin{figure}[h]
+
   \begin{center}
     \includegraphics[width=110mm]{imageSources/at90usbkey.png}
   \end{center}
-  \caption{Atmel AT90USBkey} 
-  \label{at90usbkey}
-\end{figure}
+  \captionof{figure}{Atmel AT90USBkey} 
+  \label{fig:at90usbkey}
+
 
 Some of the most notable features of this board include:
 \begin{itemize}
@@ -43,13 +43,13 @@ Several types of motors, as well as other supporting circuitry, are required to 
 The DC Motor
 
 The H-Bridge used is the L293D chip. This chip has the ability to run two H-bridges. 
-\begin{figure}[h]
+
   \begin{center}
     \includegraphics[width=110mm]{imageSources/hBridge.png}
-  \end{center}
-  \caption{L2930 H-Bridge} 
+  \captionof{figure}{L2930 H-Bridge} 
   \label{hBridge}
-\end{figure}
+\end{center}
+
 
 The L293D chip contains four input/output channels that can be used as two bridges. Each bridge (i.e. two channels) contains an enable connection required to operate the it. If the enable connection is given HIGH input, channel output is the same as channel input. If the enable is not connected or given LOW input, the channel output will be high impedance always. The L293D chip requires two connections at all times: a supply voltage (+5V) and ground (+0V). The chip also provides a second logic supply voltage if lower voltage operation is required.
 
@@ -65,24 +65,24 @@ The 74HC04 hex inverter chip is very simple. If the chip receives a HIGH signal,
 
 The servo used is the Hitec HS-55 who's datasheet can be found here. This is a very small servo that is controlled using pulse width control. It requires at least 4.8 volts of power, so it must be powered by the source, the AT90 only produces 3.3 volts.
 
-\begin{figure}[h]
+
   \begin{center}
     \includegraphics[width=90mm]{imageSources/servo.png}
   \end{center}
-  \caption{Hitec HS-55 Servo} 
+  \captionof{figure}{Hitec HS-55 Servo} 
   \label{servo}
-\end{figure}
+
 
 \subsubsection{Joystick}
 We used a traditional serial joystick. The joysticks port is a Male version of the above diagram. We then took a male connector and wired the ports that we wanted. X, Y ground and power. 
 
-\begin{figure}[h]
+
   \begin{center}
     \includegraphics[width=90mm]{imageSources/joystick.png}
   \end{center}
-  \caption{Joystick Pinout} 
+  \captionof{figure}{Joystick Pinout} 
   \label{joystick}
-\end{figure}
+
 
 Table \ref{joystickPinout} describes the functions of each pin of the joystick:
 \begin{table}
@@ -113,33 +113,33 @@ Table \ref{joystickPinout} describes the functions of each pin of the joystick:
 
 \subsubsection{UART}
 For testing purposes, when we wanted two UART readings, we used a windows machine and serial UART. For serial UART connections, the ADM33L chip is used to convert the signal. This chip is intended for use with transmitting and receiving devices. We use it for RS-232 transmission of data from the AT90 to a serial connection on a HyperTerminal running on the computer. This chip has an on board voltage converter to allow it to run from a single 5 volt power supply. 
-\begin{figure}[h]
+
   \begin{center}
     \includegraphics[width=90mm]{imageSources/serialUART.png}
   \end{center}
-  \caption{Serial UART Schematic} 
+  \captionof{figure}{Serial UART Schematic} 
   \label{serialUART}
-\end{figure}
+
 
 We are using USB to UART Bridge - FT232RL. This bridge is able to be connected directly to the board with out the use of an extra chip. This chip is powered using the 3.3 volts of power provided by the connection to the computer. 
 
-\begin{figure}[h]
+
   \begin{center}
-    \includegraphics[width=90mm]{imageSources/usbUART.png}
+    \includegraphics[width=90mm, height= 70mm]{imageSources/usbUART.png}
   \end{center}
-  \caption{USB UART} 
+  \captionof{figure}{USB UART} 
   \label{usbUART}
-\end{figure}
+
 
 \subsubsection{Sonar}
 This sonar is capable of both long and short distance readings. It can tell if there is an object present from 0-254 inches, and gives distance information for objects 6-254 inches. This sonar has ground, VCC, enable and three different pins to read information(PWM, analog, digital). We chose to use the PWM.  When the enable pin is pulled high then the sonar will send out signals and listen.  The datasheet for the Max Sonar EZ1 can be found here.
-\begin{figure}[h]
+
   \begin{center}
-    \includegraphics[width=90mm]{imageSources/sonar.png}
+    \includegraphics[width=70mm, height= 70mm]{imageSources/sonar.png}
   \end{center}
-  \caption{Max Sonar EZ1} 
+  \captionof{figure}{Max Sonar EZ1} 
   \label{sonar}
-\end{figure}
+
 
 \subsection{Connections and Interface Design}
 This section describes the connections among the various components, as well as other factors relating to the design of the electronic configurations used.  
@@ -158,31 +158,31 @@ To power many of the components (Motors, Sonar, RS-232 Uart) we required more th
 We have one radio on each of our boards. The radio on the base station board sends the information regarding the position of the joystick and then prints the information it receives from the hover station.  The radio on the hovercraft sends information regarding the output of the motor and the sonar reading and receives information to change the position of the two motors.
 
 All of the wires from the radio go to port E. The Radio ground pin must also be connected to the ground on the bread board. As modeled in the above diagram, the pin layout for the radios are as follows:
-\begin{figure}[h]
+
   \begin{center}
     \includegraphics[width=90mm]{imageSources/radioConnect.png}
   \end{center}
-  \caption{Radio Wiring Layout} 
+  \captionof{figure}{Radio Wiring Layout} 
   \label{radioConnect}
-\end{figure}
+
 
 \subsubsection{Motor Connections}
 An H-bridge is used to  control a motor that you want to spin in two different directions. Below is a diagram behind the theory of an H-Bridge taken from Wikipedia. An h-bridge is composed of a power source, four switches and a motor. The switches can all be in one of two positions, open or closed. There are only two different positions that the entire h-bridge can be in (shown in the diagram below). On the left, the lower left and upper right switches are open. this makes a circuit that goes through the motor from left to right, this will make the motor spin one way.  In the right diagram the other two switches are open, this makes the current flow through the motor from right to left, making the motor spin in the opposite direction.
-\begin{figure}[h]
+
   \begin{center}
     \includegraphics[width=90mm]{imageSources/hBridgeConnect1.png}
   \end{center}
-  \caption{Diagram of the H-bridge for a DC Motor} 
+  \captionof{figure}{Diagram of the H-bridge for a DC Motor} 
   \label{hBridgeConnect1}
-\end{figure}
 
-\begin{figure}[h]
+
+
   \begin{center}
     \includegraphics[width=90mm]{imageSources/hBridgeConnect2.png}
   \end{center}
-  \caption{Layout of the H-bridge} 
+  \captionof{figure}{Layout of the H-bridge} 
   \label{hBridgeConnect2}
-\end{figure}
+
 
 In the above diagram, the orange enable pin is attached to OCR0A. This pin outputs the PWM signal needed to control the speed of the motor.  The yellow direction pin is connected to pin C1. This pin is either pulled HIGH or LOW which changes the position of the switches in the H-bridge.
 
@@ -191,13 +191,13 @@ In the above diagram, the orange enable pin is attached to OCR0A. This pin outpu
 For this project we are using an analog joystick. This means that  the joystick reads off many different readings to calculate its position. Details of how the conversion from analog to digital are outlined in the implementation section.
 
 Pin 3, the x value, is wired to the first pin of PORT F (PINF1). The y value is connected to the second pin of PORT F (PINF2). Lastly, the second Y value is wired to the forth pin of PORT F (PINF4).
-\begin{figure}[h]
+
   \begin{center}
     \includegraphics[width=90mm]{imageSources/joystickConnect.png}
   \end{center}
-  \caption{Joystick Connection: Pin Layout} 
+  \captionof{figure}{Joystick Connection: Pin Layout} 
   \label{joystickConnect}
-\end{figure}
+
 
 \subsubsection{UART Connections}
 The ADM233L connects to both the serial cable, and the AT90. 
@@ -209,21 +209,21 @@ The ADM233L connects to both the serial cable, and the AT90.
   \label{uartConnect1}
 \end{figure}
 
-\begin{figure}[h]
+
   \begin{center}
     \includegraphics[width=90mm]{imageSources/uartConnect2.png}
   \end{center}
-  \caption{UART Pin Layout For Serial} 
+  \captionof{figure}{UART Pin Layout For Serial} 
   \label{uartConnect2}
-\end{figure}
 
-\begin{figure}[h]
+
+
   \begin{center}
     \includegraphics[width=90mm]{imageSources/uartConnect3.png}
   \end{center}
-  \caption{UART Wiring Layout} 
+  \captionof{figure}{UART Wiring Layout} 
   \label{uartConnect3}
-\end{figure}
+
 
 The above image is a picture of the UART layout of the board. In this picture, you can also see the layout for the power supply.
 
@@ -234,11 +234,11 @@ The servo motor requires 5 volts of power, to be connected to ground and a pwm s
 
 \subsubsection{Sonar Connections}
 The sonar must be connected to two pins on the AT90 and to ground and power on the bread board. We decided to calculate the distance using PWM even though we could have used a few methods. (See sonar implementation for details on the conversion.)  For this the sonar needed to be attached to a pin on the board to be triggered when the input goes high. This pin also needs to be associated with a timer. We chose to use timer three for our sonar, and Input Capture Register (ICP3) to read the input which is located on port C7. The sonar will also only fire when the RX pin reads high. So we connected the RX pin to PC6 and then set that pin either high or low.
-\begin{figure}[h]
+
   \begin{center}
     \includegraphics[width=90mm]{imageSources/sonarConnect.png}
   \end{center}
-  \caption{Sonar Wiring Layout} 
+  \captionof{figure}{Sonar Wiring Layout} 
   \label{sonarConnect}
-\end{figure}
+
 
