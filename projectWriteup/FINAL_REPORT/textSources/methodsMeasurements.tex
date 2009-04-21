@@ -1,0 +1,158 @@
+For this project we were required to measure various aspects of the control and motion of the craft. These measurements are intended to help us when we are making the craft autonomous. The required measurements are: maximum speed, stopping distance, PWM cycles vs actual speed and payload vs actual speed.
+
+\subsection{Distance}
+The first step in many of these calculations is the ability to record the distance between the hovercraft and an oncoming object. We have decided to use the sonar from the first project to calculate this distance. The sonar from the first project is calibrated to report the distance between the sonar and an object in inches.
+
+\subsection{Speed}
+To calculate the speed of the craft, we compared the rate at which the distance to the object ahead was changing. The most challenging aspect of this design was accurately calculating the time between sonar readings.
+
+To do this, we use the fact that the clock speed is at 8 MHz. We used Timer 2 which is an 8 bit timer. We then set the prescaler to a factor of 1024 which means that the frequency will be reduced to 8 000 000/1024 = 7812.5Hz. The counter increases at this frequency, and this will overflow every 256 ticks. By setting the TOIE2 bit in the TIMSK2 register, we enable an interrupt on overflow. By dividing 7812.5 by 256, we can see that the register will overflow 30 times per second. So in the over flow register, there is a counter that increases each time the interrupt is fired, and maintains a count. A variable is maintained how the desired amount of time between sonar firings. Currently, this variable is set at 2, so that the sonar will fire every 2 second. In the overflow interrupt, an if statement checks to see if the counter has overflowed enough times for 2 seconds to pass. If this conditional returns true, the counter is reset to zero and the sonar is triggered. This if statement also contains the code to calculate the current speed. An array of size two is created that maintains the current sonar reading and the previous sonar reading. The difference is then calculated between these readings and divided by two. Currently the speed is calculated using decimal numbers. This reduces the accuracy, but saves on space from using the floating point numbers. This output is then sent to uart.
+
+During our testing of the sonar, we noticed that a lot of noise was generated when the sonar read the value of new objects. This had a significant impact on the quality of the final speed measurement generated. To account for this, we created a static array of 5 integers which holds the values of the 5 most recent speed calculations. The final speed, used by the vehicle's components, is the average of these 5 speed calculations. We found that this modification greatly improved the accuracy in the trend of speed calculations output to uart. We believe that we may be able to do even better. By eliminating values that seem to be complete noise, the average speed calculations will also be more accurate because they don't include such outliers. We hope to have this additional logic incorporated into milestone 3.
+
+\lstset{language=c}
+%\lstset{commentstyle=\textit}
+\begin{lstlisting}[frame=trbl]{}
+#define OVERFLOW_LIMIT 30
+#define TIME_BETWEEN_SONAR 2
+
+volatile int overflowCounter  = 0;
+volatile uint8_t timeInterval = 0;
+volatile uint8_t distances[2] = {0, 0};
+volatile bool isSecondReading = false;
+
+volatile char uartBuf[255];
+volatile int  uartLen = 0;
+
+void 
+speedCalcInit()
+{
+    // Set TIMER 2 to CTC mode.
+    TCCR2A &= ~(1 < < WGM20);
+    TCCR2A |=(1 < < WGM21);
+    TCCR2B &= ~(1< < WGM22);
+
+    // Set clock prescaler to 1024
+    TCCR2B |= (1 < < CS22) | (1 < < CS21) | (1 < < CS20);
+
+    // Set OC2A on compare match
+    TCCR2A |= (1 < < COM2A1) | (1 < < COM2A0);
+
+    // Enable interrupt on compare match
+    TIMSK2 |= (1 < < OCIE2A);
+
+    // Enable overflow interrupt
+    TIMSK2 |= (1 < < TOIE2);
+
+    // Set OCR2A to the highest possible value.
+    OCR2A = 0xFF;
+}
+
+/**
+ * Compare match interrupt service routine.
+ */
+ISR(TIMER2_COMPA_vect)
+{
+
+}
+
+/**
+ * Timer 2 overflow interrupt service routine.
+ */
+ISR(TIMER2_OVF_vect)
+{
+    if (++overflowCounter >= OVERFLOW_LIMIT) {
+        ++timeInterval;
+    }
+
+    if (timeInterval >= TIME_BETWEEN_SONAR) {
+        trigger_sonar();
+        timeInterval = 0;
+        overflowCounter = 0;
+
+        if (!isSecondReading) {
+            distances[0] = read_distance();
+            isSecondReading = true;
+        } else {
+            distances[1] = read_distance();
+
+            uartLen = sprintf((char *)uartBuf, "%d\r\n", distances[0]);
+            uart_write((uint8_t *)uartBuf, uartLen);
+            uartLen = sprintf((char *)uartBuf, "%d\r\n", distances[1]);
+            uart_write((uint8_t *)uartBuf, uartLen);
+
+            // calcluate velocity
+            int velocity = (distances[1] - distances[0])/TIME_BETWEEN_SONAR;
+            uartLen = sprintf((char *)uartBuf, "vel: %d\r\n", velocity);
+            uart_write((uint8_t *)uartBuf, uartLen);
+
+            distances[0] = distances[1];
+        }
+    }
+}
+\end{lstlisting}
+
+\subsection{Turning Radius}
+The turning of our craft is very small, almost in place. To get this effect, we have two motors that are on either side of the centre. When turning at full speed, one motor will me moving forwards, while the other is spinning backwards. Table \ref{turningRadius} shows the speeds and corresponding PWMs. 
+
+\begin{table}
+\caption{Hovercraft Turning Radius}
+\begin{center}
+\begin{tabular}{ c c }
+  Speed (inch/sec) & PWM \\
+  \hline
+  5 & 255 \\
+  3 & 245 \\
+\end{tabular}
+\end{center}
+\label{turningRadius}
+\end{table}
+
+Once we were accurately able to calculate the speed of the craft it was simple to calculate the stopping distance. We set up a test area in the a hallway with a tape measurer along the wall. We had two different stopping tests. In the first, we would drive the robot down the hall. Once the robot steadily reached the testing speed, we would allow the joystick to snap back into the center 'resting' position and measure the distance the robot traveled.
+
+\subsubsection{`Resting' Stop}
+\begin{table}
+\caption{Stopping Distances (to rest)}
+\begin{center}
+\begin{tabular}{ c c }
+  Speed (inch/sec) & Stopping Distance (meters) \\
+  \hline
+  5 & 3 \\
+  3 & 2.5 \\
+\end{tabular}
+\end{center}
+\label{restingTable}
+\end{table}
+
+The other way that the robot could stop, was by reversing both motors. We would have the same initial set up with a tape measurer in the hall way, but once the craft reached the `testing' speed, we would then pull the joystick into maximum reverse position. For this calculation we were also required to record the time it took the craft to stop. The reason we needed to do this, was so that when we are driving the robot autonomously, we are able to calculate the duration that the motors must run in reverse to come to a complete stand still with out traveling backwards.
+
+\subsubsection{`Reverse' Stop}
+\begin{table}
+\caption{Stopping Distances (from Reverse)}
+\begin{center}
+\begin{tabular}{ c c }
+  Speed (inch/sec) & Stopping Distance (meters) \\
+  \hline
+  5 & 1.3 \\
+  3 & 0.90 \\
+\end{tabular}
+\end{center}
+\label{reverseTable}
+\end{table}
+
+\subsection{Payload}
+All of the above measurements are recorded with only the required components placed on the hovercraft, as well as the additional components required to eliminate rotational spin. The following table, describes how the speed of the craft changes with the amount of excess weight is added to the craft. All of the additional weight was distributed evenly around the chassis to minimize the rotational spin. The table also describes how the speed changes when the motors are receiving full (255) PWM.
+\begin{table}
+\caption{Hovercraft Supported Weight}
+\begin{center}
+\begin{tabular}{ c c }
+  Additional Weight (grams) & Speed (meters/sec) \\
+  \hline
+  100 & 4 \\
+  200 & 3 \\
+  300 & 1 \\
+  400 & stopped \\
+\end{tabular}
+\end{center}
+\label{weightTable}
+\end{table}

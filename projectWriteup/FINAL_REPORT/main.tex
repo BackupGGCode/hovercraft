@@ -1,0 +1,73 @@
+%\documentclass[letterpaper]{sig-alternate}
+\documentclass{article}
+\usepackage[left=1.0in,right=1.0in,nohead,nofoot]{geometry}
+\usepackage{multirow} 
+\usepackage{rotating}
+\usepackage{listings}
+\usepackage{color}
+\begin{document}
+
+%\conferenceinfo{}
+%\CopyrightYear{}
+%\crdata{}
+
+
+\title{Software for Embedded Systems\\Hovercraft Project\\Final Report}
+
+
+\author{Darren Minifie, Marco Yuen, Kat Gunion and Anthony Estey}
+
+\date{April 23, 2009}
+\maketitle
+\begin{abstract}
+Hovercraft report abstract here.
+\end{abstract}
+
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage
+
+%A category including the fourth, optional field follows...
+%\category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
+
+%\terms{}
+
+
+
+\section{Introduction}
+\input{textSources/introduction}
+
+\section{Electronic Components and Their Interface}
+\input{textSources/electronicComponents}
+
+\section{Hovercraft Design and Construction}
+\input{textSources/hovercraftDesignConstruction}
+
+\section{PID Controller}
+\input{textSources/pidController}
+
+\section{Embedded Software for Automation}
+\label{embeddedSoftwareAutomation}
+\input{textSources/embeddedSoftwareAutomation}
+
+\section{Real Time Operating System (RTOS)}
+\input{textSources/rtos}
+
+\section{Physical Parameters: Methodologies and Measurements}
+\input{textSources/methodsMeasurements}
+
+\section{Observations and Evaluations}
+\input{textSources/observationsEvaluations}
+
+\section{Conclusion}
+\input{textSources/conclusion}
+
+%ACKNOWLEDGMENTS are optional
+%\section{Acknowledgments}
+
+\bibliographystyle{abbrv}
+\bibliography{bibliography}  % sigproc.bib is the name of the Bibliography in this case
+
+
+\end{document}
