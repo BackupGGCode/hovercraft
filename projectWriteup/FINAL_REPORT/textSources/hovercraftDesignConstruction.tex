@@ -6,23 +6,23 @@ The hovercraft is able to move freely due to the minimum amount of friction betw
 \subsubsection{Steering}
 Different approaches have been taken to steer the craft. Larger hovercrafts typically employ a large propeller at the rear to drive the vehicle forward. Rudders are used for steering. Another option, usually seen in smaller hovercrafts, is to tilt the base, affecting the plenum chamber underneath. This results in a change in direction because a drag is created on one side, creating a pivot point.
 
-\begin{figure}[h]
+
   \begin{center}
     \includegraphics[width=85mm]{imageSources/differentialTurning.png}
   \end{center}
-  \caption{Differential Turning} 
+  \captionof{figure}{Differential Turning} 
   \label{differentialTurning}
-\end{figure}
+
 
 Instead of using 2 fans on the craft (one for filling the plenum chamber and one for forward thrust), a single propeller may be used for both functions. A fraction of the air intake is directed into the inner chamber to lift the craft, while the remaining air flow is forced behind the craft, creating thrust.
 
-\begin{figure}[h]
+
   \begin{center}
     \includegraphics[width=85mm]{imageSources/servoTurning.png}
   \end{center}
-  \caption{Servo Turning} 
+  \captionof{figure}{Servo Turning} 
   \label{servoTurning}
-\end{figure}
+
 
 Steering may further be affected by either differential turning or though the use of a servo motor. The former approach commonly employs two thrust sources on either side of the vehicle. By altering the thrust of either motor (for example with pulse width modulation), one motor will be more powerful than the other, causing the craft to turn. The latter approach sees a propeller mounted to a servo motor. As the servo rotates through its 180 degree range, the thrust of the propeller is directed in a specific direction, also causing the craft to turn.
 
@@ -34,13 +34,12 @@ In general, the purpose of the skirt is to increase the overall surface area of 
 \subsection{Ground Effect}
 Ground effect refers to the collection of aerodynamic effects felt by aircraft when flying in close proximity to the ground. If the hovercraft has too much lift, it is likely that it may well feel the effects of such a phenomenon.
 
-\begin{figure}[h]
+
   \begin{center}
     \includegraphics[width=85mm]{imageSources/groundEffect.png}
   \end{center}
-  \caption{Ground Effect Airflow} 
+  \captionof{figure}{Ground Effect Airflow} 
   \label{groundEffect}
-\end{figure}
 
 One of the most prominent is the Wing-In-Ground effect, whereby the aircraft experiences reduced amounts of drag when flying at an altitude less than the length of its wingspan. Though the physics are somewhat complicated and beyond the scope of this report, the result is an increase in speed and lift when flying in ground effect. Ground effect is more significant for lighter aircraft than for heavier aircraft. Ground effect also has implications for rotary aircraft like helicopters. They require less energy to remain air bourn while in ground effect.
 
@@ -106,7 +105,7 @@ In order for the hovercraft to stay afloat, the internal air pressure must count
 \begin{table}
 \caption{Weight of Hovercraft Components}
 \begin{center}
-\begin{tabular}{ c c }
+\begin{tabular}{ c c c}
   Component & Quantity & Weight (grams) \\
   \hline
 	Battery  &	2 & 	50 \\
