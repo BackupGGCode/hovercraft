@@ -21,10 +21,6 @@
 static unsigned char next_sample;
 static int sum[3];
 
-unsigned char normX[3] = {0, 128, 255};
-unsigned char normY[3] = {0, 128, 255};
-
-
 // Forward declarations
 static void single_sample(unsigned char SAMPN, int input_num);
 
