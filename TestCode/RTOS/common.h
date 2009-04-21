@@ -20,4 +20,7 @@
 #define HOV1_ADDRESS 0xFACE
 #define HOV2_ADDRESS 0xBEEF
 
+#define RADIO_SET_RECEIVE() radio_set_receive(); \
+                            radio_set_receive()
+
 #endif

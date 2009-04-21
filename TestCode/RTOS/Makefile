@@ -15,7 +15,8 @@ BASE_SOURCE_FILES = basestation.c \
 H1_SOURCE_FILES = hovercraft1.c \
 				  motor/DualMotors.c \
 				  uart/uart.c \
-				  radio/radio.c
+				  radio/radio.c \
+				  sonar/sonar.c
 
 H2_SOURCE_FILES = hovercraft2.c \
 				  motor/DualMotors.c \

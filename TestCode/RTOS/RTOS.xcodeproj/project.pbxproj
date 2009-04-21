@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		990F60290F9E74D20050B437 /* sonar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sonar.c; sourceTree = "<group>"; };
+		990F602A0F9E74D20050B437 /* sonar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sonar.h; sourceTree = "<group>"; };
 		998665F80F2C51AD00E40BAC /* Makefile */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		998A73860F9D1BA1000922B3 /* crt0.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crt0.c; sourceTree = "<group>"; };
 		998A73880F9D1BA1000922B3 /* error_code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error_code.h; sourceTree = "<group>"; };
@@ -35,6 +37,7 @@
 		08FB7794FE84155DC02AAC07 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				990F60280F9E74D20050B437 /* sonar */,
 				998A74640F9D61F9000922B3 /* motor */,
 				998A738E0F9D1BCB000922B3 /* led */,
 				998A73910F9D1BCB000922B3 /* radio */,
@@ -48,6 +51,15 @@
 				998665F70F2C519800E40BAC /* Others */,
 			);
 			name = Project;
+			sourceTree = "<group>";
+		};
+		990F60280F9E74D20050B437 /* sonar */ = {
+			isa = PBXGroup;
+			children = (
+				990F60290F9E74D20050B437 /* sonar.c */,
+				990F602A0F9E74D20050B437 /* sonar.h */,
+			);
+			path = sonar;
 			sourceTree = "<group>";
 		};
 		9939D9B10F2C4F1F001D2A52 /* Basestation */ = {
@@ -152,6 +164,32 @@
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
+		990F602F0F9E777E0050B437 /* Hovercraft 1 */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = h1;
+			buildConfigurationList = 990F60490F9E77810050B437 /* Build configuration list for PBXLegacyTarget "Hovercraft 1" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = "Hovercraft 1";
+			passBuildSettingsInEnvironment = 1;
+			productName = "Hovercraft 1";
+		};
+		990F60560F9E78A20050B437 /* Hovercraft 1-Flash */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = h1_flash;
+			buildConfigurationList = 990F606A0F9E78A70050B437 /* Build configuration list for PBXLegacyTarget "Hovercraft 1-Flash" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = "Hovercraft 1-Flash";
+			passBuildSettingsInEnvironment = 1;
+			productName = "Hovercraft 1-Flash";
+		};
 		998A73A00F9D225C000922B3 /* Basestation */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = base;
@@ -192,6 +230,8 @@
 			targets = (
 				998A73A00F9D225C000922B3 /* Basestation */,
 				998A73B50F9D22B3000922B3 /* Basestation-Flash */,
+				990F602F0F9E777E0050B437 /* Hovercraft 1 */,
+				990F60560F9E78A20050B437 /* Hovercraft 1-Flash */,
 			);
 		};
 /* End PBXProject section */
@@ -221,6 +261,48 @@
 				PATH = "/usr/local/bin/:/usr/local/AVRMacPack/bin/:$PATH";
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+		990F60300F9E777E0050B437 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Hovercraft 1";
+			};
+			name = Debug;
+		};
+		990F60310F9E777E0050B437 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Hovercraft 1";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		990F60570F9E78A20050B437 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Hovercraft 1-Flash";
+			};
+			name = Debug;
+		};
+		990F60580F9E78A20050B437 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Hovercraft 1-Flash";
+				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -274,6 +356,24 @@
 			buildConfigurations = (
 				1DEB919408733D9F0010E9CD /* Debug */,
 				1DEB919508733D9F0010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		990F60490F9E77810050B437 /* Build configuration list for PBXLegacyTarget "Hovercraft 1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				990F60300F9E777E0050B437 /* Debug */,
+				990F60310F9E777E0050B437 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		990F606A0F9E78A70050B437 /* Build configuration list for PBXLegacyTarget "Hovercraft 1-Flash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				990F60570F9E78A20050B437 /* Debug */,
+				990F60580F9E78A20050B437 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

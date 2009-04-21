@@ -25,11 +25,12 @@ struct initPacket
     uint8_t init:1;
 } initPacket_t;
 
+typedef
 struct pingPacket
 {
     packet_t type;
     uint8_t ping:1;
-};
+} pingPacket_t;
 
 typedef
 struct pongPacket

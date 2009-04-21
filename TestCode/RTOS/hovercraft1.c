@@ -7,12 +7,24 @@
  *
  */
 
+#include <stdbool.h>
 #include "uart/uart.h"
 #include "radio/radio.h"
 #include "motor/DualMotors.h"
+#include "sonar/sonar.h"
 #include "common.h"
 
 volatile uint8_t radio_buffer[PAYLOAD_BYTES];
+
+volatile bool receivedInit = false;
+
+void inline 
+sendPing()
+{
+    pingPacket_t pingPacket = { PING, 1 };
+    radio_send(HOV2_ADDRESS, (uint8_t *)&pingPacket);
+    RADIO_SET_RECEIVE();
+}
 
 int
 main(int argc, char *argv[])
@@ -33,10 +45,16 @@ main(int argc, char *argv[])
     NO_CLK_PRESCALE();
     uart_init();
     radio_init(HOV1_ADDRESS, RECEIVE_MODE);
+    sonar_init();
     motorInit(&rightMotor);
     motorInit(&leftMotor);
     pwmInit();
     sei();
+    
+    for (;;) {
+        // Wait unit the initiate message is sent from the base.
+        if (!receivedInit) continue;
+    }
     
     return 0;
 }
@@ -54,6 +72,11 @@ ISR (INT4_vect)
     
     // Figure out what type of packet this is.
     genericPacket_t *incomingPacket = (genericPacket_t *)radio_buffer;
+    switch(incomingPacket->type) {
+        case INIT:
+            receivedInit = true;
+            break;
+    }
     
     /* print out the radio packet on uart */
     //uart_write((uint8_t*)radio_buffer, PAYLOAD_BYTES);
