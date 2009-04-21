@@ -196,3 +196,110 @@ The following two figures show the first design we had chosen to provide the veh
 \end{figure}
 
 We decided to change this design. By placing the motors as far apart as possible, maximum torque could be achieved. The analogy is as follows. Consider the act of opening a door. It is much easier to open a door if you push on the edge furthest from the hinges, because you can generate much more torque. The same goes for our hovercraft. Ideally the centre of rotation (the hinge) is in the centre of the hovercraft. By placing the motors as far away from this centre, we will create the most rotational torque and the craft will be easily controlled
+
+\subsection{Design Problems and Future Considerations}
+The following subsections describe the most challenging problems we encountered as the hovercrafts took shape.  
+
+\subsubsection{Shape}
+Our hovercraft is oval-shaped with a length to width ratio of 3:2. The first problem we encountered with this shape was that it was hard to evenly wrap our mylar around the soft corners. The mylar creased around the corners, and stuck out unevenly, often hanging down enough to provide friction for the hovercraft, creating a pivot point when we tried to move the hovercraft around. We had to make extra cuts, and then iron and glue the corners to prevent this. A hovercraft with sharper edges may take significantly less mylar tuning, and we haven't found speed to be a major issue, so the fact that square edges may reduce the aerodynamics of the hovercraft may not be as significant an issue as we thought.
+
+\subsubsection{Weight Distribution}
+Our fan blows air parallel to the ground, and we have a Styrofoam encasing around the fan directing the air down into the hovercraft base, with a single hole at the bottom of the hovercraft in the center. As mentioned above, we tried to seal the mylar around the edges of the hovercraft so that it was air-tight. We cut a Styrofoam circle that had a diameter just slightly bigger than that of the fan, and placed it even with the edge of the fan, in order to get the maximum possible amount of air intake, and prevent as little air as possible from escaping. Our fan motor is large, and is able to easily lift our hovercraft, and with this design we haven't come across any lift-related issues. The main problem we encountered having a single large fan is that it is being held up by the small square Styrofoam encasing, under 20cm in length. The fan makes up a significant portion of the overall weight of our hovercraft, and the weight distribution is all in the very center of the hovercraft. Because a large amount of the weight is in the very center, our hovercraft can easily tip, allowing air to flow out from the bottom of one side, resulting in the hovercraft gliding across the floor, or spinning.
+
+\begin{center}
+  \includegraphics[width=85mm]{imageSources/weightDistro1.png}
+\end{center}
+\captionof{figure}{Weight Distribution I} 
+\label{weightDistro1}
+
+\begin{center}
+  \includegraphics[width=85mm]{imageSources/weightDistro2.png}
+\end{center}
+\captionof{figure}{Weight Distribution II} 
+\label{weightDistro2}
+
+If the hovercraft moves around at all when just the lift fan is on, then it is extremely hard to control with the joystick. We initially hoped we could counterbalance this with software code, and shifted the power of the thrust motors on the side of the hovercraft accordingly. This took a lot of fine-tuning, and the hovercraft still was extremely hard to control, as air always seemed to be leaking from a different side, depending on the hovercraft's current movement direction and the forces exerted by the fans.
+
+By placing weight around the edges of the hovercraft, we can greatly reduce the movement of the hovercraft when just the lift fan is on. The problem was that when enough weight was placed around the perimeter of the hovercraft that it remains motionless when the thrust motors are off, the fans had trouble moving the hovercraft forward or backward even at full power. As we took weight off, the motors could control the hovercraft more, but with less weight balancing the hovercraft, it again moves and spins uncontrollably.
+
+\subsubsection{Turning Pivot}
+We originally had our motors placed at the back end of our hovercraft, as shown in the image below. We found that the turning pivot of the hovercraft is directly inbetween where the two thrust motors are placed. With the turning pivot at the back end of the hovercraft, the turning radius of the center of the hovercraft is equal to about half of the hovercraft's length (~90cm), and it was a awkward to control the hovercraft correctly. 
+
+\begin{center}
+  \includegraphics[width=85mm]{imageSources/turningPivot1.png}
+\end{center}
+\captionof{figure}{Turning Pivot I} 
+\label{turningPivot1}
+
+We shifted our thrust motors so that the fan blades were at the very center of our hovercraft. This allowed the hovercraft to have much tighter turns, and reduced our turning radius so that the hovercraft's pivot was right at the center of the hovercraft. We found controlling the hovercraft was much more intuitive this way.
+
+\begin{center}
+  \includegraphics[width=85mm]{imageSources/turningPivot2.png}
+\end{center}
+\captionof{figure}{Turning Pivot II} 
+\label{turningPivot2}
+
+\subsubsection{H-bridge}
+As mentioned above, one of the challenges that we encountered was that we were not getting enough power to our thrust motors. This lack of thrust was making it nearly impossible to accelerate in either direction. In the initial testing of our hovercraft design, we connected the thrusting motors directly to the 7 volt power source. In this experiment, the craft moved forward at a very quick speed over both the smooth linoleum floor and the carpet.
+
+When testing our H-Bridge independently, it seemed like their was sufficient power being supplied to the thrust motors. Once we had the H-bridge and motors connected through the bread-board, along with the radio, and other components, the hovercraft hardly moved. The fans were moving much too slowly to accelerate our hovercraft. Our initial hypothesis was that there was not enough voltage being supplied to the H-Bridge. To solve this problem, we tried to connect an extra battery to one side of the bread-board to power the H-Bridge side, and another to control the other components on the bread-board. This solution did not seem to affect the thrust motors' power at all, as they still did not spin fast enough to accelerate our hovercraft.
+
+After reading the documentation about the L293D H-Bridge, we found that it can only handle 1.5A maximum. At this point we tried a higher amperage H-Bridge. Again, when we wired the H-Bridge up independently, the motors spun very well, and significantly faster than with the previous L293D H-Bridge. Again, when we tested it with the rest of our components, the motors seemed to jitter, sometimes spinning as powerfully as we needed, but very irregularly. We thought this irregularity was due to a faulty H-Bridge, so we moved back to the L293D H-Bridges, that we were sure functioned correctly. As the 1.5A maximum was the limiting factor with the L293d H-Bridges, we decided to wire them in parallel. At 5 volts, this solution gave the fans almost enough power to control the hovercraft sufficiently. Unfortunately, when we used 7 volts, again the power shifted irregularly. Another problem was that we were using over 30 of the bread-boards 67 pins for our H-Bridges and Inverters alone, not leaving enough room for the other necessary components. We later found out that you can simply `piggy-back' the H-bridges, by soldering them on top of one another. This would solve the lack of pins issue. We have also since found out that the irregular power issues were caused because of the H-Bridges becoming too hot and shutting off. Attaching a heat-sink solves this problem, as we will discuss below, so two L293D H-Bridges may be a very viable option!
+
+\begin{center}
+  \includegraphics[width=85mm]{imageSources/designProblemsHBridge1.png}
+\end{center}
+\captionof{figure}{H-bridge Wiring Alternative I} 
+\label{HbridgeWiring}
+
+\begin{center}
+  \includegraphics[width=85mm]{imageSources/designProblemsHBridge2.png}
+\end{center}
+\captionof{figure}{H-bridge Wiring Alternative II} 
+\label{HbridgeWiring2}
+
+At this point, we were supplied another high-amperage H-Bridge, so we went back to work on it. The new H-Bridge we were supplied also had an attached heat-sink. We were informed that the heat-sink would prevent the H-Bridge from becoming too hot and temporarily shutting off. With the heat-sink, the motors were getting enough power to successfully control the hovercraft, and the heat-sink prevented the irregular shifts in power caused by the H-Bridge shutting off.
+
+\begin{center}
+  \includegraphics[width=85mm]{imageSources/designProblemsHBridgeHeatsink.png}
+\end{center}
+\captionof{figure}{H-bridge Heatsink} 
+\label{HBridgeHeatsink}
+
+\subsubsection{Joystick}
+As the joystick we were supplied was seemed to produce different results every day that we tested it, and would not stay centered, it was very difficult to set-up our code to produce consistent results. We resorted to getting a new joystick that had not yet been modified to connect and work with the AT90. We took apart our new joystick, and found that it was currently using three potentiometers. One of the potentiometers was for the X position of the joystick, another was for the Y position, and the third was for the position of a dial on the base of the joystick. These potentiometers were connected so that the amount of current was determined by the position of the joystick, or the dial.
+
+A potentiometer is a resistor with three terminals: a ground, an input, and an output (the wiper). There is a knob connected that can be spun, and as the knob is turned, the middle pin reads the voltage, and will output a reading that is the difference between ground, (zero) and the value of the input (in our case VCC).
+
+\begin{center}
+  \includegraphics[width=85mm]{imageSources/joystickPotentiometer.png}
+\end{center}
+\captionof{figure}{Joystick Potentiometer} 
+\label{joystickPotentiometer}
+
+We decided to remove the potentiometer at the base of the joystick and simply control the hovercraft with the X- and Y-coordinates. We then were required to modify how the other two potentiometers were connected so that the amount of voltage was determined by the position of the joystick. To do this we grounded one side of the potentiometer, and connected power to the other. The middle connection was then connected through the serial port as output. Our current implementation outputs all three values at the base station, and sends them to the hovercraft, We may end up using the dial at the base of the joystick to control a ``side-stepping'' fan we could connect to the hovercraft that blows air perpendicular to the other fans. This would prevent the hovercraft from having to zig-zag down a hallway, as this fan could blow air toward the close wall to ``side-step'' the hovercraft away from the wall, without having to make an actual turn.
+
+\begin{center}
+  \includegraphics[width=85mm]{imageSources/potentiometerSchematic.png}
+\end{center}
+\captionof{figure}{Joystick Potentiometer Schematic} 
+\label{potentiometerSchematic}
+
+Once the casing was replaced on the joystick, the readings from the board, when the joystick was connected to 5 volts of regulated power, are displayed in the table below.
+
+\begin{table}
+\caption{Joystick Voltage for Direction}
+\begin{center}
+\begin{tabular}{ c c }
+  Position & Reading (volts) \\
+  \hline
+  Forward & 3.76 \\
+  Middle & 2.278 \\
+  Backward & 0.633 \\
+\end{tabular}
+\end{center}
+\label{voltagePotentiometerTable}
+\end{table}
+
+\subsubsection{Next Prototype}
+In our next prototype, we will try and spread out the weight distribution of our center fan. This will reduce the amount of weight needed to place around the perimeter to balance the hovercraft, so the motors will be powerful enough to move the hovercraft. Now that we have our wiring completed, and are sure of the number of batteries, chips, fans, and bread-boards we will use, we can also plan a new design that takes into consideration their weights as well. Our large lift fan has always easily lifted our hovercraft, but we have found that it drains batteries quickly, our next design will also be a smaller hovercraft size, and therefore we will also use a smaller lift fan.
