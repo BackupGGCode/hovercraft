@@ -14,7 +14,10 @@ BASE_SOURCE_FILES = basestation.c \
 					
 H1_SOURCE_FILES =
 
-H2_SOURCE_FILES =
+H2_SOURCE_FILES = hovercraft2.c \
+				  motor/DualMotors.c \
+				  uart/uart.c \
+				  radio/radio.c
 
 #------------------------------------------------------------------------------
 # Project Settings
@@ -48,7 +51,7 @@ CC      = avr-gcc
 INC     = -I.
 
 CFLAGS  = -Wall -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
-CFLAGS += $(INC) -Winline -nostartfiles
+CFLAGS += $(INC) -Winline
 ifeq ($(CFG),debug)
 	CFLAGS += -ggdb3 -O2
 else ifeq ($(CFG), release)
@@ -85,7 +88,7 @@ H2_ELF_TARGET = $(H2_TARGET:%.hex=%.elf)
 # Make Rules
 #------------------------------------------------------------------------------
 base: $(DEP_DIR) $(OS_OBJS) $(BASE_OBJS)
-	$(COMPILE) -o $(BASE_ELF_TARGET) $(OS_OBJS) $(BASE_OBJS)
+	$(COMPILE) -nostartfiles -o $(BASE_ELF_TARGET) $(OS_OBJS) $(BASE_OBJS)
 	
 $(BASE_TARGET): base
 	avr-objcopy -j .text -j .data -O ihex $(BASE_ELF_TARGET) $(BASE_TARGET)
@@ -98,16 +101,18 @@ h1: $(DEP_DIR) $(OS_OBJS) $(H1_OBJS)
 	$(COMPILE) -o $(H1_ELF_TARGET) $(OS_OBJS) $(H1_OBJS)
 	
 $(H1_TARGET): h1
+	rm -f $(H1_TARGET)
 	avr-objcopy -j .text -j .data -O ihex $(H1_ELF_TARGET) $(H1_TARGET)
 	
 h1_flash: $(H1_TARGET)
 	$(DFU_PROGRAMMER) erase
 	$(DFU_PROGRAMMER) flash $(H1_TARGET)
 	
-h2: $(DEP_DIR) $(OS_OBJS) $(H2_OBJS)
-	$(COMPILE) -o $(H2_ELF_TARGET) $(OS_OBJS) $(H2_OBJS)
+h2: $(DEP_DIR) $(H2_OBJS)
+	$(COMPILE) -o $(H2_ELF_TARGET) $(H2_OBJS)
 	
 $(H2_TARGET): h2
+	rm -f $(H2_TARGET)
 	avr-objcopy -j .text -j .data -O ihex $(H2_ELF_TARGET) $(H2_TARGET)
 	
 h2_flash: $(H2_TARGET)
