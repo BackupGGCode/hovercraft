@@ -27,6 +27,7 @@
 		998A745E0F9D60B3000922B3 /* hovercraft2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hovercraft2.c; sourceTree = "<group>"; };
 		998A74650F9D61F9000922B3 /* DualMotors.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DualMotors.c; sourceTree = "<group>"; };
 		998A74660F9D61F9000922B3 /* DualMotors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DualMotors.h; sourceTree = "<group>"; };
+		99DE00990F9E64620017C623 /* hovercraft1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hovercraft1.c; sourceTree = "<group>"; };
 		99FF45320F2C57E00066AFE2 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -42,6 +43,7 @@
 				998A73850F9D1BA1000922B3 /* OS */,
 				99FF45280F2C57B20066AFE2 /* Headers */,
 				9939D9B10F2C4F1F001D2A52 /* Basestation */,
+				99DE00980F9E64460017C623 /* Hovercraft 1 */,
 				998A745C0F9D607F000922B3 /* Hovercraft 2 */,
 				998665F70F2C519800E40BAC /* Others */,
 			);
@@ -129,6 +131,14 @@
 				998A74660F9D61F9000922B3 /* DualMotors.h */,
 			);
 			path = motor;
+			sourceTree = "<group>";
+		};
+		99DE00980F9E64460017C623 /* Hovercraft 1 */ = {
+			isa = PBXGroup;
+			children = (
+				99DE00990F9E64620017C623 /* hovercraft1.c */,
+			);
+			name = "Hovercraft 1";
 			sourceTree = "<group>";
 		};
 		99FF45280F2C57B20066AFE2 /* Headers */ = {

@@ -12,7 +12,10 @@ OS_SOURCE_FILES = OS/crt0.c \
 BASE_SOURCE_FILES = basestation.c \
 					uart/uart.c
 					
-H1_SOURCE_FILES =
+H1_SOURCE_FILES = hovercraft1.c \
+				  motor/DualMotors.c \
+				  uart/uart.c \
+				  radio/radio.c
 
 H2_SOURCE_FILES = hovercraft2.c \
 				  motor/DualMotors.c \
@@ -98,7 +101,7 @@ base_flash: $(BASE_TARGET)
 	$(DFU_PROGRAMMER) flash $(BASE_TARGET)
 	
 h1: $(DEP_DIR) $(OS_OBJS) $(H1_OBJS)
-	$(COMPILE) -o $(H1_ELF_TARGET) $(OS_OBJS) $(H1_OBJS)
+	$(COMPILE) -o $(H1_ELF_TARGET) $(H1_OBJS)
 	
 $(H1_TARGET): h1
 	rm -f $(H1_TARGET)
