@@ -1,7 +1,13 @@
 \subsection{UART Implementation}
-The UART is interrupt driven. The interrupt fires when you call uart\_write(uint8\_t*, int) to signify that the buffer is non empty by setting a non empty flag. There are two pointers that point at the beginning and end of the buffer, head and tail. Each character/byte is sent individually until the head == the tail and the empty flag is restored.
+The UART is interrupt driven. The interrupt fires when you call
+\texttt{uart\_write(uint8\_t*, int)} to signify that the buffer is non empty by
+setting a non empty flag. There are two pointers that point at the beginning and
+end of the buffer, head and tail. Each character/byte is sent individually until
+the \texttt{head == tail} and the empty flag is restored. The code for the
+\texttt{uart\_write} function is shown in listing \ref{lst:uartwrite}.
 
-\begin{lstlisting}
+\begin{lstlisting}[label={lst:uartwrite},
+                   caption={UART write function and ISR}]
 int uart_write(uint8_t* const str, int len){
     int overflow = 0;
     int i;
@@ -47,9 +53,14 @@ ISR(USART1_UDRE_vect) {
 }
 \end{lstlisting}
 
-The simplist way for UART to be used, is to create a character buffer and insert the desired String using sprinf. This made is very simple to monitor length and insert decimals. 
+The simplist way for UART to be used, is to create a character buffer and insert
+the desired string using \texttt{sprinf} as shown in listing
+\ref{lst:uartwriteEx}. This made is very simple to monitor length and insert
+decimals. 
 
-\begin{lstlisting}
+\begin{lstlisting}[float=ht,
+                   caption={An example usage of \texttt{uart\_write} function},
+                   label={lst:uartwriteEx}]
 int len = sprintf((char *)toPrint, "X %d, Y %d\r\n", packet->x, packet->y);
 uart_write((uint8_t*)toPrint, len);
 \end{lstlisting}
@@ -91,7 +102,7 @@ The COM0A1..0 pins control the output of OCA0. In the motor driver, the compare 
 
 The above table outlines the 8 different types of  Waveform generation that are available. As can be seen by how we set the code, we chose to use mode7. This describes that the system uses fast PWM and that the top value is defined by OCRA.  As can be seen in the following section, we change the value of OCR0A to  change the speed of the motor.
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \begin{center}
     \includegraphics[width=125mm]{imageSources/waveformGenerationTable.png}
   \end{center}
@@ -144,7 +155,7 @@ Since there are three inputs (x, y, and z) from the joystick,  the ADC multiplex
 
 The bit ADSC is also used to determine if a conversion is in progress. It will stay high as long as there is an ongoing conversion; as soon as the conversion is completed it will become low. The following function demonstration how to use the ADSC to determine when to read the ADC results from the ADCH register. The result of the conversion can be found in the ADC Result Register (ADCL, ADCH) which is a 16-bit register. If the ADLAR bit in ADMUX register is set to high, the result is left adjusted, which means one can read the result from ADCH. If, however, the ADLAR bit is low, the result is right adjusted, so the result will be stored in ADCL.
 
-\begin{lstlisting}
+\begin{lstlisting}[float=ht]
 #define ADC_NOT_DONE() 	(ADCSRA & _BV(ADSC)) 
 static void single_sample(unsigned char SAMPN, int input_num) {
 	ADMUX = SAMPN;
@@ -298,7 +309,7 @@ int radio_init(uint16_t address, uint8_t rx_enable)
 \subsubsection{Sending and Receiving}
 The radio driver relies on interrupt 4 (INT4) to receive packets and for sending packets, the radio must switch to transmit (if it isn't already), then the function radio\_send() can be used to send out packets. In the INT4's ISR, the packet is read one byte at a time into a buffer, then the buffer can be interpreted in any way you see fit. Since TRW24G is a half-duplex radio, the radio must be set to receive mode before it can receive any packets, and vice versa for the sending out packets.
 
-\begin{lstlisting}
+\begin{lstlisting}[float=htb]
 void radio_set_transmit(void)
 {
    set_config_mode();
