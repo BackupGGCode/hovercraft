@@ -1,10 +1,7 @@
-'
 \subsection{UART Implementation}
 The UART is interrupt driven. The interrupt fires when you call uart\_write(uint8\_t*, int) to signify that the buffer is non empty by setting a non empty flag. There are two pointers that point at the beginning and end of the buffer, head and tail. Each character/byte is sent individually until the head == the tail and the empty flag is restored.
 
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
+\begin{lstlisting}
 int uart_write(uint8_t* const str, int len){
     int overflow = 0;
     int i;
@@ -52,9 +49,7 @@ ISR(USART1_UDRE_vect) {
 
 The simplist way for UART to be used, is to create a character buffer and insert the desired String using sprinf. This made is very simple to monitor length and insert decimals. 
 
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
+\begin{lstlisting}
 int len = sprintf((char *)toPrint, "X %d, Y %d\r\n", packet->x, packet->y);
 uart_write((uint8_t*)toPrint, len);
 \end{lstlisting}
@@ -65,29 +60,23 @@ uart_write((uint8_t*)toPrint, len);
 The D/C motor uses Pulse Width Modulation(PWM) to determine the speed at which it turns. This PWM is sent through the enable pin of the H-bridge. There is also a direction pin which must be set to either high or low.
 
 This pin is set as output to be able to turn the motor on and off.
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
- DDRD |=  (1< < PORTD7);
+\begin{lstlisting}
+ DDRD |=  (1 << PORTD7);
 \end{lstlisting}
 
 This pin is the direction pin, also set to output. 
 
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
- DDRC |= (1< < PORTC1);
+\begin{lstlisting}
+ DDRC |= (1 << PORTC1);
 \end{lstlisting}
 
 Finally, this pin is the pin that outputs the PWM, also set for output. 
 
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
-DDRB |= (1< < PORTD7);
+\begin{lstlisting}
+DDRB |= (1 << PORTD7);
 /** setup timer/counter 0  for fast PWM   **/ 
-TCCR0A = (1 < < WGM00) | (1 < < WGM01) | (0 < < COM0A0) | (1 < < COM0A1);
-TCCR0B = (0 < < WGM02) | (0 < < CS02) | (0 < < CS01) | (1 < < CS00);
+TCCR0A = (1 << WGM00) | (1 << WGM01) | (0 << COM0A0) | (1 << COM0A1);
+TCCR0B = (0 << WGM02) | (0 << CS02) | (0 << CS01) | (1 << CS00);
 \end{lstlisting}
 
 The COM0A1..0 pins control the output of OCA0. In the motor driver, the compare output mode is set to clear OC0A when the counter matches the value in the output compare register, OCR0A, and to pull high when the counter reaches the TOP value. By setting and clearing OCA0, the pulse width that drives the motor is generated. According to the AT90USB1287 datasheet, different modes of operation will have different effect on the behavior of OC0A. The operation mode we are using is Fast PWM mode. It can be set by setting WGM02..0 to 011. The last thing that the motor initialization function does to set the clock prescaler. CS02..0 determines the prescale factor. For us, we set CS02..0 to 001 which disables the prescaling.
@@ -113,9 +102,7 @@ The above table outlines the 8 different types of  Waveform generation that are 
 \subsubsection{Control}
 To control the speed of the D/C motor, we use the function called setMotorSpeed(uint8\_t). The duty parameter sets the duty cycle period of the pulse. The larger the duty cycle is, the faster the motor will spin. 
 
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
+\begin{lstlisting}
  void setMotorSpeed(uint8_t duty) {
 	OCR0A = duty;
 }
@@ -123,9 +110,7 @@ To control the speed of the D/C motor, we use the function called setMotorSpeed(
 
 Aside from the speed of the D/C motor, we need to have control of direction of which the motor will spin. In the motor driver code, there is a function called, setMotorDirection(int), which can be used to set the direction. 
 
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
+\begin{lstlisting}
 void setMotorDirection(int d) {
     if (d == BACKWARD)
         PORTC |= _BV(PORTC1);
@@ -141,18 +126,14 @@ The joystick is sampled every second. The x, y, and z values of the joystick is 
 
 \subsubsection{Analog-to-Digital Conversion}
 To start a conversion from an analog signal to a digital signal, both ADEN (bit 7) and ADSC (bit 6) need to be set in the ADC Control and Status Register A (ADCSRA). As shown in the following code snippet.
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
+\begin{lstlisting}
 #define TAKE_SAMP (_BV(ADEN) | _BV(ADSC))
 ADCSRA = TAKE_SAMP;
 \end{lstlisting}
 
 Since there are three inputs (x, y, and z) from the joystick,  the ADC multiplexer(ADMUX) is used to select which input value for the ADC to sample.
 
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
+\begin{lstlisting}
 // X value
 #define SAMP0 	(_BV(REFS0) | _BV(ADLAR) | PINF1)
 // Y value
@@ -163,9 +144,7 @@ Since there are three inputs (x, y, and z) from the joystick,  the ADC multiplex
 
 The bit ADSC is also used to determine if a conversion is in progress. It will stay high as long as there is an ongoing conversion; as soon as the conversion is completed it will become low. The following function demonstration how to use the ADSC to determine when to read the ADC results from the ADCH register. The result of the conversion can be found in the ADC Result Register (ADCL, ADCH) which is a 16-bit register. If the ADLAR bit in ADMUX register is set to high, the result is left adjusted, which means one can read the result from ADCH. If, however, the ADLAR bit is low, the result is right adjusted, so the result will be stored in ADCL.
 
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
+\begin{lstlisting}
 #define ADC_NOT_DONE() 	(ADCSRA & _BV(ADSC)) 
 static void single_sample(unsigned char SAMPN, int input_num) {
 	ADMUX = SAMPN;
@@ -186,15 +165,13 @@ static void single_sample(unsigned char SAMPN, int input_num) {
 \subsection{Servo Implementation}
 Similar to the DC motor, the servo motor is controlled by pulse width modulation. Initializing the servo driver is very similar to the DC motor initialization function. First, a clock prescaler is chosen by setting the CS02..0 bits in TCCR1B. In the servo driver code, CS02..0 is set to 010 which sets the prescale factor to 8 or the clock is running at 1Mhz. Also we set the waveform generation mode to fast PWM mode by setting WGM13..0 to 1110. As for the output to the servo, we configure the OC1B pin to go high when the timer/counter is equal to OCR1B (= 800), and OC1B pin to go low when the timer/counter equals to ICR1 (=20000). Such configuration is done through setting COM1B1..0 pins to 10.
 
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
+\begin{lstlisting}
 void
 servoInit(void){
 
-	TCCR1B = (0 < < CS10)|(1 < < CS11)|(0 < < CS12)|(1 < < WGM13)|(1 < < WGM12);
+	TCCR1B = (0 << CS10)|(1 << CS11)|(0 << CS12)|(1 << WGM13)|(1 << WGM12);
 
-	TCCR1A = (0 < < WGM10) | (1 < < WGM11) | (1 < < COM1B1) | (0 < < COM1B0);
+	TCCR1A = (0 << WGM10) | (1 << WGM11) | (1 << COM1B1) | (0 << COM1B0);
 	/*Set the IO pins for output for  OCB1*/
 	DDRB = 0xFF;
 	/* Set the TOP value to 2500 this should mean that the TCNT1 counter
@@ -207,9 +184,7 @@ servoInit(void){
 
 After initialization and configuration, the servo can be easily controlled by setting the OCR1B register.
 
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
+\begin{lstlisting}
 int servoDuty(int duty){
 	OCR1B = duty;
 	return duty;
@@ -224,9 +199,7 @@ The sonar driver we are using uses the pulse width method. In the pulse width me
 \subsubsection{Initialization}
 The first initialization step is to set the clock source and choose a clock prescaler. The clock prescale factor is chosen by setting CS32..0 bits in the Timer/Counter3 Control Register (TCCR3B) to 010 which translates to the system clock speed divided by 8 (=1Mhz). After the clock source is set, we choose to enable the noise canceler by setting the ICNC3 bit in TCCR3B. Enabling the noise canceler allows for more reliable range data with the cost of four system clock cycles of delay, because the canceler will take four samples, and all of those four samples have to be of equal value before the change is propagated to the edge detector which might then triggers an interrupt. In order to get notified about the incoming range information from the sonar, the input capture interrupt is used. First, we need to determine which edge on the Input Capture Pin (ICP3) will trigger an event. When an event is triggered the counter value will be stored in the Input Capture Register 3 (ICR3) and the corresponding Input Capture Flag 3 (ICF3) bit is set. The ICF3 bit may then optionally cause an interrupt to fire, only if the input capture interrupt is enabled. In the initialization code, an event is set to trigger whenever a rising edge is detected. This is done by setting the ICES3 bit in TCCR3B register to high. Next, the input capture interrupt is enabled as well as the ICF3 bit in the Timer/Counter3 Interrupt Flag Register 3 (TIFR3) is cleared (Note: ICF3 bit is cleared by writing a logic one to its bit location). The last thing the initialization code does is to let the sonar performs a calibration cycle by setting the RX pin (PINC7) high.
 
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
+\begin{lstlisting}
 #define SONAR_PORT      PORTC
 #define SONAR_ECHO_MASK (_BV(7))                                        
 void sonar_init(){
@@ -249,9 +222,7 @@ void sonar_init(){
 \subsubsection{Range Calculation}
 The majority of the calculation is done through the input capture interrupt. The ISR will determine what triggers the event. If it is an rising edge that triggers the event, it will set the set the counter to 0. Then the behaviour of the input capture interrupt is changed so that the interrupt will fire on a falling edge. In order to change the input capture interrupt behaviour the ISR sets the ICES3 bit to 0. After updating the interrupt firing behaviour, the input capture flag is cleared. According to the AT90USB1287 data sheet, the ICF3 bit must be cleared every time an edge changes (Again, ICF3 is cleared by writing a logical one to the corresponding bit location). After a rising edge is detected, the timer/counter is to set to 0 and the interrupt is configured to fire when a falling edge is detected. If a falling edge occurs, the timestamp will saved to the ICR3 register. In the ISR, when the triggering event is a falling edge event, the timestamp is read from ICR3 and stored to a global variable called, time\_falling, which essentially is the duration of the duty cycle. Then the input capture interrupt is changed back to detect a rising edge.
 
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
+\begin{lstlisting}
 #define IS_RISING_EDGE()   (TCCR3B & _BV(ICES3))
 #define IS_FALLING_EDGE()  ~(TCCR3B & _BV(ICES3))
 #define SET_RISING_EDGE()  (TCCR3B |= _BV(ICES3))                          
@@ -274,9 +245,7 @@ ISR(TIMER3_CAPT_vect) {
 
 Finally, the actual distance can be calulated by divding the duration of the duty cycle by 147 (which is given by the MaxSonar datasheet). The result will be the distance in inches.
 
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
+\begin{lstlisting}
 #define US_PER_INCH 147
 uint8_t read_distance() {
 	return (time_falling/US_PER_INCH);      
@@ -310,9 +279,7 @@ Before the radio can be used to transmit data, it has to be configured. The conf
 
 The majority of the radio initialization code is to deal with the configuration of the radio, but at the end of the radio\_init function, INT4 is enabled such whenever a packet arrives, the ISR can handle it.
 
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
+\begin{lstlisting}
 int radio_init(uint16_t address, uint8_t rx_enable)
 {
    // ...
@@ -331,9 +298,7 @@ int radio_init(uint16_t address, uint8_t rx_enable)
 \subsubsection{Sending and Receiving}
 The radio driver relies on interrupt 4 (INT4) to receive packets and for sending packets, the radio must switch to transmit (if it isn't already), then the function radio\_send() can be used to send out packets. In the INT4's ISR, the packet is read one byte at a time into a buffer, then the buffer can be interpreted in any way you see fit. Since TRW24G is a half-duplex radio, the radio must be set to receive mode before it can receive any packets, and vice versa for the sending out packets.
 
-\lstset{language=c}
-\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
+\begin{lstlisting}
 void radio_set_transmit(void)
 {
    set_config_mode();
