@@ -267,6 +267,7 @@ At this point, we were supplied another high-amperage H-Bridge, so we went back 
 \label{HBridgeHeatsink}
 
 \subsubsection{Joystick}
+\label{sec:JoystickConst}
 As the joystick we were supplied was seemed to produce different results every day that we tested it, and would not stay centered, it was very difficult to set-up our code to produce consistent results. We resorted to getting a new joystick that had not yet been modified to connect and work with the AT90. We took apart our new joystick, and found that it was currently using three potentiometers. One of the potentiometers was for the X position of the joystick, another was for the Y position, and the third was for the position of a dial on the base of the joystick. These potentiometers were connected so that the amount of current was determined by the position of the joystick, or the dial.
 
 A potentiometer is a resistor with three terminals: a ground, an input, and an output (the wiper). There is a knob connected that can be spun, and as the knob is turned, the middle pin reads the voltage, and will output a reading that is the difference between ground, (zero) and the value of the input (in our case VCC).
