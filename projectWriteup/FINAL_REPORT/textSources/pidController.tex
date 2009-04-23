@@ -1,18 +1,17 @@
-Upon completion of the vehicle body and electronic components, we ran into major
-weight balance issues. Since a hovercraft is practically floating on a thin
-layer of air, it is highly sensitive to weight imbalance. This imbalance causes
-the hovercraft to stray (yaw) off course, making it very difficult to control.
-Presented with such a situation, a PID controller can potentially correct the
+Upon completion of the vehicle body construction and mounting the electronic components, significant
+weight balance issues began to present themselves. Since a hovercraft is practically floating on a thin
+layer of air, it is highly sensitive to weight imbalance. This imbalance caused
+the hovercraft to stray (yaw\footnote{In 3 dimensions, the angle of the vertical axis.}), making it difficult to control.
+Presented with such a situation, a PID controller could potentially correct the
 imbalance issues by having the hovercraft automatically compensate to the yaw
 produced by the imbalance.
 
 \subsection{PID Controller Primer}
-PID in PID controller stands for Proportional, Integral, Derivative. These three
-terms are used to define the behaviour of the controller. Each of them
-contributes to the final output of the controller, and different weights can be
-assigned to different terms. The weights selection process (tuning) is not an
+The acronym PID stands for Proportional, Integral, Derivative. These three
+terms are used to define the behavior of the controller. Each contributes to the final output of the controller, and different weights can be
+assigned to different terms. The weight selection process (tuning) is not an
 easy task. In a nutshell, a PID controller can output corrective actions based
-on the difference (error) between a set point (SP), the desired value, and a
+on the difference (error) between a set point (SP), the desired value and a
 measured process variable (PV), the instantaneous value. A PID controller is a
 feedback control loop wherein the output of the controller is treated as an
 input of the same controller. The feedback allows the controller to
@@ -27,12 +26,12 @@ intelligently adjust its output according to the error.
 \end{figure}
 
 The object being controlled by the PID controller is usually referred as the
-plant, as shown in the above diagram. Depending on the system, a plant can be a
-motor, servo, actuator, and etc. The plant is constantly monitored by some
+plant, as shown in Figure \ref{pidController}. Depending on the system, a plant can be a
+motor, servo, actuator, etc. The plant is constantly monitored by 
 sensors in order for the PID controller to adjust its output based on the error.
 
 \subsection{PID Terms}
-As mentioned earlier, there are three terms that determine the behaviour of the
+There are three terms that determine the behavior of the
 PID controller. The calculated output or Manipulated Variable (MV) of the PID
 controller is the summation of all three terms. The formula can be written as:
 \begin{displaymath}
@@ -46,15 +45,13 @@ variable(PV) or SP - PV.
 The proportional term in the PID controller corresponds to how fast the
 controller reacts to error. Depending on the parameter $K_p$, the magnitude of
 the proportional term will either amplify or diminish in the presence of error.
-However, an improper choice of the $K_p$ can lead to the system become unstable,
-because when the value of $K_p$ is too large or too small, the output , $MV(t)$,
-of the controller will overshoot or it will take a long time to reach the set
+However, an improper choice for $K_p$ can lead to an unstable system.  When the value of $K_p$ is too large or too small, the output , $MV(t)$, of the controller will overshoot and take a long time to reach the set
 point(SP), the desired value. 
 
 \subsubsection{Derivative Term}
-The derivative term determines the rate of which the $e(t)$ is changing with
+The derivative term determines the rate of which $e(t)$ is changing with
 respect of time. The rate can be calculated by taking the first derivative of
-the error over time. For example, if the $K_d$ is set too high, which means the
+the error over time. For example, if $K_d$ is set too high, meaning the
 controller's output will converge to the set point very quickly, but it will run
 into the problem of overshooting. By adding the derivative term, the output of
 the controller can be slowed down as it gets closer and closer to the set point.
