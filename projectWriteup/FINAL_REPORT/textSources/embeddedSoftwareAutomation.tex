@@ -254,7 +254,7 @@ ISR(TIMER3_CAPT_vect) {
 }
 \end{lstlisting}
 
-Finally, the actual distance can be calulated by divding the duration of the duty cycle by 147 (which is given by the MaxSonar datasheet). The result will be the distance in inches.
+Finally, the actual distance can be calculated by dividing the duration of the duty cycle by 147 (which is given by the MaxSonar datasheet). The result will be the distance in inches.
 
 \begin{lstlisting}
 #define US_PER_INCH 147
@@ -280,7 +280,7 @@ The TRW-24G radio unit we are using has three primary modes and a few sub-modes.
 \subsubsection{Radio Initialization and Configuration}
 Before the radio can be used to transmit data, it has to be configured. The configuration involves setting the radio address, setting the operation mode (receive mode or tranmit mode), as well as other configurations which can be found in the radio's datasheet. In total, the configuration word can be up to 15 bytes long. An overview of the configuration is shown below.
 
-\begin{figure}[tpb]
+\begin{figure}[htp]
   \begin{center}
     \includegraphics[width=125mm]{imageSources/radioConfigOverview.png}
   \end{center}
@@ -307,11 +307,11 @@ int radio_init(uint16_t address, uint8_t rx_enable)
 \end{lstlisting}
 
 \subsubsection{Sending and Receiving}
-The radio driver relies on interrupt 4 (INT4) to receive packets and for sending packets, the radio must switch to transmit (if it isn't already), then the function radio\_send() can be used to send out packets. In the INT4's ISR, the packet is read one byte at a time into a buffer, then the buffer can be interpreted in any way you see fit. Since TRW24G is a half-duplex radio, the radio must be set to receive mode before it can receive any packets, and vice versa for the sending out packets.
+The radio driver relies on interrupt 4 (INT4) to receive packets and for sending packets, the radio must switch to transmit (if it isn't already), then the function \texttt{radio\_send()} can be used to send out packets. In the INT4's ISR, the packet is read one byte at a time into a buffer, then the buffer can be interpreted in any way you see fit. Since TRW24G is a half-duplex radio, the radio must be set to receive mode before it can receive any packets, and vice versa for the sending out packets.
 
-\begin{lstlisting}[float=htb]
-void radio_set_transmit(void)
-{
+\begin{lstlisting}[float=ht, 
+                   caption={Radio Modes}]
+void radio_set_transmit(void) {
    set_config_mode();
    put_byte(RADIO_CHANNEL << 1);
    set_standby_mode();
@@ -325,11 +325,8 @@ void radio_set_transmit(void)
    set_rxtx_mode();
 } 
 
-
-void radio_set_receive(void)
-{
+void radio_set_receive(void) {
    int i;
-
    set_config_mode();
    put_byte((RADIO_CHANNEL << 1) | 0x1);
    set_standby_mode();
@@ -342,14 +339,155 @@ void radio_set_receive(void)
 
    set_rxtx_mode();
 
-   for (i=0; i<250; ++i)
-   {
+   for (i=0; i<250; ++i) {
       delay_1us(); // Tsby2rx = 202 us
    }
 }
 \end{lstlisting}
 
-The radio mode is set through the configuration word mentioned in the configuration section. The key bit is the 0 bit of the first byte of configuration word. When the 0 bit is set to 1, then the radio is receive and if the 0 bit is 0 the radio will operate in transmit mode.
+The radio mode is set through the configuration word mentioned in the
+configuration section. The key bit is the 0 bit of the first byte of
+configuration word. When the 0 bit is set to 1, then the radio is receive and if
+the 0 bit is 0 the radio will operate in transmit mode.
 
-Due to a bug in the radio driver, the radio\_set\_receive() function must be called twice in order to switch the radio into receive mode. Fail to do so may leave the radio in an unknown and unoperable state.
+Due to a bug in the radio driver, the \texttt{radio\_set\_receive()} function
+must be called twice in order to switch the radio into receive mode.  Fail to do
+so may leave the whole system in an unknown and inoperable state.
+
+\subsection{Communication Protocol}
+As a part of the requirement for the team, two hovercrafts are to be built, and
+there has to be interactions between the two hovercrafts. The communication of
+the hovercrafts is done through the radio. Please refer to section
+\ref{subsec:radioconn} for details about the radio units that the hovercrafts
+are using. In this project, the one of the hovercrafts will be the leader, and
+it is responsible for sending movements packets to the trailing hovercraft. To
+facilitate the communication, a protocol is in place between the two
+hovercrafts. The leader (or leading hovercraft) is also responsible for
+navigating the environment, deciding what movements to use to traverse the
+environment, and relaying those movements to the trailing hovercraft.
+
+The protocol structure is shown in figure \ref{fig:protocol}. The leader will
+start navigating the environment when the base station sends an
+\texttt{initiate} message. After the leader receives the \texttt{initiate}
+message, it will attempt to contact the trailing hovercraft. The leader detects
+the trailing hovercraft by sending a \texttt{ping} message to the trailing
+hovercraft. When the trailing hovercraft receives the \texttt{ping} message, it
+will response with a \texttt{pong} message. When the leader receives the
+\texttt{pong} message, it will start the sensors sampling process. At the same
+time, the leader will continuously send its status, as well as, sensors
+information back to the base station. When the leader makes a decision about
+the movement, it will relay the motors' speeds to the trailing hovercraft. If
+the trailing hovercraft receives the motors' speeds information, it will
+acknowledge the information back to the leaders. In order to make the process a
+little more robust, there is a timeout in place in the leader. When the leader
+does not receive the acknowledgments from the trailing hovercraft, it will
+resend the motors speeds information again. After three timeouts, the leader
+will give up and continue on its way.
+\begin{figure}[thp]
+  \begin{center}
+    \includegraphics[width=130mm]{imageSources/messages.png}
+  \end{center}
+  \caption{Protocol Structure Between the Hovercrafts} 
+  \label{fig:protocol}
+\end{figure}
+
+\subsubsection{Protocol Implementation}
+In terms of the implementation, all those messages in figure \ref{fig:protocol}
+are represented as C structures. First there is a \texttt{enum} type that is
+used to represent the different types of messages. The \texttt{enum} type is
+shown in listing \ref{lst:msgenum}.
+\begin{lstlisting}[caption={Enumerations for message types},
+                   label=lst:msgenum]
+typedef enum { INIT=1, PING, PONG, INFO, MOVE, ACK } packet_t;
+\end{lstlisting}
+There is a generic structure with only one field. This generic structure is used
+to determine the actual type of the message. Since the radio units that the
+hovercrafts are using, send an array of bytes. There needs to be a way to figure
+which message type those bytes belong to. The definition of the generic
+structure is shown in listing \ref{lst:generic} and the code that is used to
+determine the type of the message is shown in listing \ref{lst:genericusage}. In
+listing \ref{lst:genericusage}, the bytes received from the radio is, first,
+cast to the generic packet type, then a \texttt{switch} statement is used to
+determine the actual message type.
+\begin{lstlisting}[label=lst:generic,float,
+                   caption={Generic Packet Structure}]
+typedef struct genericPacket {
+    packet_t type;
+} genericPacket_t;
+\end{lstlisting}
+\begin{lstlisting}[label=lst:genericusage,float,
+                   caption={Packets Casting}]
+ISR (INT4_vect) {
+    int i;
+    PORTD ^= _BV(PORTD5);
+    for (i = 0; i < PAYLOAD_BYTES; i++) {
+        radio_buffer[i] = radio_get_byte();
+    }
+    
+    // Figure out what type of packet this is.
+    genericPacket_t *incomingPacket = (genericPacket_t *)radio_buffer;
+    movePacket_t *theMovePacket;
+    switch(incomingPacket->type) {
+        case PING:
+            pingReceived = true;
+            break;
+        case MOVE:
+            theMovePacket = (movePacket_t *) radio_buffer;
+            rightMotorSpeed = theMovePacket->rightMotor;
+            leftMotorSpeed  = theMovePacket->leftMotor;
+            needSendAck = true;
+            break;
+        default:
+            // ignore
+            break;
+    }
+    
+    /* setup the radio to receive another packet */
+    radio_set_receive();
+}
+\end{lstlisting}
+The rest of the definition for the different types of messages is listed in
+listing \ref{lst:mesgtypes}.
+\begin{lstlisting}[label=lst:mesgtypes,float,
+                   caption={Message Types Definitions}]
+typedef struct initPacket  {
+    packet_t type;
+    uint8_t init:1;
+} initPacket_t;
+
+typedef struct pingPacket {
+    packet_t type;
+    uint8_t ping:1;
+} pingPacket_t;
+
+typedef struct pongPacket {
+    packet_t type;
+    uint8_t pong:1;
+} pongPacket_t;
+
+struct infoPacket {
+    packet_t type;
+    uint8_t resend:1;
+    uint8_t frontSonar;
+    uint8_t rightSonar;
+    uint8_t leftSonar;
+    uint8_t rightMotor;
+    uint8_t leftMotor;
+};
+
+typedef struct movePacket {
+    packet_t type;
+    uint8_t rightMotor;
+    uint8_t leftMotor;
+} movePacket_t;
+
+typedef struct ackPacket {
+    packet_t type;
+    uint8_t ack:1;
+} ackPacket_t;
+
+struct resendPacket {
+    packet_t type;
+};
+\end{lstlisting}
 

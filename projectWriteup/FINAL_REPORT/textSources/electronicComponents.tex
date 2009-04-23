@@ -175,6 +175,7 @@ To power many of the components (Motors, Sonar, RS-232 Uart)  more than the 3.3 
 \end{minipage}
 
 \subsubsection{Radio Connections}
+\label{subsec:radioconn}
  Each of the boards has one radio attached for communication. The leader hovercraft uses the radio to send information regarding motor movement to the follower, as well as information to the base station regarding the status of the hovercraft.  The radio on base station sends an initiate message to the leader and receives information to display via uart. The follower hovercraft receives information from the leader so that it is able to follow.
 
 All of the wires from the radio go to port E. The Radio ground pin must also be connected to the ground on the bread board. The pin assignments for the required pins from the radio are modeled in figure \ref{radioConnect}.
