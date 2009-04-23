@@ -6,9 +6,9 @@ A first step in many subsequent calculations was the determination of the distan
 \subsection{Speed}
 To calculate the speed of the craft, sonar readings were sampled at a set interval.  The change in the values of theses readings (with respect to time) produced a reliable source means for determining the speed of the vehicles.  The most challenging aspect of this approach was accurately sampling the sonar readings at set intervals.  The procedure for sampling the sonar at set intervals in an accurate manner is as follows:
 
-The clock speed is at 8 MHz.  Timer 2, which is an 8 bit timer, was used. The prescaler was set to a factor of 1024, resulting in a frequency reduction to 8 000 000/1024 = 7812.5Hz. A counter increased at this frequency, and thus  overflowed every 256 ticks. By setting the TOIE2 bit in the TIMSK2 register, an interrupt was enabled on each overflow. This resulted in the register overflowing 30 times per second (7812.5 / 256). In the overflow register, a counter existed that increased each time the interrupt was fired, thus maintaining a count of the cumulative overflows.  Further, a variable was maintained to represent the desired amount of time between sonar firings. This variable was set at 2, so that the sonar would fire every 2 seconds. In the overflow interrupt, an if statement checked to see if the counter had overflowed enough times for 2 seconds to pass. If this conditional returned true, the counter was reset to zero and the sonar triggered. This if statement also contained the code to calculate the current speed. An array of size two was also created that maintains the current sonar reading and the previous sonar reading. The difference was calculated between these readings and divided by two. The speed was calculated using decimal numbers. This reduced the accuracy, but saved on space from using the floating point numbers. The output was finally sent to UART.
+The processor's clock speed is set to 8 MHz by default.  Timer 2, which is an 8 bit timer, was used. The prescaler was set to a factor of 1024, resulting in a frequency reduction to 8 000 000/1024 = 7812.5Hz. A counter increased at this frequency, and thus  overflowed every 256 ticks. By setting the TOIE2 bit in the TIMSK2 register, an interrupt was enabled on each overflow. This resulted in the register overflowing 30 times per second (7812.5 / 256). In the overflow register, a counter existed that increased each time the interrupt was fired, thus maintaining a count of the cumulative overflows.  Further, a variable was maintained to represent the desired amount of time between sonar firings. This variable was set at 2, so that the sonar would fire every 2 seconds. In the overflow interrupt, an if statement checked to see if the counter had overflowed enough times for 2 seconds to pass. If this conditional returned true, the counter was reset to zero and the sonar triggered. This if statement also contained the code to calculate the current speed. An array of size two was also created that maintains the current sonar reading and the previous sonar reading. The difference was calculated between these readings and divided by two. The speed was calculated using decimal numbers. This reduced the accuracy, but saved on space from using the floating point numbers. The output was finally sent to UART.
 
-While testing the sonar, it was noticed that significant of noise was generated when the sonar read the value of new objects. This had a significant impact on the quality of the final speed measurement generated. To account for this, we created a static array of 5 integers which holds the values of the 5 most recent speed calculations. The final speed, used by the vehicle's components, is the average of these 5 speed calculations. We found that this modification greatly improved the accuracy in the trend of speed calculations output to uart. We believe that we may be able to do even better. By eliminating values that seem to be complete noise, the average speed calculations will also be more accurate because they don't include such outliers. We hope to have this additional logic incorporated into milestone 3.
+While testing the sonar, it was noticed that significant noise was generated when the sonar read the value of new objects. This had a detrimental impact on the quality of the final speed measurement produced. To account for this, a static array of 5 integers was created which held the values of the 5 most recent speed calculations. The final speed, used by the vehicle's components, was the average of those 5 speed calculations. This modification greatly improved the accuracy in the trend of speed calculations output to UART. Further increases in the quality of these measurements may be possible.  By eliminating values that seem to be complete noise, the average speed calculations will also be more accurate because they don't include such outliers.
 
 \begin{lstlisting}
 #define OVERFLOW_LIMIT 30
@@ -91,7 +91,7 @@ ISR(TIMER2_OVF_vect)
 \end{lstlisting}
 
 \subsection{Turning Radius}
-The turning of our craft is very small, almost in place. To get this effect, we have two motors that are on either side of the centre. When turning at full speed, one motor will me moving forwards, while the other is spinning backwards. Table \ref{turningRadius} shows the speeds and corresponding PWMs. 
+the hovercraft's turning radius is very small, almost in place. To get this effect, two motors were attached to either side of centre. When turning at full speed, one motor would be moving forwards, while the other was spinning backwards. Table \ref{turningRadius} shows the speeds and corresponding PWMs. 
 
 \begin{table}
 \caption{Hovercraft Turning Radius}
@@ -106,9 +106,8 @@ The turning of our craft is very small, almost in place. To get this effect, we 
 \label{turningRadius}
 \end{table}
 
-Once we were accurately able to calculate the speed of the craft it was simple to calculate the stopping distance. We set up a test area in the a hallway with a tape measurer along the wall. We had two different stopping tests. In the first, we would drive the robot down the hall. Once the robot steadily reached the testing speed, we would allow the joystick to snap back into the center 'resting' position and measure the distance the robot traveled.
+Once accurate calculations of the speed of the craft were possible, it was simple to calculate the stopping distance.  A test area was established in the hallway with a tape measure along the wall.  Two different stopping tests were performed: The first saw the hovercraft propelled down the hall at maximum speed. Once this speed was reached, the joystick was allowed to snap back into the center `resting' position and measure the distance the vehicle traveled. Table \ref{restingTable} shows the results of this experiment.
 
-\subsubsection{`Resting' Stop}
 \begin{table}
 \caption{Stopping Distances (to rest)}
 \begin{center}
@@ -122,9 +121,8 @@ Once we were accurately able to calculate the speed of the craft it was simple t
 \label{restingTable}
 \end{table}
 
-The other way that the robot could stop, was by reversing both motors. We would have the same initial set up with a tape measurer in the hall way, but once the craft reached the `testing' speed, we would then pull the joystick into maximum reverse position. For this calculation we were also required to record the time it took the craft to stop. The reason we needed to do this, was so that when we are driving the robot autonomously, we are able to calculate the duration that the motors must run in reverse to come to a complete stand still with out traveling backwards.
+The second of the two tests performed saw the hovercraft stopped by reversing both motors after reaching maximum speed.  This calculation  also required a maintained log of the time it took the craft to stop. The reason for this is related to the autonomous constraints on the hovercraft: while moving autonomously, it will be possible to calculate the duration the motors must run in reverse to come to a complete stand still with out traveling backwards.  Table \ref{reverseTable} shows the results of the latter stopping experiment. 
 
-\subsubsection{`Reverse' Stop}
 \begin{table}
 \caption{Stopping Distances (from Reverse)}
 \begin{center}
@@ -139,7 +137,7 @@ The other way that the robot could stop, was by reversing both motors. We would 
 \end{table}
 
 \subsection{Payload}
-All of the above measurements are recorded with only the required components placed on the hovercraft, as well as the additional components required to eliminate rotational spin. The following table, describes how the speed of the craft changes with the amount of excess weight is added to the craft. All of the additional weight was distributed evenly around the chassis to minimize the rotational spin. The table also describes how the speed changes when the motors are receiving full (255) PWM.
+The above measurements were recorded with only the required components placed on the hovercraft, as well as the additional components required to eliminate rotational spin. Table \ref{weightTable}, describes how the speed of the craft changed with the amount of excess weight added to the craft. All of the additional weight was distributed evenly around the chassis to minimize the rotational spin. The table also describes how the speed changed when the motors were receiving full (255) PWM.
 \begin{table}
 \caption{Hovercraft Supported Weight}
 \begin{center}
