@@ -10,9 +10,7 @@ The clock speed is at 8 MHz.  Timer 2, which is an 8 bit timer, was used. The pr
 
 While testing the sonar, it was noticed that significant of noise was generated when the sonar read the value of new objects. This had a significant impact on the quality of the final speed measurement generated. To account for this, we created a static array of 5 integers which holds the values of the 5 most recent speed calculations. The final speed, used by the vehicle's components, is the average of these 5 speed calculations. We found that this modification greatly improved the accuracy in the trend of speed calculations output to uart. We believe that we may be able to do even better. By eliminating values that seem to be complete noise, the average speed calculations will also be more accurate because they don't include such outliers. We hope to have this additional logic incorporated into milestone 3.
 
-\lstset{language=c}
-%\lstset{commentstyle=\textit}
-\begin{lstlisting}[frame=trbl]{}
+\begin{lstlisting}
 #define OVERFLOW_LIMIT 30
 #define TIME_BETWEEN_SONAR 2
 
@@ -28,21 +26,21 @@ void
 speedCalcInit()
 {
     // Set TIMER 2 to CTC mode.
-    TCCR2A &= ~(1 < < WGM20);
-    TCCR2A |=(1 < < WGM21);
-    TCCR2B &= ~(1< < WGM22);
+    TCCR2A &= ~(1 << WGM20);
+    TCCR2A |=(1 << WGM21);
+    TCCR2B &= ~(1 << WGM22);
 
     // Set clock prescaler to 1024
-    TCCR2B |= (1 < < CS22) | (1 < < CS21) | (1 < < CS20);
+    TCCR2B |= (1 << CS22) | (1 << CS21) | (1 << CS20);
 
     // Set OC2A on compare match
-    TCCR2A |= (1 < < COM2A1) | (1 < < COM2A0);
+    TCCR2A |= (1 << COM2A1) | (1 << COM2A0);
 
     // Enable interrupt on compare match
-    TIMSK2 |= (1 < < OCIE2A);
+    TIMSK2 |= (1 << OCIE2A);
 
     // Enable overflow interrupt
-    TIMSK2 |= (1 < < TOIE2);
+    TIMSK2 |= (1 << TOIE2);
 
     // Set OCR2A to the highest possible value.
     OCR2A = 0xFF;
