@@ -14,8 +14,9 @@
 #include "sonar/sonar.h"
 #include "common.h"
 
-volatile uint8_t radio_buffer[PAYLOAD_BYTES];
+#define MIN_DISTANCE 10
 
+volatile uint8_t radio_buffer[PAYLOAD_BYTES];
 volatile bool receivedInit = false;
 
 void inline 
@@ -41,10 +42,12 @@ main(int argc, char *argv[])
         &OCR0B                 // Top value
     };
     
+    uint8_t sonarDistance = 0;
+    
     cli();
     NO_CLK_PRESCALE();
-    uart_init();
-    radio_init(HOV1_ADDRESS, RECEIVE_MODE);
+    //uart_init();
+    //radio_init(HOV1_ADDRESS, RECEIVE_MODE);
     sonar_init();
     motorInit(&rightMotor);
     motorInit(&leftMotor);
@@ -53,7 +56,19 @@ main(int argc, char *argv[])
     
     for (;;) {
         // Wait unit the initiate message is sent from the base.
-        if (!receivedInit) continue;
+        // if (!receivedInit) continue;
+        trigger_sonar(FRONT);
+        sonarDistance = read_distance();
+        
+        setMotorDirection(&rightMotor, FORWARD);
+        setMotorDirection(&leftMotor, FORWARD);
+        if (sonarDistance > MIN_DISTANCE) {
+            setMotorDuty(&rightMotor, 255);
+            setMotorDuty(&leftMotor, 0);
+        } else {
+            setMotorDuty(&rightMotor, 255);
+            setMotorDuty(&leftMotor, 255);
+        }
     }
     
     return 0;

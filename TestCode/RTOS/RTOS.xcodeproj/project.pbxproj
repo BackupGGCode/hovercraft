@@ -190,6 +190,19 @@
 			passBuildSettingsInEnvironment = 1;
 			productName = "Hovercraft 1-Flash";
 		};
+		991DE0D20FA114CE00AA42EE /* Hovercraft 2 */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = h2;
+			buildConfigurationList = 991DE0DE0FA114D300AA42EE /* Build configuration list for PBXLegacyTarget "Hovercraft 2" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			dependencies = (
+			);
+			name = "Hovercraft 2";
+			passBuildSettingsInEnvironment = 1;
+			productName = "Hovercraft 2";
+		};
 		998A73A00F9D225C000922B3 /* Basestation */ = {
 			isa = PBXLegacyTarget;
 			buildArgumentsString = base;
@@ -232,6 +245,7 @@
 				998A73B50F9D22B3000922B3 /* Basestation-Flash */,
 				990F602F0F9E777E0050B437 /* Hovercraft 1 */,
 				990F60560F9E78A20050B437 /* Hovercraft 1-Flash */,
+				991DE0D20FA114CE00AA42EE /* Hovercraft 2 */,
 			);
 		};
 /* End PBXProject section */
@@ -306,6 +320,27 @@
 			};
 			name = Release;
 		};
+		991DE0D30FA114CE00AA42EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Hovercraft 2";
+			};
+			name = Debug;
+		};
+		991DE0D40FA114CE00AA42EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Hovercraft 2";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		998A73A10F9D225C000922B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -374,6 +409,15 @@
 			buildConfigurations = (
 				990F60570F9E78A20050B437 /* Debug */,
 				990F60580F9E78A20050B437 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		991DE0DE0FA114D300AA42EE /* Build configuration list for PBXLegacyTarget "Hovercraft 2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				991DE0D30FA114CE00AA42EE /* Debug */,
+				991DE0D40FA114CE00AA42EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
