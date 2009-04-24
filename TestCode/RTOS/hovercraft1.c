@@ -222,7 +222,7 @@ main(int argc, char *argv[])
     Task_Create((void*)(&fire_sonar),0, PERIODIC, FIRE);
     Task_Create((void*)(&listen_sonar),0,PERIODIC, LISTEN);
     Task_Create((void*)(&sendRadio),0,PERIODIC, RADIO);
-	Task_Create((void*)(&stopSystem), ),SYSTEM, STOP); 
+	Task_Create((void*)(&stopSystem), 0,SYSTEM, STOP); 
    
     setMotorDirection(&rightMotor, FORWARD);
     setMotorDirection(&leftMotor, FORWARD);

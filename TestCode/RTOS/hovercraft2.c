@@ -19,6 +19,17 @@ volatile bool needSendAck  = false;
 volatile bool moveRecieved = false;
 volatile uint8_t rightMotorSpeed = 0;
 volatile uint8_t leftMotorSpeed  = 0;
+volatile uint8_t rightDirection = FORWARD;
+volatile uint8_t leftDirection = FORWARD;
+
+EVENT* ack;
+EVENT* pong;
+
+#define PONG 1
+#define ACK 0
+#define MOTORS 3
+#define STOP 2
+
 
 void inline sendPong() {
     pongPacket_t pongResponse = { PONG, 1 };
@@ -32,6 +43,49 @@ void inline sendAck() {
     radio_send(HOV1_ADDRESS, (uint8_t *) &ackResponse);
     radio_set_receive();
     radio_set_receive();
+}
+
+
+
+
+void
+ack_task(void){
+	for(;;){
+		Event_Wait(ack);
+		sendACK;
+	}
+}
+
+void
+pong_task(void){
+
+
+	Event_Wait(pong);
+	sendPong();
+
+}
+
+void
+up_motors(void){
+
+	for(;;){
+		Event_Wait(ack);
+	    setMotorDuty(&rightMotor, rightMotorSpeed);	
+        setMotorDuty(&leftMotor, leftMotorSpeed);
+		setMotorDirection(&rightMotor, rightDirection);
+		setMotorDirection(&leftMotor, leftDirection);
+	}		
+}	
+
+void
+stopSystem(void){
+
+	Event_Wait(stop);
+	sendMovements(0,0,FORWARD,FORWARD);
+	exit(0);
+
+
+
 }
 
 int
@@ -57,21 +111,18 @@ main(int argc, char *argv[])
     motorInit(&leftMotor);
     pwmInit();
     sei();
-    
-    for(;;) {
-        if (pingReceived) {
-            sendPong();
-            pingReceived = false;
-        }
-        
-        if (moveRecieved) {
-            setMotorDuty(&rightMotor, rightMotorSpeed);
-            setMotorDuty(&leftMotor, leftMotorSpeed);
-            sendAck();
-            moveRecieved = false;
-            needSendAck  = false;
-        }
-    }
+	
+	ack = Event_Init();
+	pong = Event_Init();
+	stop = Event_Init();
+
+
+	Task_Create((void*)(&ack_task),0, RR, ACK);
+    Task_Create((void*)(&up_motors),0, RR, MOTORS);
+	Task_Creat((void*)(&pong_task),0,RR,PONG);
+	Task_Create((void*)(&stopSystem), 0,SYSTEM, STOP); 
+
+
     
     return 0;
 }
@@ -93,11 +144,15 @@ ISR (INT4_vect)
     switch(incomingPacket->type) {
         case PING:
             pingReceived = true;
+			Signal_Event(pong);
             break;
         case MOVE:
             theMovePacket = (movePacket_t *) radio_buffer;
             rightMotorSpeed = theMovePacket->rightMotor;
             leftMotorSpeed  = theMovePacket->leftMotor;
+			rightDirection= theMovePacket-> rightDirection;
+			leftDirection = theMovePacket -> leftDirection;
+			Event_Broadcast(ack);
             needSendAck = true;
             break;
         default:
