@@ -60,15 +60,7 @@ The RTOS used for this project was created by Scott Craig and Justin Tanner \cit
 
 
 
-\noindent\textbf{Sonar}
 
-The integration of the sonar and the RTOS is based on the report by Will
-Logan, Cambria Hanson and Jason Kereluk \cite{autoB}.
-
--Overall Design of our RTOS
--GANT charts
--Timming Diagrams
--Code
 
 \subsection{Tasks for Hovercraft 1---The leader}
 In this project, hovercraft 1 assumes the role of a leader. It will navigate the
@@ -78,19 +70,31 @@ implementation hovercraft 1 is quite complex. This section will explain the
 breakdown of the tasks in the implementation of hovercraft 1.
 
 \begin{lstlisting}[float=th,label=lst:h1ppp,
-                   caption={\texttt{PPP} array for hovercraft 1}]
-const unsigned char PPP[] = {FIRE, 4, LISTEN, 1, FIRE, 4, LISTEN, 1, FIRE, 4, LISTEN, 1, MOTOR, 5};
+                   caption={\texttt{PPP} array and task creation for hovercraft 1}]
+const unsigned char PPP[] = {FIRE, 4, LISTEN, 1, FIRE, 4, LISTEN, 1, FIRE, 4,
+LISTEN, 1, MOTOR, 5, RADIO, 8};
+    Task_Create((void*)(&motor_task),0, PERIODIC, MOTOR);
+    Task_Create((void*)(&fire_sonar),0, PERIODIC, FIRE);
+    Task_Create((void*)(&listen_sonar),0,PERIODIC, LISTEN);
+    Task_Create((void*)(&sendRadio),0,PERIODIC, RADIO);
+	Task_Create((void*)(&stopSystem), 0,SYSTEM, STOP); 
 \end{lstlisting}
-The \texttt{PPP} array of hovercraft 1 is shown in listing \ref{lst:h1ppp}.
-There are in total seven tasks, and the first six tasks triggering and listening
-to the three sonars. In listing \ref{lst:h1sonarfire}, the implementation of the
+The \texttt{PPP} array of hovercraft 1 and the task creation for the 5 tasks are shown in listing \ref{lst:h1ppp}.
+There are in total four tasks, the first six items in the PPP array are the
+two sonar tasks that are responsible for triggering and listening
+to the three sonars. The integration of the sonar and the RTOS is based on the report by Will
+Logan, Cambria Hanson and Jason Kereluk \cite{autoB}. In listing \ref{lst:h1sonarfire}, the implementation of the
 \texttt{FIRE} task uses the built-in \texttt{Task\_Next()} function to trigger
 the three sonars one by one. First, the task will trigger the front sonar, then
 it will give up the CPU and allows the listen task (as shown in listing
 \ref{lst:h1sonarlisten}) to calculate the distance. When the distances are
 stored in their respective variables, the \texttt{MOTOR} task will run. Within
 the \texttt{MOTOR} task, it will decide what speed the two motors should spin.
-The code for the \texttt{MOTOR} is shown in listing \ref{lst:h1motor}.
+The code for the \texttt{MOTOR} is shown in listing \ref{lst:h1motor}. After
+this, the radio task reports to both the base station and the follower
+hovercraft. Listing \ref{lst:h1radio} illustrates this code. In this radio task, a test is set up to see if
+three send tasks are sent before an ack is received. If this happens then the
+program exits.
 
 \begin{lstlisting}[float=thp,label=lst:h1sonarfire,
                    caption={\texttt{FIRE} Task}]
@@ -153,9 +157,201 @@ void motor_task(void) {
 }
 \end{lstlisting}
 
-\begin{minipage}{6.5in}
-        \centering
-        \includegraphics[width = 100mm]{imageSources/Gantt.png}
+\begin{lstlisting}[label=lst:h1radio, float=th, caption={\texttt{RADIO} Task}]
+
+void
+sendRadio(void){
+    for(;;){
+        sendMovements(r_duty,l_duty,r_dir,r_duty);
+        reportToBase(r_speed,l_speed, s_forward, s_right, s_left);
+        send ++;
+        if(send == 3)
+            Event_Signal(stop);
+        
+        Task_Next();
+    }
+}
+
+
+
+\end{lstlisting}
+
+The Gantt chart in figure \ref{gantt} represents the timing for the periodic
+tasks for hovercraft 1.
+
+%\begin{minipage}{6.5in}
+        \begin{center}
+        \includegraphics[width = 5.5in]{imageSources/Gantt.png}
         \captionof{figure}{Gantt chart for the master hovercraft}
         \label{gantt}
-\end{minipage}
+        \end{center}
+%\end{minipage}
+
+This hovercraft also has one system task. This task is responsible for
+stopping the system if an error occurs and can be seen in listing \ref{lst:stop}. It attempts to stop the following
+hovercraft before exiting. This system task waits for the\textit{stop} event
+to be signaled.
+
+\begin{lstlisting}[label=lst:stop, float=th, caption={\texttt{STOP} Task}]
+void
+stopSystem(void){
+	Event_Wait(stop);
+	sendMovements(0,0,FORWARD,FORWARD);
+	exit(0);
+}
+
+\end{lstlisting}
+
+
+
+\subsection{Tasks for Hovercraft 2 --- The Follower}
+
+The second hovercraft has no periodic tasks. Most of the actions involved with
+this hovercraft occur after events. As shown in in listing \ref{lst:h2setup}
+there are three round robin tasks and a system task. The system task is very
+similar to the system task in hovercraft 1. 
+
+
+The motor and ack tasks from listing \ref{lst:h2motor} both wait on the same
+event. This event occurs when a radio packet is received. This event is
+broadcasted in the interrupt service routine (in listing \ref{isr} that is fired upon the detection
+of an incomming packet.
+
+The final task that belongs to this hovercraft is the pong task. This task is
+part of the initial handshake. As noted in listing \ref{pong} this task does
+not have a for loop, and only runs through once.
+
+\begin{lstlisting}[label=lst:h2setup, float=th, caption={The Setup
+calls for Hovercraft 2}]
+
+
+        ack = Event_Init();
+	pong = Event_Init();
+	stop = Event_Init();
+
+    
+	Task_Create((void*)(&ack_task),0, RR, ACK);
+        Task_Create((void*)(&up_motors),0, RR, MOTORS);
+	Task_Creat((void*)(&pong_task),0,RR,PONG);
+	Task_Create((void*)(&stopSystem), 0,SYSTEM, STOP);
+
+ \end{lstlisting}
+
+
+
+\begin{lstlisting}[label=lst:h2motor, float=th, caption={\texttt{MOTOR} Task}]
+
+void
+up_motors(void){
+
+	for(;;){
+		Event_Wait(ack);
+                setMotorDuty(&rightMotor, rightMotorSpeed);	
+                setMotorDuty(&leftMotor, leftMotorSpeed);
+		setMotorDirection(&rightMotor, rightDirection);
+		setMotorDirection(&leftMotor, leftDirection);
+	}		
+}	
+
+
+void
+ack_task(void){
+	for(;;){
+		Event_Wait(ack);
+		sendACK;
+	}
+}
+
+ \end{lstlisting}
+
+\begin{lstlisting}[label=pong, float=th, caption={ISR that broadcasts Events}]
+void
+pong_task(void){
+
+
+	Event_Wait(pong);
+	sendPong();
+
+}
+
+
+ \end{lstlisting}
+
+
+
+\begin{lstlisting}[label=isr, float=th, caption={ISR that broadcasts Events}]
+
+ISR (INT4_vect)
+{
+    int i;
+    
+    PORTD ^= _BV(PORTD5);
+    
+    for (i = 0; i < PAYLOAD_BYTES; i++)
+    {
+        radio_buffer[i] = radio_get_byte();
+    }
+    
+    // Figure out what type of packet this is.
+    genericPacket_t *incomingPacket = (genericPacket_t *)radio_buffer;
+    movePacket_t *theMovePacket;
+    switch(incomingPacket->type) {
+        case PING:
+            pingReceived = true;
+	    Signal_Event(pong);
+            break;
+        case MOVE:
+            theMovePacket = (movePacket_t *) radio_buffer;
+            rightMotorSpeed = theMovePacket->rightMotor;
+            leftMotorSpeed  = theMovePacket->leftMotor;
+	    rightDirection= theMovePacket-> rightDirection;
+            leftDirection = theMovePacket -> leftDirection;
+	    Event_Broadcast(ack);
+            needSendAck = true;
+            break;
+        default:
+            // ignore
+            break;
+    } 
+\end{lstlisting}
+
+
+\subsection{Tasks for the Base Station}
+
+The final component to this project was a simple base station that would
+report what was going on `out in the field'. This base station has one task
+that is executed based on an event. This event is fired when a packet is
+detected. 
+
+The ISR is very similar to the isr in hovercraft 2 from listing \ref{isr}. It
+uses event signal: \textit{Event\_Signal(radio\_event};
+
+Listing \ref{print} shows the \textit{uart\_task} and
+the \textit{printInfo(infoPacket\_t)} working together to display the
+information to the screen.
+
+
+\begin{lstlisting}[label=print, float=th, caption={ISR that broadcasts Events}]
+
+void 
+printInfo(infoPacket_t theInfo) 
+{
+    amount = sprintf(toPrint, SONAR_INFO_STRING, theInfo.frontSonar, theInfo.rightSonar,
+                     theInfo.leftSonar);
+    uart_write((uint8_t *)toPrint, amount);
+    amount = sprintf(toPrint, MOTOR_INFO_STRING, theInfo.rightMotor, theInfo.leftMotor);
+    uart_write((uint8_t *)toPrint, amount);
+}
+
+
+uart_task(void)
+{
+     for(;;)
+    {
+        Event_Wait(radio_event);
+      	printInfo(*info);
+        Task_Next();
+    }
+}
+
+\end{lstlisting}
