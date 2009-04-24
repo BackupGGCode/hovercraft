@@ -65,10 +65,91 @@ The RTOS used for this project was created by Scott Craig and Justin Tanner \cit
 The integration of the sonar and the RTOS is based on the report by Will
 Logan, Cambria Hanson and Jason Kereluk \cite{autoB}.
 
-
-
-
 -Overall Design of our RTOS
 -GANT charts
 -Timming Diagrams
 -Code
+
+\subsection{Tasks for Hovercraft 1---The leader}
+In this project, hovercraft 1 assumes the role of a leader. It will navigate the
+environment and make decisions to traverse the environment. Those decisions are,
+then, relay to the trailing hovercraft, hovercraft 2. As a result, the
+implementation hovercraft 1 is quite complex. This section will explain the
+breakdown of the tasks in the implementation of hovercraft 1.
+
+\begin{lstlisting}[float=th,label=lst:h1ppp,
+                   caption={\texttt{PPP} array for hovercraft 1}]
+const unsigned char PPP[] = {FIRE, 4, LISTEN, 1, FIRE, 4, LISTEN, 1, FIRE, 4, LISTEN, 1, MOTOR, 5};
+\end{lstlisting}
+The \texttt{PPP} array of hovercraft 1 is shown in listing \ref{lst:h1ppp}.
+There are in total seven tasks, and the first six tasks triggering and listening
+to the three sonars. In listing \ref{lst:h1sonarfire}, the implementation of the
+\texttt{FIRE} task uses the built-in \texttt{Task\_Next()} function to trigger
+the three sonars one by one. First, the task will trigger the front sonar, then
+it will give up the CPU and allows the listen task (as shown in listing
+\ref{lst:h1sonarlisten}) to calculate the distance. When the distances are
+stored in their respective variables, the \texttt{MOTOR} task will run. Within
+the \texttt{MOTOR} task, it will decide what speed the two motors should spin.
+The code for the \texttt{MOTOR} is shown in listing \ref{lst:h1motor}.
+
+\begin{lstlisting}[float=thp,label=lst:h1sonarfire,
+                   caption={\texttt{FIRE} Task}]
+void fire_sonar(void) {
+	for(;;) {
+		trigger_sonar(FRONT);
+		Task_Next();
+		trigger_sonar(RIGHT);
+		Task_Next();
+		trigger_sonar(LEFT);
+		Task_Next();
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:h1sonarlisten,float=tbh,
+                   caption={\texttt{LISTEN} Task}]
+void listen_sonar(void) {
+	for(;;)	{
+	    s_forward= read_distance();
+	    Task_Next();
+	    s_right = read_distance();
+	    Task_Next();
+	    s_left = read_distance();
+	    Task_Next();
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label=lst:h1motor,float=th,
+                   caption={\texttt{MOTOR} Task}]
+void motor_task(void) {
+	for(;;) {
+    	if(s_front < MIN_DISTANCE &&  s_left >MAX_DISTANCE) {
+            r_dir= FORWARD;
+            r_duty = 255;
+            l_dir = BACKWARD;
+            l_duty = 255;
+   		} else if (s_front < MIN_DISTANCE && s_right>MAX_DISTANCE) {
+            r_dir = BACKWARD;
+            r_duty = 255;
+            l_dir= FORWARD;
+            l_duty = 255;					
+    	} else if (s_left < MIN_DISTANCE && s_right > MAX_DISTNACE) {
+            l_dir = FORWARD;
+            l_duty = 255;
+            r_duty = 0;
+   	 	} else if (s_right<MIN_DISTANCE && s_left > MAX_DISTANCE) {
+            r_dir = BACKWARD;
+            r_duty = 255;
+            l_duty = 0;
+    	} else {
+            Signal_Event(stop);
+    	}
+        setMotorDirection(&rightMotor,r_dir;
+        setMotorDuty(&rightMotor, r_duty);
+        setMotorDirection(&leftMotor,l_dir);
+        setMotorDuty(&leftMotor, l_duty);
+	}
+}
+\end{lstlisting}
+
