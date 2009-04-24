@@ -41,10 +41,6 @@ volatile uint8_t r_dir;
 volatile uint8_t l_duty;
 volatile uint8_t r_duty;
 
-
-
-
-
 void 
 inline sendPing()
 {
@@ -52,7 +48,6 @@ inline sendPing()
     radio_send(HOV2_ADDRESS, (uint8_t *)&pingPacket);
     RADIO_SET_RECEIVE();
 }
-
 
 void
 inline sendMovements(uint8_t rightSpeed,   uint8_t leftSpeed, 
@@ -74,13 +69,10 @@ inline reportToBase(uint8_t rightSpeed, uint8_t leftSpeed, uint8_t frontSonar,
     RADIO_SET_RECEIVE();
 }
 
-
 void 
 fire_sonar(void)
 {
-
 	for(;;){
-	 	
 		trigger_sonar(FRONT);
 		Task_Next();
 		trigger_sonar(RIGHT);
@@ -96,10 +88,7 @@ listen_sonar(void)
 {
 	for(;;)
 	{
-		
 	    s_forward= read_distance();
-
-
 	    Task_Next();
 	    s_right = read_distance();
 	    Task_Next();
@@ -119,66 +108,47 @@ motor_task(void)
 			r_duty = 255;
 			l_dir = BACKWARD;
 			l_duty = 255;
-		
-    		   
    		} else if (s_front < MIN_DISTANCE && s_right>MAX_DISTANCE) {
-	
-
 			r_dir = BACKWARD;
 			r_duty = 255;
 			l_dir= FORWARD;
 			l_duty = 255;					
-			
-			
-    	}else if(s_left < MIN_DISTANCE && s_right > MAX_DISTNACE){
+    	} else if (s_left < MIN_DISTANCE && s_right > MAX_DISTNACE){
 			l_dir = FORWARD;
 			l_duty = 255;
 			r_duty = 0;
-			
-   	 	}else if(s_right<MIN_DISTANCE && s_left > MAX_DISTANCE){
+   	 	} else if (s_right<MIN_DISTANCE && s_left > MAX_DISTANCE){
 			r_dir = BACKWARD;
 			r_duty = 255;
-			l_duty = 0;			
-		
-	
-    	}else{
+			l_duty = 0;
+    	} else {
 			Signal_Event(stop);
     	}
-			
-			setMotorDirection(&rightMotor,r_dir;
-			setMotorDuty(&rightMotor, r_duty);
-			setMotorDirection(&leftMotor,l_dir);
-			setMotorDuty(&leftMotor, l_duty);
+        setMotorDirection(&rightMotor,r_dir;
+        setMotorDuty(&rightMotor, r_duty);
+        setMotorDirection(&leftMotor,l_dir);
+        setMotorDuty(&leftMotor, l_duty);
 	}
-
 }
 
 void
 sendRadio(void){
-
     for(;;){
-	sendMovements(r_duty,l_duty,r_dir,r_duty);
-	reportToBase(r_speed,l_speed, s_forward, s_right, s_left);
-
-	send ++;
-	if(send == 3)
-	    Event_Signal(stop);
-	
-	Task_Next();
-
+        sendMovements(r_duty,l_duty,r_dir,r_duty);
+        reportToBase(r_speed,l_speed, s_forward, s_right, s_left);
+        send ++;
+        if(send == 3)
+            Event_Signal(stop);
+        
+        Task_Next();
     }
-    
 }
 
 void
 stopSystem(void){
-
 	Event_Wait(stop);
 	sendMovements(0,0,FORWARD,FORWARD);
 	exit(0);
-
-
-
 }
 
 int
@@ -201,7 +171,7 @@ main(int argc, char *argv[])
     cli();
     NO_CLK_PRESCALE();
     //uart_init();
-    //radio_init(HOV1_ADDRESS, RECEIVE_MODE);
+    radio_init(HOV1_ADDRESS, RECEIVE_MODE);
     sonar_init();
     motorInit(&rightMotor);
     motorInit(&leftMotor);
@@ -210,11 +180,6 @@ main(int argc, char *argv[])
     
 	stop = Event_Init();
 
-    for (;;) {
-        // Wait unit the initiate message is sent from the base.
-         if (!receivedInit) continue;
-      
-    }
     sendPing();
     while(!receivedInit);
 
@@ -226,7 +191,6 @@ main(int argc, char *argv[])
    
     setMotorDirection(&rightMotor, FORWARD);
     setMotorDirection(&leftMotor, FORWARD);
-    
     
     return 0;
 }
