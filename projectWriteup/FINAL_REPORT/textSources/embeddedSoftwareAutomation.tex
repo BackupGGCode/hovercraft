@@ -479,6 +479,8 @@ typedef struct movePacket {
     packet_t type;
     uint8_t rightMotor;
     uint8_t leftMotor;
+    direction_t rightDirection;
+    direction_t leftDirection;
 } movePacket_t;
 
 typedef struct ackPacket {

@@ -10,6 +10,8 @@
  * =====================================================================================
  */
 
+#include "../motor/DualMotors.h"
+
 typedef enum { INIT=1, PING, PONG, INFO, MOVE, ACK } packet_t;
 
 typedef
@@ -39,6 +41,7 @@ struct pongPacket
     uint8_t pong:1;
 } pongPacket_t;
 
+typedef
 struct infoPacket 
 {
     packet_t type;
@@ -48,7 +51,7 @@ struct infoPacket
     uint8_t leftSonar;
     uint8_t rightMotor;
     uint8_t leftMotor;
-};
+} infoPacket_t;
 
 typedef
 struct movePacket 
@@ -56,6 +59,8 @@ struct movePacket
     packet_t type;
     uint8_t rightMotor;
     uint8_t leftMotor;
+    direction_t rightDirection;
+    direction_t leftDirection;
 } movePacket_t;
 
 typedef
