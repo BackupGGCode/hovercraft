@@ -68,23 +68,21 @@ The following figures show the top, side, front and rear views for the vehicle:
 
 The first design consisted of a rounded front, straight sides and a straight back. However, since the front and back were not symmetric, we concluded that the rear of the craft should be rounded to match the front. This symmetric design better distributes the underlying air cushion to all parts of the vehicle.
 
-\begin{figure}[h]
   \begin{center}
     \includegraphics[width=85mm]{imageSources/sideView.png}
   \end{center}
   \caption{Hovercraft: Side View} 
   \label{sideView}
-\end{figure}
 
 The plenum chamber receives air from a single propeller mounted in the middle of the chasis. The middle propeller is housed by a triangular container. Initially the container was completely open on the side where the propeller draws air from. We realized that too much air was escaping from this hole and a cover with a circular cut-out was fitted over the opening. The cut-out better fit the diameter of the fan, resulting in minimal air escaping from the opening.
 
-\begin{figure}[h]
+
   \begin{center}
     \includegraphics[width=85mm]{imageSources/rearView.png}
   \end{center}
   \caption{Hovercraft: Rear View} 
   \label{rearView}
-\end{figure}
+
 
 The electronic components are mounted at the rear of the hovercraft. This facilitates making connections from the breadboard to the nearby DC Motors, servo motor, and sonars. The combined mass of all the components added a significant force to the rear of the chasis. To counter this, we placed counter weights on the front of the body.
 
@@ -267,6 +265,7 @@ At this point, we were supplied another high-amperage H-Bridge, so we went back 
 \label{HBridgeHeatsink}
 
 \subsubsection{Joystick}
+\label{sec:JoystickConst}
 As the joystick we were supplied was seemed to produce different results every day that we tested it, and would not stay centered, it was very difficult to set-up our code to produce consistent results. We resorted to getting a new joystick that had not yet been modified to connect and work with the AT90. We took apart our new joystick, and found that it was currently using three potentiometers. One of the potentiometers was for the X position of the joystick, another was for the Y position, and the third was for the position of a dial on the base of the joystick. These potentiometers were connected so that the amount of current was determined by the position of the joystick, or the dial.
 
 A potentiometer is a resistor with three terminals: a ground, an input, and an output (the wiper). There is a knob connected that can be spun, and as the knob is turned, the middle pin reads the voltage, and will output a reading that is the difference between ground, (zero) and the value of the input (in our case VCC).
@@ -307,8 +306,7 @@ In our next prototype, we will try and spread out the weight distribution of our
 \subsection{The Second Hovercraft}
 We tried a few different designs when trying to create our second hovercraft. Although we stuck with the length to width ratio
 of 3:2, we made the second hovercraft quite a lot smaller, at 45.7cm (18 inches) in length, and 38.1cm (15 inches) in width.
-After measuring, cutting, and gluing the Styrofoam, we created a hovercraft
-model using the Autodesk Maya \footnote{ http://usa.autodesk.com/adsk/servlet/ index?siteID=123112\&id=7635018 }
+After measuring, cutting, and gluing the Styrofoam, we created a hovercraft model using the Autodesk Maya\footnote{ http://usa.autodesk.com/adsk/servlet/index?siteID=123112\&id=7635018 }
 program, and used the program to model a skirt onto the hovercraft. We did so by attaching a plane around the perimeter of the
 top piece of Styrofoam, and then curving it down and attaching it to the place we wanted on the bottom piece of Styrofoam. We
 did this for a front edge, and a side edge, and then made sure the planes connected well down the corner. We then flattened the plane
@@ -320,6 +318,13 @@ brief descriptions of the lift and thrust motor designs we created and tested, w
 and negative results we found in testing.
 
 \subsubsection{The First Prototype - Dual side air intake lift fans}
+
+\begin{center}
+  \includegraphics[width=85mm]{imageSources/top2.png}
+\end{center}
+\captionof{figure}{A top view of the dual side fan prototype} 
+\label{top2}
+
 As mentioned above, we wanted to try and spread
 out the weight distribution of our center fan, and also attempt to use a smaller fan to lift the hovercraft. In the first
 prototype of our smaller hovercraft, we tried using two fans to lift the hovercraft, placed half-way between the front end
@@ -330,9 +335,25 @@ of the bottom of the of both the mylar and bottom layer of styrofoam to let air 
 and it's width was 15 inches, and the mylar skirt came in 3 inches at the front and back, and 2.5 inches at the left and right,
 providing for one third of the total surface area at the bottom of the hovercraft.
 
+\begin{center}
+  \includegraphics[width=85mm]{imageSources/Front2.png}
+\end{center}
+\captionof{figure}{A front view showing the two thrust fans} 
+\label{Front2}
+
+We mounted the two thrust fans directly above the lift fans, at the center of the hovercraft. The thrust motors in our previous
+hovercraft were positioned in the same way, and we felt that with the decreased size and weight of our new prototype, the 
+two thrust fans would be able to sufficiently move and steer the hovercraft.
+
 With this design, the hovercraft actually hovered very well: without the thrust fans on, it didn't spin, or move in 
 any direction, it actually just hovered in one spot. This was something we were not able to do with our previous hovercraft design 
 without adding a lot of weight and spending a lot of time weight balancing.
+
+\begin{center}
+  \includegraphics[width=85mm]{imageSources/SideView2.png}
+\end{center}
+\captionof{figure}{A side view showing one of the air intake fans} 
+\label{Side2}
 
 When all of the other necessary components were placed onto the hovercraft, the lift was noticably weaker, and the fans
 even sounded as if they were generating a lot less power. By placing a hand in front of either of the lift fans, you could feel
@@ -343,8 +364,21 @@ to lift off the ground, and was not even able to hover over very small objects, 
 from the carpeted floor in the lab. 
 
 \subsubsection{The Second Prototype - Single rear lift and thrust motors}
+
+\begin{center}
+  \includegraphics[width=85mm]{imageSources/Topfinal.png}
+\end{center}
+\captionof{figure}{A top view of the single rear lift  motor prototype} 
+\label{finaltop}
+
 Because the two smaller fans didn't seem to provide enough power to sufficiently lift the hovercraft with all of the components
 attached, we went back to our previous strategy, which was to use a single powerful motor to provide the lift for our hovercraft. 
+
+\begin{center}
+  \includegraphics[width=85mm]{imageSources/Frontfinal.png}
+\end{center}
+\captionof{figure}{A front view showing the two thrust motors, and the lift motor encasing} 
+\label{finaltop}
 
 In our first hovercraft, we tried to center the main lift fan, and then tried to place the other components all around it to 
 balance the hovercraft. That strategy ended up being very difficult, because in order to spread out the weight distribution so that
@@ -404,4 +438,6 @@ was created by gluing balsa wood around the bottom perimeter of the mylar skirt,
   \includegraphics[width=85mm]{imageSources/designProblemsnew_stick.png}
 \end{center}
 \captionof{figure}{Placing the second piece of balsa wood into the bottom of the mylar skirt} 
-\label{new_stick}
+\label{new_stick}=======
+In our next prototype, we will try and spread out the weight distribution of our center fan. This will reduce the amount of weight needed to place around the perimeter to balance the hovercraft, so the motors will be powerful enough to move the hovercraft. Now that we have our wiring completed, and are sure of the number of batteries, chips, fans, and bread-boards we will use, we can also plan a new design that takes into consideration their weights as well. Our large lift fan has always easily lifted our hovercraft, but we have found that it drains batteries quickly, our next design will also be a smaller hovercraft size, and therefore we will also use a smaller lift fan.
+
