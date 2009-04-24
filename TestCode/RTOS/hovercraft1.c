@@ -174,6 +174,7 @@ void
 stopSystem(void){
 
 	Event_Wait(stop);
+	sendMovements(0,0,FORWARD,FORWARD);
 	exit(0);
 
 
