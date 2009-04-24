@@ -28,7 +28,7 @@ char uartBuf[255];
 uint8_t uartLen = 0;
 
 EVENT* stop;
-const unsigned char PPP[] = {FIRE, 4, LISTEN, 1, FIRE, 4, LISTEN, 1, FIRE, 4, LISTEN, 1, MOTOR 5};
+const unsigned char PPP[] = {FIRE, 4, LISTEN, 1, FIRE, 4, LISTEN, 1, FIRE, 4, LISTEN, 1, MOTOR 5, RADIO, 10};
 const unsigned int PT = 6;
 
 volatile uint8_t s_right = 0;
