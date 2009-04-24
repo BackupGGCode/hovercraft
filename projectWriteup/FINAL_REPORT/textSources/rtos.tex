@@ -11,20 +11,32 @@ prior to runtime.
 
 \subsection{Tasks}
 
-There are three different types of tasks in the RTOS; system tasks, periodic tasks and round robin tasks. These tasks are ordered in decreasing priority levels. \\
+There are three different types of tasks in the RTOS; system tasks, periodic tasks and round robin tasks. These tasks are ordered in decreasing priority levels.
 
-\noindent{\bf System Tasks}
+\begin{description}
+    \item[System Tasks]
+    System tasks are of the highest priority task. If a system task is
+    scheduled to run, it will preempt any other task.
 
-System tasks are the highest priority task. If a System task will preempt any other task.\\
+    \item[Periodic Tasks]
+    Periodic tasks are the next level below system tasks---middle priority.
+    These tasks are scheduled to run periodically based on time (clock cycles).
+    Periodic tasks are declared at the beginning of the program. A \texttt{PPP}
+    array is also declared. This array allots time to each task and also
+    declares an order for the periodic tasks. A periodic task is not allowed to
+    take more time than has been allotted.  If this occurs, it is called a
+    timing violation, and the system halts.
 
-\noindent{\bf Periodic Tasks}
-
-Periodic tasks are the next level -- mid priority -- tasks. These tasks are scheduled to run periodically based on time (clock cycles). 
-Periodic tasks are declared at the beginning of the program. A PPP array is also declared. This array allots time to each task and also declares an order for the periodic tasks. A periodic task is not allowed to take more time than has been allotted. If this occurs, it is called a timing violation, and the system halts.  \\
-
-\noindent{\bf Round Robin Tasks}
-
-The final level -- low priority -- are the round robin tasks. Round robin tasks are executed in the \textit{idle} time between periodic tasks.The kernel maintains a FIFO queue containing all of the round robin tasks. On each clock cycle, if the system is not attending to either a System or Periodic task then the next RR tasks is removed from the queue and is run for exactly one tick after which it is returned to the end of the FIFO queue. On the next cycle, if the higher priority tasks have not regained control, then the proceeding RR task is removed from the queue.  
+    \item[Round Robin Tasks]
+    The final level---low priority -- are the round robin tasks. Round robin tasks
+    are executed in the \textit{idle} time between periodic tasks.The kernel
+    maintains a FIFO queue containing all of the round robin tasks. On each clock
+    cycle, if the system is not attending to either a System or Periodic task then
+    the next RR tasks is removed from the queue and is run for exactly one tick
+    after which it is returned to the end of the FIFO queue. On the next cycle, if
+    the higher priority tasks have not regained control, then the proceeding RR
+    task is removed from the queue.  
+\end{description}
 
 
 
