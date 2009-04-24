@@ -1,7 +1,14 @@
-What is a real time operating system.
 
--advantages/disadvantages
--Different types of tasks
+
+An Real Time Operating System (RTOS), is an operating system must be able to
+deal with a time and event sensitive activities. The RTOS is intended intended
+to be \textit{predictable} and \textit{determinante}\cite{RTOSMantis}. These
+systems are also designed to limit the amount of over head that is required to
+context switch between tasks. This is done my making many critical decisions
+prior to runtime.
+
+
+
 \subsection{Tasks}
 
 There are three different types of tasks in the RTOS; system tasks, periodic tasks and round robin tasks. These tasks are ordered in decreasing priority levels. \\
@@ -33,8 +40,6 @@ Events are initiated at the beginning of the program. Tasks that wait for an eve
 The kernel maintains a variable \textit{now} indicating how many ticks have occured since program instantiation. When a task waits a certain amount of time, it will return normal operation after n ticks have passed.
 
 
--Research
-
 
 
 
@@ -44,6 +49,12 @@ The RTOS used for this project was created by Scott Craig and Justin Tanner \cit
 
 
 \noindent\textbf{Sonar}
+
+The integration of the sonar and the RTOS is based on the report by Will
+Logan, Cambria Hanson and Jason Kereluk \cite{autoB}.
+
+
+
 
 -Overall Design of our RTOS
 -GANT charts
