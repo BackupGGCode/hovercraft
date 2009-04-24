@@ -1,9 +1,9 @@
 \subsection{UART Implementation}
 The UART is interrupt driven. The interrupt fires when you call
-\texttt{uart\_write(uint8\_t*, int)} to signify that the buffer is non empty by
-setting a non empty flag. There are two pointers that point at the beginning and
-end of the buffer, head and tail. Each character/byte is sent individually until
-the \texttt{head == tail} and the empty flag is restored. The code for the
+\texttt{uart\_write(uint8\_t*, int)} to signify that the buffer is non-empty by
+setting a non-empty flag. There are two pointers that point to the beginning and
+end of the buffer, labeled head and tail. Each character/byte is sent individually until
+both the \texttt{head == tail} and the empty flag is restored. The code for the
 \texttt{uart\_write} function is shown in listing \ref{lst:uartwrite}.
 
 \begin{lstlisting}[label={lst:uartwrite},
@@ -53,9 +53,9 @@ ISR(USART1_UDRE_vect) {
 }
 \end{lstlisting}
 
-The simplist way for UART to be used, is to create a character buffer and insert
+The simplest way for UART to be used is to create a character buffer and insert
 the desired string using \texttt{sprinf} as shown in listing
-\ref{lst:uartwriteEx}. This made is very simple to monitor length and insert
+\ref{lst:uartwriteEx}. This makes it very simple to monitor length and insert
 decimals. 
 
 \begin{lstlisting}[float=ht,
