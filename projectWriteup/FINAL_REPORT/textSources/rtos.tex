@@ -24,15 +24,28 @@ The final level -- low priority -- are the round robin tasks. Round robin tasks 
 \subsection{Events and Timeouts}
 
 System and round robin tasks are capable of waiting for an event a timeout, or
-either. 
+either. The reason that only system and round robin tasks are allowed to wain on events, is that if a periodic task waits longer than its time allowence a timing violation would occur. \\
 
-\noindent{\bf Events}
+\noindent{\bf Events}\\
+Events are initiated at the beginning of the program. Tasks that wait for an event are placed on a queue. The first item in the queue will coninue when another task \textit{signals} that event. All of the elements will be released from the queue if another task \textit{broadcasts} that event. \\
+
+\noindent{\bf Timeouts}\\
+The kernel maintains a variable \textit{now} indicating how many ticks have occured since program instantiation. When a task waits a certain amount of time, it will return normal operation after n ticks have passed.
 
 
 -Research
 
+
+
 -Specific RTOS we used
--Tasks that we used
+
+The RTOS used for this project was created by Scott Craig and Justin Tanner \cite{RTOSSJ}.
+
+
+
+
+\noindent\textbf{Sonar}
+
 -Overall Design of our RTOS
 -GANT charts
 -Timming Diagrams
