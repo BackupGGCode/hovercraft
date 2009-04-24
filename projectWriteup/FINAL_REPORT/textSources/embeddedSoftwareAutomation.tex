@@ -4,7 +4,7 @@ The UART is interrupt driven. The interrupt fires when you call
 setting a non-empty flag. There are two pointers that point to the beginning and
 end of the buffer, labeled head and tail. Each character/byte is sent individually until
 both the \texttt{head == tail} and the empty flag is restored. The code for the
-\texttt{uart\_write} function is shown in listing \ref{lst:uartwrite}.
+\texttt{uart\_write} function is shown in Listing \ref{lst:uartwrite}.
 
 \begin{lstlisting}[label={lst:uartwrite},
                    caption={UART write function and ISR}]
@@ -54,7 +54,7 @@ ISR(USART1_UDRE_vect) {
 \end{lstlisting}
 
 The simplest way for UART to be used is to create a character buffer and insert
-the desired string using \texttt{sprinf} as shown in listing
+the desired string using \texttt{sprinf} as shown in Listing
 \ref{lst:uartwriteEx}. This makes it very simple to monitor length and insert
 decimals. 
 
@@ -70,18 +70,18 @@ uart_write((uint8_t*)toPrint, len);
 \subsubsection{Initialization}
 The D/C motor uses Pulse Width Modulation(PWM) to determine the speed at which it turns. This PWM is sent through the enable pin of the H-bridge. There is also a direction pin which must be set to either high or low.
 
-This pin is set as output to be able to turn the motor on and off.
+Pin 7 on port D is set as output to be able to turn the motor on and off.
 \begin{lstlisting}
  DDRD |=  (1 << PORTD7);
 \end{lstlisting}
 
-This pin is the direction pin, also set to output. 
+Pin 1 on port C is the direction pin, also set to output. 
 
 \begin{lstlisting}
  DDRC |= (1 << PORTC1);
 \end{lstlisting}
 
-Finally, this pin is the pin that outputs the PWM, also set for output. 
+Finally, pin 7 on port D is the pin that outputs the PWM, also set for output. 
 
 \begin{lstlisting}
 DDRB |= (1 << PORTD7);
@@ -90,7 +90,7 @@ TCCR0A = (1 << WGM00) | (1 << WGM01) | (0 << COM0A0) | (1 << COM0A1);
 TCCR0B = (0 << WGM02) | (0 << CS02) | (0 << CS01) | (1 << CS00);
 \end{lstlisting}
 
-The COM0A1..0 pins control the output of OCA0. In the motor driver, the compare output mode is set to clear OC0A when the counter matches the value in the output compare register, OCR0A, and to pull high when the counter reaches the TOP value. By setting and clearing OCA0, the pulse width that drives the motor is generated. According to the AT90USB1287 datasheet, different modes of operation will have different effect on the behavior of OC0A. The operation mode we are using is Fast PWM mode. It can be set by setting WGM02..0 to 011. The last thing that the motor initialization function does to set the clock prescaler. CS02..0 determines the prescale factor. For us, we set CS02..0 to 001 which disables the prescaling.
+The COM0A1/0 pins control the output of OCA0. In the motor driver, the compare output mode is set to clear OC0A when the counter matches the value in the output compare register, OCR0A, and to pull high when the counter reaches the TOP value. By setting and clearing OCA0, the pulse width that drives the motor is generated. According to the AT90USB1287 datasheet, different modes of operation will have different effect on the behavior of OC0A. The operation mode we are using is Fast PWM mode. It can be set by setting WGM02/1/0 to 011. The last thing that the motor initialization function does to set the clock prescaler. CS02/1/0 determines the prescale factor. For us, we set CS02..0 to 001 which disables the prescaling.
 
 \begin{figure}[tbp]
   \begin{center}
@@ -119,7 +119,7 @@ To control the speed of the D/C motor, we use the function called setMotorSpeed(
 }
 \end{lstlisting}
 
-Aside from the speed of the D/C motor, we need to have control of direction of which the motor will spin. In the motor driver code, there is a function called, setMotorDirection(int), which can be used to set the direction. 
+Aside from the speed of the D/C motor, we need to have control of the direction of which the motor will spin. In the motor driver code, there is a function called, setMotorDirection(int), which can be used to set the direction. 
 
 \begin{lstlisting}
 void setMotorDirection(int d) {
@@ -130,10 +130,10 @@ void setMotorDirection(int d) {
 }
 \end{lstlisting}
 
-This code will either set the C1 pin High or Low. By doing this, the switches change on the H-bridge. See the explanation of H-Bridge in the design portion. 
+This code will either set the C1 pin High or Low. By doing this, the switches changes the direction pin on the H-bridge. See the explanation of H-Bridge in the Hovercraft Design and Construction section. 
 
 \subsection{Joystick Implementation}
-The joystick is sampled every second. The x, y, and z values of the joystick is sent via the radio from the base station to the hovercraft. On the hovercraft end, it will translate those x, y, and z values into speed/direction of the motor as well as the the degree of which the servo motor should turn. The x, y, and z values from the joystick is converted into digital signals by using the analog to digital converter (ADC) built into the AT90USB1287. Please refer to the joystick section of Hardware Overview.
+The joystick is sampled every second. The x, y, and z values of the joystick are sent by the radio from the base station to the hovercraft. On the hovercraft end, it will translate those x, y, and z values into speed/direction of the motor as well as the the degree of which the servo motor should turn. The x, y, and z values from the joystick is converted into digital signals by using the analog to digital converter (ADC) built into the AT90USB1287. Please refer to the joystick section of Hardware Overview.
 
 \subsubsection{Analog-to-Digital Conversion}
 To start a conversion from an analog signal to a digital signal, both ADEN (bit 7) and ADSC (bit 6) need to be set in the ADC Control and Status Register A (ADCSRA). As shown in the following code snippet.
@@ -174,7 +174,7 @@ static void single_sample(unsigned char SAMPN, int input_num) {
 \end{lstlisting}
 
 \subsection{Servo Implementation}
-Similar to the DC motor, the servo motor is controlled by pulse width modulation. Initializing the servo driver is very similar to the DC motor initialization function. First, a clock prescaler is chosen by setting the CS02..0 bits in TCCR1B. In the servo driver code, CS02..0 is set to 010 which sets the prescale factor to 8 or the clock is running at 1Mhz. Also we set the waveform generation mode to fast PWM mode by setting WGM13..0 to 1110. As for the output to the servo, we configure the OC1B pin to go high when the timer/counter is equal to OCR1B (= 800), and OC1B pin to go low when the timer/counter equals to ICR1 (=20000). Such configuration is done through setting COM1B1..0 pins to 10.
+Similar to the DC motor, the servo motor is controlled by pulse width modulation (PWM). Initializing the servo driver is very similar to the DC motor initialization function. First, a clock prescaler is chosen by setting the CS02/1/0 bits in TCCR1B. In the servo driver code, CS02/1/0 is set to 010 which sets the prescale factor to 8 or the clock is running at 1Mhz. Also we set the waveform generation mode to fast PWM mode by setting WGM13..0 to 1110. As for the output to the servo, we configure the OC1B pin to go high when the timer/counter is equal to OCR1B (= 800), and OC1B pin to go low when the timer/counter equals to ICR1 (=20000). Such configuration is done through setting COM1B1..0 pins to 10.
 
 \begin{lstlisting}
 void
@@ -208,7 +208,7 @@ There are two stages when it comes to how the sonar operates. The first stage, t
 The sonar driver we are using uses the pulse width method. In the pulse width method, the duration of the duty cycle is used to determine the range. According the datasheet 1 inch is equal to 147uS. Since the duration is the key factor in order to determine the range, an input capture unit is used to determine the time of which the signal is pulled high as well as the time of which the signal goes low. Once the two timestamps are known, we can calculate the difference, determine the duration and range. The input capture unit is found in one of the 16-bit timers (we are using timer 3). Hence the initialization is pretty similar to other peripherals aforementioned.
 
 \subsubsection{Initialization}
-The first initialization step is to set the clock source and choose a clock prescaler. The clock prescale factor is chosen by setting CS32..0 bits in the Timer/Counter3 Control Register (TCCR3B) to 010 which translates to the system clock speed divided by 8 (=1Mhz). After the clock source is set, we choose to enable the noise canceler by setting the ICNC3 bit in TCCR3B. Enabling the noise canceler allows for more reliable range data with the cost of four system clock cycles of delay, because the canceler will take four samples, and all of those four samples have to be of equal value before the change is propagated to the edge detector which might then triggers an interrupt. In order to get notified about the incoming range information from the sonar, the input capture interrupt is used. First, we need to determine which edge on the Input Capture Pin (ICP3) will trigger an event. When an event is triggered the counter value will be stored in the Input Capture Register 3 (ICR3) and the corresponding Input Capture Flag 3 (ICF3) bit is set. The ICF3 bit may then optionally cause an interrupt to fire, only if the input capture interrupt is enabled. In the initialization code, an event is set to trigger whenever a rising edge is detected. This is done by setting the ICES3 bit in TCCR3B register to high. Next, the input capture interrupt is enabled as well as the ICF3 bit in the Timer/Counter3 Interrupt Flag Register 3 (TIFR3) is cleared (Note: ICF3 bit is cleared by writing a logic one to its bit location). The last thing the initialization code does is to let the sonar performs a calibration cycle by setting the RX pin (PINC7) high.
+The first initialization step is to set the clock source and choose a clock prescaler. The clock prescale factor is chosen by setting CS32/0 bits in the Timer/Counter3 Control Register (TCCR3B) to 010 which translates to the system clock speed divided by 8 (=1Mhz). After the clock source is set, we choose to enable the noise canceler by setting the ICNC3 bit in TCCR3B. Enabling the noise canceler allows for more reliable range data with the cost of four system clock cycles of delay, because the canceler will take four samples, and all of those four samples have to be of equal value before the change is propagated to the edge detector which might then triggers an interrupt. In order to get notified about the incoming range information from the sonar, the input capture interrupt is used. First, we need to determine which edge on the Input Capture Pin (ICP3) will trigger an event. When an event is triggered the counter value will be stored in the Input Capture Register 3 (ICR3) and the corresponding Input Capture Flag 3 (ICF3) bit is set. The ICF3 bit may then optionally cause an interrupt to fire, only if the input capture interrupt is enabled. In the initialization code, an event is set to trigger whenever a rising edge is detected. This is done by setting the ICES3 bit in TCCR3B register to high. Next, the input capture interrupt is enabled as well as the ICF3 bit in the Timer/Counter3 Interrupt Flag Register 3 (TIFR3) is cleared (Note: ICF3 bit is cleared by writing a logic one to its bit location). The last thing the initialization code does is to let the sonar performs a calibration cycle by setting the RX pin (PINC7) high.
 
 \begin{lstlisting}
 #define SONAR_PORT      PORTC
@@ -264,10 +264,10 @@ uint8_t read_distance() {
 \end{lstlisting}
 
 \subsection{Radio Implementation}
-The radio driver we are using are quite straight forward to use. But it is quite involved when it comes to configurating the radio. Before using the radio driver, we have to determine the addresses and the channel to be used by the base station and the hovercraft. For the base station, we have chosen the address 0xDEAD and for the hover station, the address 0xFACE is used. The radio units will be operating on channel 115.
+The radio driver the team chose was quite straightforward to use, but it takes a lot of testing when it comes to fully configuring the radio. Before using the radio driver, one has to determine the addresses and the channel to be used by the base station and the hovercraft. For the base station, the address 0xDEAD was used, and for the hover station, the address 0xFACE is used. The radio units will be operating on channel 115.
 
 \subsubsection{Radio Modes}
-The TRW-24G radio unit we are using has three primary modes and a few sub-modes. Those primary modes as well as the pin settings for changing into a particular mode is listed below.
+The TRW-24G radio unit used has three primary modes and a few sub-modes. Those primary modes as well as the pin settings for changing into a particular mode is listed below.
 
 \begin{figure}[tpb]
   \begin{center}
@@ -278,7 +278,7 @@ The TRW-24G radio unit we are using has three primary modes and a few sub-modes.
 \end{figure}
 
 \subsubsection{Radio Initialization and Configuration}
-Before the radio can be used to transmit data, it has to be configured. The configuration involves setting the radio address, setting the operation mode (receive mode or tranmit mode), as well as other configurations which can be found in the radio's datasheet. In total, the configuration word can be up to 15 bytes long. An overview of the configuration is shown below.
+Before the radio can be used to transmit data, it has to be configured. The configuration involves setting the radio address, setting the operation mode (receive mode or transmit mode), as well as other configurations which can be found in the radio's datasheet. In total, the configuration word can be up to 15 bytes long. An overview of the configuration is shown below.
 
 \begin{figure}[htp]
   \begin{center}
@@ -356,17 +356,18 @@ so may leave the whole system in an unknown and inoperable state.
 
 \subsection{Communication Protocol}
 As a part of the requirement for the team, two hovercrafts are to be built, and
-there has to be interactions between the two hovercrafts. The communication of
+there has to be interactions between the two hovercrafts. The two hovercrafts
+have a master-slave relationship. The communication of
 the hovercrafts is done through the radio. Please refer to section
-\ref{subsec:radioconn} for details about the radio units that the hovercrafts
-are using. In this project, the one of the hovercrafts will be the leader, and
+\ref{radioconn} for details about the radio units that the hovercrafts
+are using. In this project, one of the hovercrafts will be the leader, and
 it is responsible for sending movements packets to the trailing hovercraft. To
 facilitate the communication, a protocol is in place between the two
 hovercrafts. The leader (or leading hovercraft) is also responsible for
 navigating the environment, deciding what movements to use to traverse the
 environment, and relaying those movements to the trailing hovercraft.
 
-The protocol structure is shown in figure \ref{fig:protocol}. The leader will
+The protocol structure is shown in Figure \ref{fig:protocol}. The leader will
 start navigating the environment when the base station sends an
 \texttt{initiate} message. After the leader receives the \texttt{initiate}
 message, it will attempt to contact the trailing hovercraft. The leader detects
@@ -392,7 +393,7 @@ will give up and continue on its way.
 \end{figure}
 
 \subsubsection{Protocol Implementation}
-In terms of the implementation, all those messages in figure \ref{fig:protocol}
+In terms of the implementation, all those messages in Figure \ref{fig:protocol}
 are represented as C structures. First there is a \texttt{enum} type that is
 used to represent the different types of messages. The \texttt{enum} type is
 shown in listing \ref{lst:msgenum}.
@@ -404,9 +405,9 @@ There is a generic structure with only one field. This generic structure is used
 to determine the actual type of the message. Since the radio units that the
 hovercrafts are using, send an array of bytes. There needs to be a way to figure
 which message type those bytes belong to. The definition of the generic
-structure is shown in listing \ref{lst:generic} and the code that is used to
-determine the type of the message is shown in listing \ref{lst:genericusage}. In
-listing \ref{lst:genericusage}, the bytes received from the radio is, first,
+structure is shown in Listing \ref{lst:generic} and the code that is used to
+determine the type of the message is shown in Listing \ref{lst:genericusage}. In
+Listing \ref{lst:genericusage}, the bytes received from the radio is, first,
 cast to the generic packet type, then a \texttt{switch} statement is used to
 determine the actual message type.
 \begin{lstlisting}[label=lst:generic,float,
@@ -447,7 +448,7 @@ ISR (INT4_vect) {
 }
 \end{lstlisting}
 The rest of the definition for the different types of messages is listed in
-listing \ref{lst:mesgtypes}.
+Listing \ref{lst:mesgtypes}.
 \begin{lstlisting}[label=lst:mesgtypes,float,
                    caption={Message Types Definitions}]
 typedef struct initPacket  {
