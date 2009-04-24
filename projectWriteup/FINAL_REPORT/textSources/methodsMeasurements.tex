@@ -93,8 +93,8 @@ ISR(TIMER2_OVF_vect)
 \subsection{Turning Radius}
 the hovercraft's turning radius is very small, almost in place. To get this effect, two motors were attached to either side of centre. When turning at full speed, one motor would be moving forwards, while the other was spinning backwards. Table \ref{turningRadius} shows the speeds and corresponding PWMs. 
 
-\begin{table}
-\caption{Hovercraft Turning Radius}
+\begin{minipage}{6.5in}
+\captionof{table}{Hovercraft Turning Radius}
 \begin{center}
 \begin{tabular}{ c c }
   Speed (inch/sec) & PWM \\
@@ -104,12 +104,12 @@ the hovercraft's turning radius is very small, almost in place. To get this effe
 \end{tabular}
 \end{center}
 \label{turningRadius}
-\end{table}
+\end{minipage}
 
 Once accurate calculations of the speed of the craft were possible, it was simple to calculate the stopping distance.  A test area was established in the hallway with a tape measure along the wall.  Two different stopping tests were performed: The first saw the hovercraft propelled down the hall at maximum speed. Once this speed was reached, the joystick was allowed to snap back into the center `resting' position and measure the distance the vehicle traveled. Table \ref{restingTable} shows the results of this experiment.
 
-\begin{table}
-\caption{Stopping Distances (to rest)}
+\begin{minipage}{6.5in}
+\captionof{table}{Stopping Distances (to rest)}
 \begin{center}
 \begin{tabular}{ c c }
   Speed (inch/sec) & Stopping Distance (meters) \\
@@ -119,12 +119,12 @@ Once accurate calculations of the speed of the craft were possible, it was simpl
 \end{tabular}
 \end{center}
 \label{restingTable}
-\end{table}
+\end{minipage}
 
 The second of the two tests performed saw the hovercraft stopped by reversing both motors after reaching maximum speed.  This calculation  also required a maintained log of the time it took the craft to stop. The reason for this is related to the autonomous constraints on the hovercraft: while moving autonomously, it will be possible to calculate the duration the motors must run in reverse to come to a complete stand still with out traveling backwards.  Table \ref{reverseTable} shows the results of the latter stopping experiment. 
 
-\begin{table}
-\caption{Stopping Distances (from Reverse)}
+\begin{minipage}{6.5in}
+\captionof{table}{Stopping Distances (from Reverse)}
 \begin{center}
 \begin{tabular}{ c c }
   Speed (inch/sec) & Stopping Distance (meters) \\
@@ -134,7 +134,7 @@ The second of the two tests performed saw the hovercraft stopped by reversing bo
 \end{tabular}
 \end{center}
 \label{reverseTable}
-\end{table}
+\end{minipage}
 
 \subsection{Payload}
 The above measurements were recorded with only the required components placed on the hovercraft, as well as the additional components required to eliminate rotational spin. Table \ref{weightTable}, describes how the speed of the craft changed with the amount of excess weight added to the craft. All of the additional weight was distributed evenly around the chassis to minimize the rotational spin. The table also describes how the speed changed when the motors were receiving full (255) PWM.
@@ -157,7 +157,7 @@ The above measurements were recorded with only the required components placed on
 When switching from joystick control to autonomous sonar control, there were 5 basic states the hovercraft had to traverse, in order, to make a successful turn. The hovercraft was designed to hug the left wall when going down a hall, attempting to stay 12 inches away from the wall. When the sonar reads below 10, the hovercraft attempts to rotate slightly to the right for a second, and if the sonar reads above 14, the hovercraft rotates to the left. We achieve this simple rotation by slowing down one of the thrust motors, while keeping the other on at it's full forward speed duty. The following images and descriptions will explain the 5 state s associated with making an autonomous turn using sonar control.
 
 \begin{center}
- \includegraphics[width=85mm]{imageSources/sonarturn1.png}
+ \includegraphics[scale=0.5]{imageSources/sonarturn1.png}
 \end{center}
 \captionof{figure}{The hovercraft approaching a wall, sonar reading  around 12} 
 \label{st1}
@@ -165,7 +165,7 @@ When switching from joystick control to autonomous sonar control, there were 5 b
 As shown in Figure \ref{st1}, as the hovercraft approaches a corner, it will autonomously attempt to stay 12 inches from the wall, thus the sonar will continually read a value close to 12. Both thrust motors will be moving the hovercraft forward at full power.
 
 \begin{center}
- \includegraphics[width=85mm]{imageSources/sonarturn2.png}
+ \includegraphics[scale=0.5]{imageSources/sonarturn2.png}
 \end{center}
 \captionof{figure}{The hovercraft's front half passes  the corner, sonar reading above 60} 
 \label{st2}
@@ -173,7 +173,7 @@ As shown in Figure \ref{st1}, as the hovercraft approaches a corner, it will aut
 Figure \ref{st2} shows the hovercraft at a position when the front half of the hovercraft has just passed  the corner, resulting in the sonar reading a value over 60. This implementation assumes the hovercraft is not about to turn down a very short hallway with a dead-end, and so will work for any hallway longer than 60 inches. When the hovercraft enters this state, it turns off the left motor, causing the hovercraft to rotate, and start turning around the corner.
 
 \begin{center}
- \includegraphics[width=85mm]{imageSources/sonarturn3.png}
+ \includegraphics[scale=0.5]{imageSources/sonarturn3.png}
 \end{center}
 \captionof{figure}{The hovercraft rotates around a corner, resulting in a great decrease in sonar reading value, followed by a sharp increase} 
 \label{st3}
@@ -181,7 +181,7 @@ Figure \ref{st2} shows the hovercraft at a position when the front half of the h
 As the hovercraft rotates to turn the corner, the sonar readings should decrease greatly. Figure \ref{st3} portrays how the sonar reading will decrease to a minimum value that will be read at the very corner of the wall. Then the readings will begin to start increasing. As the sonar readings begin to increase again, the left motor is signaled to begin thrusting again.
 
 \begin{center}
- \includegraphics[width=85mm]{imageSources/sonarturn4.png}
+ \includegraphics[scale=0.5]{imageSources/sonarturn4.png}
 \end{center}
 \captionof{figure}{The hovercraft has finished rotating, the sonar again reading above 60} 
 \label{st4}
@@ -189,7 +189,7 @@ As the hovercraft rotates to turn the corner, the sonar readings should decrease
 After the hovercraft has rotated almost the full rotation needed to turn the corner, the sonar reading should again read over 60. Figure \ref{st4} shows that when the hovercraft has full turned, and is now facing the desired direction, the sonar points down the hallway the hovercraft had just entered from, and should read a value greater than 60. Both motors should be at full power again, to propel the hovercraft straight down the hallway after successfully rotating around a corner. 
 \begin{center}
 
- \includegraphics[width=85mm]{imageSources/sonarturn5.png}
+ \includegraphics[scale=0.5]{imageSources/sonarturn5.png}
 \end{center}
 \captionof{figure}{After a successful turn, the hovercraft begins forward movement down the hallway}pdj
 \label{st5}
