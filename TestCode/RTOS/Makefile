@@ -10,7 +10,8 @@ OS_SOURCE_FILES = OS/crt0.c \
 				  OS/os.c
 
 BASE_SOURCE_FILES = basestation.c \
-					uart/uart.c
+					uart/uart.c \
+					radio/radio.c
 					
 H1_SOURCE_FILES = hovercraft1.c \
 				  motor/DualMotors.c \
