@@ -1,13 +1,9 @@
-                                       
-
-An Real Time Operating System (RTOS), is an operating system must be able to
-deal with a time and event sensitive activities. The RTOS is intended intended
+A Real Time Operating System (RTOS), is an operating system that must be able to
+deal with time and event sensitive activities. The RTOS is intended
 to be \textit{predictable} and \textit{determinant}\cite{RTOSMantis}. These
-systems are also designed to limit the amount of over head that is required to
+systems are also designed to limit the amount of overhead that is required to
 context switch between tasks. This is done my making many critical decisions
 prior to runtime.
-
-
 
 \subsection{Tasks}
 
@@ -15,7 +11,7 @@ There are three different types of tasks in the RTOS; system tasks, periodic tas
 
 \begin{description}
     \item[System Tasks]
-    System tasks are of the highest priority task. If a system task is
+    System tasks are of the highest priority. If a system task is
     scheduled to run, it will preempt any other task.
 
     \item[Periodic Tasks]
@@ -28,28 +24,28 @@ There are three different types of tasks in the RTOS; system tasks, periodic tas
     timing violation, and the system halts.
 
     \item[Round Robin Tasks]
-    The final level---low priority -- are the round robin tasks. Round robin tasks
-    are executed in the \textit{idle} time between periodic tasks.The kernel
+    The final level---low priority -- consists of the round robin tasks. Round robin (RR) tasks
+    are executed in the \textit{idle} time between periodic tasks.  The kernel
     maintains a FIFO queue containing all of the round robin tasks. On each clock
-    cycle, if the system is not attending to either a System or Periodic task then
-    the next RR tasks is removed from the queue and is run for exactly one tick
+    cycle, if the system is not attending to either a system or periodic task then
+    the next RR task is removed from the queue and is run for exactly one tick
     after which it is returned to the end of the FIFO queue. On the next cycle, if
     the higher priority tasks have not regained control, then the proceeding RR
-    task is removed from the queue.  
+    task is removed from the queue and executed.  
 \end{description}
 
 
 
 \subsection{Events and Timeouts}
 
-System and round robin tasks are capable of waiting for an event a timeout, or
-either. The reason that only system and round robin tasks are allowed to wain on events, is that if a periodic task waits longer than its time allowance a timing violation would occur. \\
+System and round robin tasks are capable of waiting for an event, a timeout, or
+either. The reason that only system and round robin tasks are allowed to wait on events is that if a periodic task waits longer than its time allowance, a timing violation will occur. \\
 
 \noindent{\bf Events}\\
 Events are initiated at the beginning of the program. Tasks that wait for an event are placed on a queue. The first item in the queue will continue when another task \textit{signals} that event. All of the elements will be released from the queue if another task \textit{broadcasts} that event. \\
 
 \noindent{\bf Timeouts}\\
-The kernel maintains a variable \textit{now} indicating how many ticks have occured since program instantiation. When a task waits a certain amount of time, it will return normal operation after n ticks have passed.
+The kernel maintains a variable \textit{now} indicating how many ticks have occurred since program instantiation. When a task waits a certain amount of time, it will return normal operation after n ticks have passed.
 
 
 
@@ -64,9 +60,7 @@ The RTOS used for this project was created by Scott Craig and Justin Tanner \cit
 
 \subsection{Tasks for Hovercraft 1---The leader}
 In this project, hovercraft 1 assumes the role of a leader. It will navigate the
-environment and make decisions to traverse the environment. Those decisions are,
-then, relay to the trailing hovercraft, hovercraft 2. As a result, the
-implementation hovercraft 1 is quite complex. This section will explain the
+environment and make decisions to traverse the environment. Those decisions are then relayed to the trailing hovercraft, hovercraft 2. As a result, the implementation of hovercraft 1 is quite complex. This section will explain the
 breakdown of the tasks in the implementation of hovercraft 1.
 
 \begin{lstlisting}[float=th,label=lst:h1ppp,
@@ -86,7 +80,7 @@ to the three sonars. The integration of the sonar and the RTOS is based on the r
 Logan, Cambria Hanson and Jason Kereluk \cite{autoB}. In listing \ref{lst:h1sonarfire}, the implementation of the
 \texttt{FIRE} task uses the built-in \texttt{Task\_Next()} function to trigger
 the three sonars one by one. First, the task will trigger the front sonar, then
-it will give up the CPU and allows the listen task (as shown in listing
+it will give up the CPU and allow the listen task (as shown in listing
 \ref{lst:h1sonarlisten}) to calculate the distance. When the distances are
 stored in their respective variables, the \texttt{MOTOR} task will run. Within
 the \texttt{MOTOR} task, it will decide what speed the two motors should spin.
@@ -189,7 +183,7 @@ tasks for hovercraft 1.
 
 This hovercraft also has one system task. This task is responsible for
 stopping the system if an error occurs and can be seen in listing \ref{lst:stop}. It attempts to stop the following
-hovercraft before exiting. This system task waits for the\textit{stop} event
+hovercraft before exiting. This system task waits for the \textit{stop} event
 to be signaled.
 
 \begin{lstlisting}[label=lst:stop, float=th, caption={\texttt{STOP} Task}]
@@ -215,7 +209,7 @@ similar to the system task in hovercraft 1.
 The motor and ack tasks from listing \ref{lst:h2motor} both wait on the same
 event. This event occurs when a radio packet is received. This event is
 broadcasted in the interrupt service routine (in listing \ref{isr} that is fired upon the detection
-of an incomming packet.
+of an incoming packet.
 
 The final task that belongs to this hovercraft is the pong task. This task is
 part of the initial handshake. As noted in listing \ref{pong} this task does
