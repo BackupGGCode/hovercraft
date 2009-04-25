@@ -29,13 +29,13 @@ Some of the most notable features of this board include:
 \subsubsection{Radio}
 The radio used for hovercraft-basestation and hovercraft-hovercraft communication is the TRW-24G.  The datasheet for this component can be found here.  The radio operates at a frequency of 2.4 to 2.527 GHz and has a working voltage of 3 Volts (ranging from 1.8 to 3.6 Volts).  The radio can transit anywhere from 250 Kbps to 1000 Kbps (1Mbps).  Communication is segmented into 128 distinct channels which each occupy a 1 MHs chunk of spectrum. 
 
-\begin{figure}[h]
+\begin{minipage}{6.5in}
   \begin{center}
     \includegraphics[width=110mm]{imageSources/radio.png}
   \end{center}
-  \caption{TRM-24G RF 2-way Radio} 
+  \captionof{figure}{TRM-24G RF 2-way Radio} 
   \label{radioFig}
-\end{figure}
+\end{minipage}
 
 \subsubsection{Motors}
 Several types of motors, as well as other supporting circuitry, are required to propel and maneuver the hovercraft.  
@@ -146,13 +146,13 @@ This section describes the connections among the various components, as well as 
 
 \subsubsection{Power}
 To power many of the components (Motors, Sonar, RS-232 Uart) we required more than the 3.3 volts of power than the USB provided. For this we needed to get power from the wall. Direct power from the wall reads between 9-12 Volts (our cords were supposed to produce 12, but they often had fluctuating readings).  This power needed to be minimized to a managable 5 volts.  The image below shows the setup to do this conversion.
-\begin{figure}[h]
+
   \begin{center}
-    \includegraphics[width=90mm]{imageSources/power12to5.png}
+    \includegraphics[scale=0.5]{imageSources/power12to5.png}
   \end{center}
-  \caption{Conversion from 12 to 5 volts} 
+  \captionof{figure}{Conversion from 12 to 5 volts} 
   \label{power12to5}
-\end{figure}
+
 
 \subsubsection{Radio Connections}
 \label{radioconn}
